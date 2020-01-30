@@ -1,0 +1,81 @@
+ServerSignature Off
+
+# add font mime types
+AddType application/vnd.ms-fontobject    .eot
+AddType application/x-font-opentype      .otf
+AddType image/svg+xml                    .svg
+AddType application/x-font-ttf           .ttf
+AddType application/font-woff            .woff
+AddType application/font-woff2           .woff2
+
+# add default encoding
+AddDefaultCharset UTF-8
+AddLanguage en-GB .php .html .htm .css .js
+AddType 'text/html; charset=UTF-8' .html
+
+# enable compression for assets (except images)
+<ifModule mod_deflate.c>
+	AddOutputFilterByType DEFLATE text/html text/xml text/css text/plain
+	AddOutputFilterByType DEFLATE image/svg+xml application/xhtml+xml application/xml
+	AddOutputFilterByType DEFLATE application/rdf+xml application/rss+xml application/atom+xml
+	AddOutputFilterByType DEFLATE text/javascript application/javascript application/x-javascript application/json
+	AddOutputFilterByType DEFLATE application/x-font-ttf application/x-font-otf
+	AddOutputFilterByType DEFLATE application/x-font-opentype
+	AddOutputFilterByType DEFLATE font/truetype font/opentype
+</ifModule>
+
+# set long cache expiration for assets
+<ifModule mod_expires.c>
+	ExpiresActive On
+	ExpiresDefault "access 5 seconds"
+	ExpiresByType image/x-icon "access 2 years"
+	ExpiresByType image/jpeg "access 2 years"
+	ExpiresByType image/png "access 2 years"
+	ExpiresByType image/gif "access 2 years"
+	ExpiresByType image/svg+xml "access 2 years"
+	ExpiresByType application/x-font-ttf "access 2 years"
+	ExpiresByType application/x-font-opentype "access 2 years"
+	ExpiresByType application/font-woff "access 2 years"
+	ExpiresByType application/font-woff2 "access 2 years"
+	ExpiresByType application/vnd.ms-fontobject "access 2 years"
+	ExpiresByType application/x-shockwave-flash "access 2 years"
+	ExpiresByType text/css "access 2 years"
+	ExpiresByType text/javascript "access 2 years"
+	ExpiresByType application/javascript "access 2 years"
+	ExpiresByType application/x-javascript "access 2 years"
+	ExpiresByType text/html "access 5 minutes"
+	ExpiresByType application/xhtml+xml "access 5 minutes"
+</ifModule>
+
+# enable caching for assets, even with query strings and enable cross-domain fonts
+<ifModule mod_headers.c>
+	Header unset X-Powered-By
+	Header set Cache-Control "public"
+	RequestHeader edit "If-None-Match" "^\"(.*)-gzip\"$" "\"$1\""
+	Header edit "ETag" "^\"(.*)(?<!gzip)\"$" "\"$1-gzip\""
+
+	<filesMatch "\.(eot|otf|svg|ttf|woff|woff2)$">
+		Header set Access-Control-Allow-Origin "*"
+	</filesMatch>
+</ifModule>
+
+# modify etags to work with cdn or asset subdomain
+FileETag MTime Size
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteBase /
+
+# hide htaccess files
+	RewriteRule ^\.?htaccess - [F,L,NC]
+
+# if asset files don't exist do 404
+# N.B. remove filetypes from here if you want php to serve them, or add specific
+# conditions below, like sitemap.xml.
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !(sitemap|products)\.xml
+	RewriteRule \.(js|json|css|map|gif|png|jpe?g|pdf|xml|oga|ogg|m4a|ogv|mp4|m4v|webm|svg|svgz|eot|ttf|otf|woff|woff2|ico|webp|appcache|manifest|htc|crx|xpi|safariextz|vcf)$ - [R=404,L,NC]
+# if file or directory does not exist, assume it is a cms request and use index.php
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule . index.php
+</IfModule>
