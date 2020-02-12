@@ -4,11 +4,16 @@ declare(strict_types = 1);
 
 namespace app\controllers;
 
+use app\auth\Item;
+use app\models\Artist;
 use app\models\forms\RegisterForm;
 use app\models\User;
+use app\models\Venue;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
+use yii\web\BadRequestHttpException;
 
 class RegisterController extends \app\core\WebController
 {
@@ -42,7 +47,7 @@ class RegisterController extends \app\core\WebController
         $user = new User([
             'status' => User::STATUS_UNVERIFIED,
             'password' => Yii::$app->security->generateRandomString(12),
-            'password_reset_token' => Yii::$app->security->generateRandomString(),
+            'password_reset_token' => Yii::$app->security->generateRandomString()
         ]);
 
         $registerForm = new RegisterForm;
@@ -53,6 +58,18 @@ class RegisterController extends \app\core\WebController
 
             $user->load($this->request->post());
             $user->validate();
+
+            $accountType = (int)ArrayHelper::getValue($this->request->post(), 'RegisterForm.account_type');
+
+            if ($accountType === 1) {
+                $user->updateAttributes(['roles' => [Item::ROLE_MEMBER]]);
+            } elseif ($accountType === 2) {
+                $user->updateAttributes(['roles' => [Item::ROLE_ARTIST_OWNER]]);
+            } elseif ($accountType === 3) {
+                $user->updateAttributes(['roles' => [Item::ROLE_VENUE_OWNER]]);
+            } else {
+                throw new BadRequestHttpException('Invalid Request');
+            }
 
             if ($user->save()) {
                 $transaction->commit();

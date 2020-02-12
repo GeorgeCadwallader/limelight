@@ -13,7 +13,7 @@ $this->title = 'Register';
 
 ?>
 
-<div>
+<div class="container">
     <div class="row">
         <div class="col-sm-12">
             <h1><?= Html::encode($this->title) ?></h1>
@@ -31,6 +31,15 @@ $this->title = 'Register';
             </div>
             <div class="col-sm-6">
                 <?= $form->field($user, 'email')->input('email'); ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <?= $form->field($registerForm, 'account_type')
+                    ->dropDownList(
+                        $registerForm::$accountTypes,
+                        ['prompt' => '-- Select User Type --']
+                    ); ?>
             </div>
         </div>
         <div class="row">

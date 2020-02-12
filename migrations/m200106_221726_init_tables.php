@@ -22,8 +22,6 @@ class m200106_221726_init_tables extends \app\core\Migration
                 'status' => $this->smallInteger()->notNull()->defaultValue(10),
                 'created_at' => $this->dateTime(),
                 'updated_at' => $this->dateTime(),
-                'created_by' => $this->integer(),
-                'updated_by' => $this->integer(),
             ],
         ];
     }

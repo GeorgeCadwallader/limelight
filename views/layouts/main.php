@@ -4,14 +4,8 @@
 /* @var $content string */
 
 use app\widgets\Alert;
-use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
+use app\helpers\Html;
 use yii\widgets\Breadcrumbs;
-use app\assets\AppAsset;
-use yii\helpers\Url;
-
-// AppAsset::register($this);
 
 Yii::$app->assetManager->bundles = false;
 
@@ -40,7 +34,6 @@ if (is_file($file)) {
 
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
-
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -50,34 +43,56 @@ if (is_file($file)) {
     <?php $this->head() ?>
 </head>
 
-<body class="test-class">
+<body>
 <?php $this->beginBody() ?>
 
-<div class="wrap">
-    <nav class="navbar navbar-expand-lg">
-        <div class="navbar-inner px-2">
-            <div class="collapse navbar-collapse" id="navbarSupportedContent1">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
-            </div>
-        </div>
-    </nav>
-
-    <div class="container my-4">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
-        <?= $content ?>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+        <?= Html::img('@images/logo.png', ['class' => 'img-fluid']); ?>
+    </a>
+    <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#mainNavbar"
+        aria-controls="mainNavbar"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+    >
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNavbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            <?php if (Yii::$app->user->isGuest) { ?>
+                <li class="nav-item">
+                    <a href="/site/login" class="nav-link">Log in</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/register" class="nav-link">Sign up</a>
+                </li>
+            <?php } else { ?>
+                <li class="nav-item">
+                    <a href="/profile" class="nav-link">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/site/logout" class="nav-link">Log out</a>
+                </li>
+            <?php } ?>
+        </ul>
     </div>
+</nav>
+
+<div class="container-fluid my-4">
+    <?= Alert::widget() ?>
+    <?= $content ?>
 </div>
 
 <footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
+    <div class="container-fluid">
+        <p class="pull-left">&copy; Limelight <?= date('Y') ?></p>
     </div>
 </footer>
 

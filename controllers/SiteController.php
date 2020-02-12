@@ -2,12 +2,16 @@
 
 namespace app\controllers;
 
+use app\auth\Item;
+use app\models\Artist;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Response;
-use yii\filters\VerbFilter;
-use app\models\LoginForm;
+use app\models\forms\LoginForm;
 use app\models\forms\UserActivationForm;
+use app\models\Venue;
+use yii\helpers\Url;
+use yii\web\BadRequestHttpException;
 
 class SiteController extends \app\core\WebController
 {
@@ -54,7 +58,19 @@ class SiteController extends \app\core\WebController
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        if (Yii::$app->user->isGuest) {
+            return $this->render('index');
+        }
+
+        $roles = Yii::$app->authManager->getRolesByUser(Yii::$app->user->id);
+
+        if (array_key_exists(Item::ROLE_ADMIN, $roles)) {
+            return $this->redirect(Url::toRoute('/admin'));
+        } else {
+            return $this->render('index');
+        }
+
+        throw new BadRequestHttpException('Unable to verify your request');
     }
 
     /**
@@ -96,8 +112,17 @@ class SiteController extends \app\core\WebController
         $model = new UserActivationForm($token);
 
         if ($model->load(Yii::$app->request->post()) && $model->activate()) {
+            
+            // if (array_key_exists(Item::ROLE_ARTIST_OWNER, $model->user->roles)) {
+            //     $artist = new Artist;
+            //     $model->user->link('artist', $artist);
+            // } elseif (array_key_exists(Item::ROLE_VENUE_OWNER, $model->user->roles)) {
+            //     $venue = new Venue;
+            //     $model->user->link('venue', $venue);
+            // }
+
             Yii::$app->session->addFlash('success', 'Your account has now been activated');
-            return $this->redirect('/');
+            return $this->goHome();
         }
 
         $model->password = null;

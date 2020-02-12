@@ -5,13 +5,17 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
+    'name' => 'Limelight',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
+        '@npm' => '@vendor/npm-asset',
+        '@web' => '@app/web',
+        '@images' => '/images',
     ],
     'components' => [
+        'authManager' => ['class' => 'yii\rbac\DbManager'],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'FD58zX_qSI0xG1VzOyP4kgtoW39wR-Lr',
@@ -21,7 +25,7 @@ $config = [
         ],
         'user' => [
             'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
+            'enableAutoLogin' => false,
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -46,9 +50,7 @@ $config = [
         'urlManager' => [
             'showScriptName' => false,
             'enablePrettyUrl' => true,
-            'rules' => [
-                'debug/<controller>/<action>' => 'debug/<controller>/<action>',
-            ],
+            'rules' => require(__DIR__.'/parts/urlRules.php'),
         ],
     ],
     'params' => $params,

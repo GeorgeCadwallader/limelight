@@ -6,13 +6,14 @@ namespace app\core;
 
 use yii\rbac\DbManager;
 use Yii;
+use yii\base\InvalidConfigException;
 use yii\helpers\StringHelper;
 
 /**
  * @category  Project
  * @package   {{package}}
- * @author    Ade Attwood <ade@practically.io>
- * @copyright 2018 Practically.io
+ * @author    George Cadwallader <georgecadwallader77@gmail.com>
+ * @copyright 2020
  */
 class Migration extends \yii\db\Migration
 {

@@ -5,9 +5,10 @@ declare(strict_types = 1);
 namespace app\models;
 
 use Yii;
-use yii\behaviors\BlameableBehavior;
 
 use app\behaviors\TimestampBehavior;
+use yii\db\ActiveQueryInterface;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "user"
@@ -23,8 +24,6 @@ use app\behaviors\TimestampBehavior;
  * @property integer $status
  * @property Moment $created_at
  * @property Moment $updated_at
- * @property integer $created_by
- * @property integer $updated_by
  */
 class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
@@ -62,7 +61,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      * 
      * @var array
      */
-    // private $_roles;
+    private $_roles;
 
     /**
      * @inheritDoc
@@ -113,7 +112,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             ],
             ['email', 'email'],
             [['password_reset_token', 'username'], 'unique'],
-            // ['roles', 'safe'],
+            ['roles', 'safe'],
         ];
     }
 
@@ -121,8 +120,70 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         return [
             ['class' => TimestampBehavior::class],
-            ['class' => BlameableBehavior::class],
         ];
+    }
+
+    /**
+     * Function run after a user is saved
+     *
+     * @param bool  $insert
+     * @param array $changedAttributes
+     *
+     * @return void
+     */
+    public function afterSave($insert, $changedAttributes): void
+    {
+        if (is_array($this->_roles)) {
+            $this->updateRoles();
+        }
+
+        parent::afterSave($insert, $changedAttributes);
+    }
+
+    /**
+     * Updates a users roles adding and remove when necessary
+     *
+     * @return void
+     */
+    protected function updateRoles(): void
+    {
+        $authManager = Yii::$app->authManager;
+        $userRoles = $authManager->getRolesByUser($this->user_id);
+        $userRoleNames = array_keys($userRoles);
+
+        $toAdd = array_diff($this->_roles, $userRoleNames);
+        $toRemove = array_diff($userRoleNames, $this->_roles);
+
+        foreach ($toAdd as $role) {
+            $authManager->assign($authManager->getRole($role), $this->user_id);
+        }
+
+        foreach ($toRemove as $role) {
+            $authManager->revoke($userRoles[$role], $this->user_id);
+        }
+    }
+
+    /**
+     * Gets all of the users roles
+     *
+     * @return array
+     */
+    public function getRoles(): array
+    {
+        $roles = Yii::$app->authManager->getRolesByUser($this->user_id);
+        return ArrayHelper::map($roles, 'name', 'name');
+    }
+
+    /**
+     * Sets roles for a user
+     *
+     * @param array $roles
+     *
+     * @return void
+     */
+    public function setRoles($roles): void
+    {
+        $this->_roles = $roles;
     }
 
     /**
@@ -136,6 +197,33 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public static function findIdentity($id)
     {
         return static::findOne(['user_id' => $id, 'status' => self::STATUS_ACTIVE]);
+    }
+
+    /**
+     * Finds user by an email address
+     *
+     * @param string $email The email address of the user
+     *
+     * @return self
+     */
+    public static function findByEmail($email)
+    {
+        return static::findOne([
+            'email' => $email,
+            'status' => self::STATUS_ACTIVE,
+        ]);
+    }
+
+    /**
+     * Validates password
+     *
+     * @param string $password password to validate
+     *
+     * @return bool if password provided is valid for current user
+     */
+    public function validatePassword($password): bool
+    {
+        return Yii::$app->security->validatePassword($password, $this->password_hash);
     }
 
     public function generateAuthKey(): void
@@ -242,6 +330,16 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function validateAuthKey($authKey): bool
     {
         return $this->getAuthKey() === $authKey;
+    }
+
+    public function getArtist(): ActiveQueryInterface
+    {
+        return $this->hasOne(Artist::class, ['managed_by' => 'user_id']);
+    }
+
+    public function getVenue(): ActiveQueryInterface
+    {
+        return $this->hasOne(Venue::class, ['managed_by' => 'user_id']);
     }
 
 }

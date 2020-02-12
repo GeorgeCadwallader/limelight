@@ -13,8 +13,8 @@ use yii\base\ModelEvent;
 /**
  * @category  Project
  * @package   {{package}}
- * @author    Ade Attwood <ade@practically.io>
- * @copyright 2018 Practically.io
+ * @author    George Cadwallader <georgecadwallader77@gmail.com>
+ * @copyright 2020
  */
 class TimestampBehavior extends \yii\base\Behavior
 {
