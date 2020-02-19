@@ -40,4 +40,9 @@
 @import '~bootstrap/scss/variables';
 @import "~bootstrap/scss/print";
 
+$fa-font-path: "~font-awesome/fonts";
+@import "~font-awesome/scss/font-awesome";
+
 @import "layouts/main";
+@import "layouts/home";
+@import "components/navbar";

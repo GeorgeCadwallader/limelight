@@ -1,3 +1,37 @@
-.navbar-brand img {
-    width: 175px;
+.banner {
+    height: 375px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom center;
+    position: relative;
+
+    &-logo {
+        img {
+            width: 300px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+}
+
+.home-nav {
+    display: flex;
+    flex-direction: row;
+    background-color: red;
+    padding: 30px;
+    border-radius: $border-radius;
+    margin: 0 auto;
+    transform: translateY(-40%);
+    width: 100%;
+
+    @include media-breakpoint-up(md) {
+        width: 40%;
+    }
+
+    &-item {
+        text-align: center;
+        flex: 1;
+    }
 }

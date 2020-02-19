@@ -5,6 +5,7 @@
 
 use app\widgets\Alert;
 use app\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 
 Yii::$app->assetManager->bundles = false;
@@ -46,12 +47,9 @@ if (is_file($file)) {
 <body>
 <?php $this->beginBody() ?>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">
-        <?= Html::img('@images/logo.png', ['class' => 'img-fluid']); ?>
-    </a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary m-0">
     <button
-        class="navbar-toggler"
+        class="navbar-toggler navbar-toggler-right collapsed"
         type="button"
         data-toggle="collapse"
         data-target="#mainNavbar"
@@ -59,7 +57,9 @@ if (is_file($file)) {
         aria-expanded="false"
         aria-label="Toggle navigation"
     >
-        <span class="navbar-toggler-icon"></span>
+        <span class="icon-bar top-bar"></span>
+        <span class="icon-bar middle-bar"></span>
+        <span class="icon-bar bottom-bar"></span>	
     </button>
     <div class="collapse navbar-collapse" id="mainNavbar">
         <ul class="navbar-nav mr-auto">
@@ -84,8 +84,33 @@ if (is_file($file)) {
         </ul>
     </div>
 </nav>
+<div
+    class="banner"
+    style="background-image:url(<?= Url::to('@images/banner.jpg'); ?>)"
+>
+    <a class="banner-logo" href="<?= Yii::$app->homeUrl; ?>">
+        <?= Html::img('@images/logo.png', ['class' => 'img-fluid']); ?>
+    </a>
+</div>
+<div class="home-nav bg-white">
+    <h4 class="home-nav-item m-0">
+        <a href="#" class="text-dark">
+            Artists
+        </a>
+    </h4>
+    <h4 class="home-nav-item m-0">
+        <a href="#" class="text-dark">
+            Events
+        </a>
+    </h4>
+    <h4 class="home-nav-item m-0">
+        <a href="#" class="text-dark">
+            Venues
+        </a>
+    </h4>
+</div>
 
-<div class="container-fluid my-4">
+<div class="container my-4">
     <?= Alert::widget() ?>
     <?= $content ?>
 </div>

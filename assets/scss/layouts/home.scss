@@ -1,0 +1,14 @@
+.main-search {
+    position: relative;
+
+    input {
+        width: 50% !important;
+        border-radius: $border-radius;
+        padding: 25px;
+    }
+
+    i {
+        position: relative;
+        left: -40px;
+    }
+}
