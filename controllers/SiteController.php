@@ -113,14 +113,7 @@ class SiteController extends \app\core\WebController
 
         if ($model->load(Yii::$app->request->post()) && $model->activate()) {
             
-            // if (array_key_exists(Item::ROLE_ARTIST_OWNER, $model->user->roles)) {
-            //     $artist = new Artist;
-            //     $model->user->link('artist', $artist);
-            // } elseif (array_key_exists(Item::ROLE_VENUE_OWNER, $model->user->roles)) {
-            //     $venue = new Venue;
-            //     $model->user->link('venue', $venue);
-            // }
-
+            $model->link($model->user->userData, 'userData');
             Yii::$app->session->addFlash('success', 'Your account has now been activated');
             return $this->goHome();
         }

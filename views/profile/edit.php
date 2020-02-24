@@ -5,15 +5,15 @@
 use app\helpers\Html;
 use app\models\County;
 use kartik\date\DatePicker;
+use kartik\select2\Select2;
 use yii\bootstrap\ActiveForm;
+use yii\helpers\ArrayHelper;
 
 /** @var $userData app\models\UserData */
 
 $this->title = Yii::$app->name.' | Edit '.$userData->user->username;
 
-$counties = County::find()
-    ->select(['county_id', 'name'])
-    ->all();
+$counties = ArrayHelper::map(County::find()->all(), 'county_id', 'name');
 
 ?>
 
@@ -49,8 +49,13 @@ $counties = County::find()
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <?php //$form->field($userData, 'county_id')->dropDownList($counties); ?>
-                <?= 'county'; ?>
+                <?= $form->field($userData, 'county_id')->widget(Select2::classname(), [
+                    'data' => $counties,
+                    'options' => ['placeholder' => 'Select your county...'],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+                ]); ?>
             </div>
         </div>
         <div class="row">

@@ -1,0 +1,10 @@
+.datepicker.datepicker-dropdown table tr td.active.active,
+.datepicker.datepicker-dropdown table tr td span.active.active {
+    background-color: $primary;
+    border-color: $primary;
+
+    &:hover {
+        background-color: $primary;
+        border-color: $primary;
+    }
+}

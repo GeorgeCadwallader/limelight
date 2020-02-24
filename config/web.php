@@ -27,6 +27,10 @@ $config = [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => false,
         ],
+        'assetManager' => [
+            'bundles' => [false],
+            'linkAssets' => false,
+        ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],

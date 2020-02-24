@@ -62,6 +62,13 @@ class UserData extends \yii\db\ActiveRecord
         ];
     }
 
+    public function attributeLabels(): array
+    {
+        return [
+            'county_id' => 'County',
+        ];
+    }
+
     public function getUser(): ActiveQueryInterface
     {
         return $this->hasOne(User::class, ['user_id' => 'user_id']);

@@ -94,13 +94,11 @@ class ProfileController extends \app\core\WebController
 
         $userData = $user->userData;
 
-        if ($userData === null) {
-            $userData = new UserData();
-            $userData->link('user', $user);
-        }
-
         if ($this->request->isPost) {
-            // do stuff
+            if ($userData->load(Yii::$app->request->post()) && $userData->save()) {
+                Yii::$app->session->addFlash('success', 'Your profile has successfully been updated');
+                return $this->redirect('/profile');
+            }
         }
 
         return $this->createResponse('edit', compact('userData'));
