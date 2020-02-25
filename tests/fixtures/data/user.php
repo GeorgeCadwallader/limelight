@@ -23,4 +23,15 @@ return [
         'created_at' => '2020-02-20 23:30:37',
         'updated_at' => '2020-02-20 23:30:52',
     ],
+    [
+        'user_id' => '9',
+        'username' => 'georgemember2',
+        'auth_key' => 'HpZ1QDzsZ1ugflMSDNumty6pCtwwdbgm',
+        'password_hash' => '$2y$13$X4RHiH5B7nR7tHwEZD2eHOfhPR0kOvM0eVrPAJ4jCE5DVvs8T7bLK',
+        'password_reset_token' => '4XVMXyQanZ-ayN-irLABGkW30ALaj1gq',
+        'email' => 'georgemember2@email.com',
+        'status' => '2',
+        'created_at' => '2020-02-25 01:59:53',
+        'updated_at' => '2020-02-25 01:59:53',
+    ],
 ];

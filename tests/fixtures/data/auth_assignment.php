@@ -11,4 +11,9 @@ return [
         'user_id' => '7',
         'created_at' => '1582238778',
     ],
+    [
+        'item_name' => 'Member',
+        'user_id' => '9',
+        'created_at' => '1582595993',
+    ],
 ];
