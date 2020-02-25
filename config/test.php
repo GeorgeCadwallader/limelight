@@ -1,52 +1,18 @@
 <?php
-$params = require __DIR__ . '/params.php';
-$db = require __DIR__ . '/test_db.php';
 
-/**
- * Application configuration shared by all test types
- */
-return [
-    'id' => 'basic-tests',
-    'basePath' => dirname(__DIR__),
-    'aliases' => [
-        '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
-    ],
-    'language' => 'en-US',
-    'components' => [
-        'authManager' => ['class' => 'yii\rbac\DbManager'],
-        'db' => $db,
-        'mailer' => [
-            'useFileTransport' => true,
-        ],
-        // 'assetManager' => [
-        //     'basePath' => __DIR__ . '/../web/assets',
-        //     'bundles' => false,
-        // ],
-        'assetManager' => [
-            'bundles' => [false],
-            'linkAssets' => false,
-        ],
-        'urlManager' => [
-            'showScriptName' => true,
-            'enablePrettyUrl' => true,
-            'rules' => [
-                'debug/<controller>/<action>' => 'debug/<controller>/<action>',
-            ],
-        ],
-        'user' => [
-            'identityClass' => 'app\models\User',
-        ],
-        'request' => [
-            'cookieValidationKey' => 'test',
-            'enableCsrfValidation' => false,
-            // but if you absolutely need it set cookie domain to localhost
-            /*
-            'csrfCookie' => [
-                'domain' => 'localhost',
-            ],
-            */
-        ],
-    ],
-    'params' => $params,
-];
+defined('YII_ENV') or define('YII_ENV', 'test');
+
+require dirname(__DIR__).'/bootstrap.php';
+
+$config = require __DIR__.'/web.php';
+
+\yii\helpers\ArrayHelper::setValue($config, 'components.db', [
+    'class' => 'yii\db\Connection',
+    'dsn' => 'mysql:host='.env('DB_HOST', 'localhost').';dbname='.env('DB_NAME_TEST'),
+    'username' => env('DB_USER'),
+    'password' => env('DB_PASSWORD'),
+
+    'enableSchemaCache' => env('DB_CACHE'),
+]);
+
+return $config;

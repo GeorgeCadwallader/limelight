@@ -1,9 +1,9 @@
 <?php
 
 return [
-    'adminEmail' => 'admin@example.com',
-    'senderEmail' => 'noreply@example.com',
-    'senderName' => 'Example.com mailer',
+    'adminEmail' => env('APP_EMAIL_ADMIN'),
+    'senderEmail' => env('APP_EMAIL_ADMIN'),
+    'senderName' => env('APP_EMAIL_ADMIN'),
     // 'bsVersion' => '4.x',
     'bsDependencyEnabled' => false,
 
