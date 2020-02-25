@@ -6,7 +6,7 @@
 use app\helpers\Html;
 use app\models\County;
 
-use kartik\select2\Select2;
+use dosamigos\datepicker\DatePicker;
 
 use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
@@ -33,7 +33,13 @@ $counties = ArrayHelper::map(County::find()->all(), 'county_id', 'name');
         </div>
         <div class="row">
             <div class="col-sm-6">
-                
+            <?= $form->field($userData, 'date_of_birth')->widget(
+                    DatePicker::className(), [
+                        'clientOptions' => [
+                            'autoclose' => true,
+                            'format' => 'dd-M-yyyy'
+                        ]
+                ]);?>
             </div>
             <div class="col-sm-6">
                 <?= $form->field($userData, 'telephone')->textInput(); ?>
@@ -41,13 +47,7 @@ $counties = ArrayHelper::map(County::find()->all(), 'county_id', 'name');
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <?= $form->field($userData, 'county_id')->widget(Select2::class, [
-                    'data' => $counties,
-                    'options' => ['placeholder' => 'Select your county...'],
-                    'pluginOptions' => [
-                        'allowClear' => true
-                    ],
-                ]); ?>
+                
             </div>
         </div>
         <div class="row">
