@@ -23,14 +23,49 @@ class FixtureController extends \yii\faker\FixtureController
 {
 
     /**
+     * @var string Alias to the template path, where all tables templates are stored.
+     */
+    public $templatePath = '@tests/fixtures/templates';
+
+    /**
+     * @var string Alias to the fixture data path, where data files should be written.
+     */
+    public $fixtureDataPath = '@tests/fixtures/data';
+
+    /**
      * @var string default namespace to search fixtures in
      */
     public $namespace = 'app\tests\fixtures';
+
+    public $counter = 0;
 
     /**
      * @var array
      */
     private $_roles;
+
+    /**
+     * @var array
+     */
+    public $config = [
+        'user' => 50,
+        'auth_assignment' => 50,
+    ];
+
+    /**
+     * Generates the fixtures from the above config
+     *
+     * @return void
+     */
+    public function actionGenerateFromConfig(): void
+    {
+        $this->interactive = false;
+        foreach ($this->config as $template => $count) {
+            $this->count = $count;
+            $this->counter = 0;
+            $this->actionGenerate($template);
+        }
+    }
 
     /**
      * Gets all of the defined roles

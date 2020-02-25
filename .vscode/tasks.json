@@ -120,9 +120,9 @@
             "problemMatcher": []
         },
         {
-            "label": "fixtures:generate",
+            "label": "fixtures:generateDb",
             "type": "shell",
-            "command": "vagrant ssh -- \"php /vagrant/yii fixture/generate-from-config\"",
+            "command": "vagrant ssh -- \"php /vagrant/yii fixture/generate-from-db\"",
             "presentation": {
                 "reveal": "always",
                 "panel": "shared",
