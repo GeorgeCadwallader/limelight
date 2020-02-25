@@ -1,0 +1,159 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "tests",
+            "type": "shell",
+            "command": "vagrant ssh -- \"cd /vagrant && ./vendor/bin/codecept run\"",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "showReuseMessage": true,
+                "focus": true
+            }
+        },
+        {
+            "label": "test:coverage",
+            "type": "shell",
+            "command": "vagrant ssh -- \"cd /vagrant && ./vendor/bin/codecept run --coverage --coverage-html --coverage-xml\"",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "showReuseMessage": true,
+                "focus": true
+            }
+        },
+        {
+            "label": "tests:file",
+            "type": "shell",
+            "command": "vagrant ssh -- \"cd /vagrant && ./vendor/bin/codecept run ${relativeFile}\"",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "showReuseMessage": true,
+                "focus": true
+            }
+        },
+        {
+            "label": "start",
+            "type": "shell",
+            "command": "vagrant ssh -- \"cd /vagrant && NODE_ENV=development ./node_modules/webpack-cli/bin/cli.js --watch\"",
+            "isBackground": true,
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "showReuseMessage": true,
+                "focus": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "lint:php",
+            "type": "shell",
+            "command": "vagrant ssh -- \"cd /vagrant && ./vendor/bin/phpcs --warning-severity=10 --standard=./ruleset.xml .\"",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "showReuseMessage": true,
+                "focus": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "migrate",
+            "type": "shell",
+            "command": "vagrant ssh -- \"cd /vagrant && php yii migrate\"",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "showReuseMessage": true,
+                "focus": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "migrate:down",
+            "type": "shell",
+            "command": "vagrant ssh -- \"cd /vagrant && php yii migrate/down\"",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "showReuseMessage": true,
+                "focus": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "install",
+            "type": "shell",
+            "command": "vagrant ssh -- \"cd /vagrant && composer install -o && yarn install\"",
+            "windows": {
+                "command": "vagrant ssh -- \"cd /vagrant && composer install -o && yarn --no-bin-links install\""
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "showReuseMessage": true,
+                "focus": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "update",
+            "type": "shell",
+            "command": "vagrant ssh -- \"cd /vagrant && composer update -o && yarn upgrade\"",
+            "windows": {
+                "command": "vagrant ssh -- \"cd /vagrant && composer install -o && yarn --no-bin-links install\""
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "showReuseMessage": true,
+                "focus": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "fixtures:generate",
+            "type": "shell",
+            "command": "vagrant ssh -- \"php /vagrant/yii fixture/generate-from-config\"",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "showReuseMessage": true,
+                "focus": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "fixtures:load",
+            "type": "shell",
+            "command": "vagrant ssh -- \"php /vagrant/yii fixture/load \\\"*\\\"\"",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "showReuseMessage": true,
+                "focus": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "queue:run",
+            "type": "shell",
+            "command": "vagrant ssh -- \"php /vagrant/yii queue/run -v\"",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "showReuseMessage": true,
+                "focus": true
+            },
+            "problemMatcher": []
+        },
+    ]
+}
