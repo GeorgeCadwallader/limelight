@@ -6,7 +6,6 @@
 use app\helpers\Html;
 use app\models\County;
 
-use kartik\date\DatePicker;
 use kartik\select2\Select2;
 
 use yii\bootstrap\ActiveForm;
@@ -34,15 +33,7 @@ $counties = ArrayHelper::map(County::find()->all(), 'county_id', 'name');
         </div>
         <div class="row">
             <div class="col-sm-6">
-                <?= $form->field($userData, 'date_of_birth')
-                    ->widget(
-                        DatePicker::class, [
-                            'pluginOptions' => [
-                                'hoursDisabled' => true,
-                                'minutesDisabled' => true,
-                            ]
-                        ]
-                    ); ?>
+                
             </div>
             <div class="col-sm-6">
                 <?= $form->field($userData, 'telephone')->textInput(); ?>

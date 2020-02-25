@@ -25,8 +25,7 @@ $config = [
             'authTimeout' => 60 * 45,
         ],
         'assetManager' => [
-            'bundles' => false,
-            'linkAssets' => true,
+            'bundles' => false
         ],
         'errorHandler' => ['errorAction' => 'site/error'],
         'mailer' => [

@@ -138,11 +138,18 @@ $select2-remove-icon-color-hover: $gray-800;
     }
   }
 
-  .select2-container--krajee .select2-results__option--highlighted[aria-selected],
   .select2-results__option--highlighted[aria-selected] {
     background-color: $select2-success !important;
     color: $select2-white;
   }
+
+  .select2-results__options {
+    .select2-container--krajee .select2-results__option--highlighted[aria-selected] {
+      background-color: $select2-success !important;
+      color: $select2-white !important;
+    }
+  }
+
 
   .select2-results__group {
     cursor: default;
