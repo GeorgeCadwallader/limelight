@@ -24,7 +24,10 @@ $config = [
             'enableAutoLogin' => false,
             'authTimeout' => 60 * 45,
         ],
-        'assetManager' => ['bundles' => false],
+        'assetManager' => [
+            'bundles' => false,
+            'linkAssets' => true,
+        ],
         'errorHandler' => ['errorAction' => 'site/error'],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',

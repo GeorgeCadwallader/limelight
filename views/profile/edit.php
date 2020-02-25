@@ -1,15 +1,16 @@
 <?php
 
 /** @var $this yii\web\View */
+/** @var $userData app\models\UserData */
 
 use app\helpers\Html;
 use app\models\County;
+
 use kartik\date\DatePicker;
 use kartik\select2\Select2;
+
 use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
-
-/** @var $userData app\models\UserData */
 
 $this->title = Yii::$app->name.' | Edit '.$userData->user->username;
 
@@ -35,12 +36,12 @@ $counties = ArrayHelper::map(County::find()->all(), 'county_id', 'name');
             <div class="col-sm-6">
                 <?= $form->field($userData, 'date_of_birth')
                     ->widget(
-                        DatePicker::class,
-                        ['pluginOptions' => [
-                            'format' => 'mm/dd/yyyy',
-                            'hoursDisabled' => true,
-                            'minutesDisabled' => true,
-                        ]]
+                        DatePicker::class, [
+                            'pluginOptions' => [
+                                'hoursDisabled' => true,
+                                'minutesDisabled' => true,
+                            ]
+                        ]
                     ); ?>
             </div>
             <div class="col-sm-6">
@@ -49,7 +50,7 @@ $counties = ArrayHelper::map(County::find()->all(), 'county_id', 'name');
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <?= $form->field($userData, 'county_id')->widget(Select2::classname(), [
+                <?= $form->field($userData, 'county_id')->widget(Select2::class, [
                     'data' => $counties,
                     'options' => ['placeholder' => 'Select your county...'],
                     'pluginOptions' => [

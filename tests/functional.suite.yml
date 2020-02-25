@@ -9,5 +9,13 @@
 class_name: FunctionalTester
 modules:
     enabled:
-      - Filesystem
-      - Yii2
+        # url: 'http://localhost/'
+        - Filesystem
+        - Asserts
+        - Yii2
+        - \modules\Functional
+        # - REST:
+        #   url: http://localhost:8888/
+        #   depends: Yii2
+        #   part: Json
+        #   configFile: 'config/test.php'

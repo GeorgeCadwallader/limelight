@@ -208,10 +208,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      */
     public static function findByEmail($email)
     {
-        return static::findOne([
-            'email' => $email,
-            'status' => self::STATUS_ACTIVE,
-        ]);
+        return static::findOne(['email' => $email]);
     }
 
     /**
@@ -280,6 +277,15 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         return $timestamp + $expire;
     }
 
+    /**
+     * Generates new password reset token
+     *
+     * @return void
+     */
+    public function generatePasswordResetToken(): void
+    {
+        $this->password_reset_token = Yii::$app->security->generateRandomString().'_'.time();
+    }
 
     /**
      * Test to see if a activation token is valid

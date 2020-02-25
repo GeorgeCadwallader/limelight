@@ -9,6 +9,7 @@ use yii\filters\AccessControl;
 use yii\web\Response;
 use app\models\forms\LoginForm;
 use app\models\forms\UserActivationForm;
+use app\models\UserData;
 use app\models\Venue;
 use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
@@ -112,8 +113,9 @@ class SiteController extends \app\core\WebController
         $model = new UserActivationForm($token);
 
         if ($model->load(Yii::$app->request->post()) && $model->activate()) {
-            
-            $model->link($model->user->userData, 'userData');
+            $userData = new UserData;
+            $model->user->link('userData', $userData);
+            Yii::$app->user->login($model->user);
             Yii::$app->session->addFlash('success', 'Your account has now been activated');
             return $this->goHome();
         }

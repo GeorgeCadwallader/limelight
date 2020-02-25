@@ -26,12 +26,12 @@ return [
     [
         'user_id' => '9',
         'username' => 'georgemember2',
-        'auth_key' => 'HpZ1QDzsZ1ugflMSDNumty6pCtwwdbgm',
-        'password_hash' => '$2y$13$X4RHiH5B7nR7tHwEZD2eHOfhPR0kOvM0eVrPAJ4jCE5DVvs8T7bLK',
-        'password_reset_token' => '4XVMXyQanZ-ayN-irLABGkW30ALaj1gq',
+        'auth_key' => '2c-2CfiLn54mXM7yd9qfYpldFJzr-WyU',
+        'password_hash' => '$2y$13$YAQYWagHoFVyTDx1VZ2C3.ZlqGzYPbRYCQe6/3jQZIssxXSb4M5GK',
+        'password_reset_token' => 'h6wqZKWzetpLvq7QFmrA2hgVsKpA3_W1',
         'email' => 'georgemember2@email.com',
         'status' => '2',
-        'created_at' => '2020-02-25 01:59:53',
-        'updated_at' => '2020-02-25 01:59:53',
+        'created_at' => '2020-02-25 02:46:38',
+        'updated_at' => '2020-02-25 02:46:38',
     ],
 ];
