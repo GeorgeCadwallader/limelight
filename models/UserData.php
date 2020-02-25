@@ -44,6 +44,7 @@ class UserData extends \yii\db\ActiveRecord
                 [
                     'first_name',
                     'last_name',
+                    'date_of_birth',
                 ],
                 'string',
                 'max' => 255,

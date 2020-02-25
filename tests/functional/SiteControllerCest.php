@@ -35,6 +35,13 @@ class SiteControllerCest
         $I->see('Log in');
     }
 
+    /**
+     * Tests that a user can become activated
+     *
+     * @param \FunctionalTester $I
+     *
+     * @return void
+     */
     public function testActivateUser(\FunctionalTester $I): void
     {
         $I->haveFixtures([UserFixture::class]);
@@ -60,6 +67,13 @@ class SiteControllerCest
         $I->assertEquals($user->status, User::STATUS_ACTIVE);
     }
 
+    /**
+     * Tests that the activation link expires
+     *
+     * @param \FunctionalTester $I
+     *
+     * @return void
+     */
     public function testActivateExpiredLink(\FunctionalTester $I): void
     {
         $I->haveFixtures([UserFixture::class]);

@@ -52,9 +52,8 @@ class ProfileController extends \app\core\WebController
     /**
      * Displays the user profile
      *
-     * @return string
      */
-    public function actionIndex(): string
+    public function actionIndex()
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect('/site/login');

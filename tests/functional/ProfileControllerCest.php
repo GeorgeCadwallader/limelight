@@ -2,6 +2,8 @@
 
 declare(strict_types = 1);
 
+use app\tests\fixtures\UserDataFixture;
+
 /**
  * @category  Project
  * @package   {{package}}
@@ -25,6 +27,45 @@ class ProfileControllerCest
         $I->seeResponseCodeIsSuccessful();
 
         $I->see('Hi '.Yii::$app->user->identity->username.'!');
+    }
+
+    /**
+     * Tests that a user can update their profile
+     * 
+     * @param \FuncionalTester $I
+     * 
+     * @return void
+     */
+    public function testUpdateProfile(\FunctionalTester $I): void
+    {
+        $I->amLoggedInAsMember();
+        $userData = Yii::$app->user->identity->userData;
+
+        $I->amOnRoute('/profile/edit', ['user_id' => 999]);
+        $I->canSeeResponseCodeIsClientError();
+
+        $I->amOnRoute('/profile/edit', ['user_id' => Yii::$app->user->id]);
+        $I->seeResponseCodeIsSuccessful();
+
+        $I->assertEquals('George', $userData->first_name);
+        $I->assertEquals('1998-06-02', $userData->date_of_birth);
+        $I->assertEquals('395', $userData->county_id);
+
+        $I->submitForm('#edit-form', [
+            'UserData' => [
+                'first_name' => 'GeorgeTEST',
+                'last_name' => 'Cadwallader',
+                'date_of_birth' => '1980-12-25',
+                'telephone' => '012345678',
+                'county_id' => '250',
+            ]
+        ]);
+
+        $userData->refresh();
+
+        $I->assertEquals('GeorgeTEST', $userData->first_name);
+        $I->assertEquals('1980-12-25', $userData->date_of_birth);
+        $I->assertEquals('250', $userData->county_id);
     }
 
 }

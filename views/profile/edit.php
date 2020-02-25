@@ -5,7 +5,7 @@
 
 use app\helpers\Html;
 use app\models\County;
-
+use conquer\select2\Select2Widget;
 use dosamigos\datepicker\DatePicker;
 
 use yii\bootstrap\ActiveForm;
@@ -36,8 +36,7 @@ $counties = ArrayHelper::map(County::find()->all(), 'county_id', 'name');
             <?= $form->field($userData, 'date_of_birth')->widget(
                     DatePicker::className(), [
                         'clientOptions' => [
-                            'autoclose' => true,
-                            'format' => 'dd-M-yyyy'
+                            'format' => 'yyyy-mm-dd'
                         ]
                 ]);?>
             </div>
@@ -47,7 +46,10 @@ $counties = ArrayHelper::map(County::find()->all(), 'county_id', 'name');
         </div>
         <div class="row">
             <div class="col-sm-12">
-                
+                <?= $form->field($userData, 'county_id')->widget(
+                    Select2Widget::className(),
+                    ['items' => $counties]
+                ); ?>
             </div>
         </div>
         <div class="row">
