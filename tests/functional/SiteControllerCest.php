@@ -3,7 +3,6 @@
 declare(strict_types = 1);
 
 use app\models\User;
-use app\tests\fixtures\UserFixture;
 
 /**
  * @category  Project
@@ -44,8 +43,6 @@ class SiteControllerCest
      */
     public function testActivateUser(\FunctionalTester $I): void
     {
-        $I->haveFixtures([UserFixture::class]);
-
         $user = User::findByEmail('georgemember2@email.com');
         $user->generatePasswordResetToken();
         $user->save();
@@ -76,8 +73,6 @@ class SiteControllerCest
      */
     public function testActivateExpiredLink(\FunctionalTester $I): void
     {
-        $I->haveFixtures([UserFixture::class]);
-
         $user = User::findOne(['email' => 'georgemember@email.com']);
         $I->assertFalse(User::isActivateTokenValid($user->password_reset_token));
 
