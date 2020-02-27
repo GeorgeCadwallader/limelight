@@ -7,6 +7,7 @@ use app\models\County;
 use app\models\Region;
 use app\models\search\CountySearch;
 use app\models\search\RegionSearch;
+use app\models\User;
 use Yii;
 use yii\base\Response;
 use yii\filters\AccessControl;
@@ -71,6 +72,37 @@ class AdminController extends \app\core\WebController
                 'countyDataProvider'
             )
         );
+    }
+
+    /**
+     * Action for an existing admin to create another admin
+     */
+    public function actionAdminCreate(): Response
+    {
+        $user = new User([
+            'status' => User::STATUS_UNVERIFIED,
+            'roles' => [Item::ROLE_ADMIN],
+            'password' => Yii::$app->security->generateRandomString(12),
+            'password_reset_token' => Yii::$app->security->generateRandomString()
+        ]);
+
+        $user->generateAuthKey();
+        
+        if ($this->request->isPost) {
+            $user->load($this->request->post());
+
+            if ($user->save() && $user->validate()) {
+                Yii::$app->session->addFlash('success', 'Admin successfully created');
+                Yii::$app->mailer->compose('admin-email-confirm', ['user' => $user])
+                    ->setFrom(Yii::$app->params['senderEmail'])
+                    ->setTo([$user->email => $user->username])
+                    ->setSubject('Welcome to '.Yii::$app->name)
+                    ->send();
+                return $this->redirect('/admin');
+            }
+        }
+
+        return $this->createResponse('create-admin', compact('user'));
     }
 
     public function actionAddRegion(): Response

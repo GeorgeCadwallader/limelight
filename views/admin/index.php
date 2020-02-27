@@ -1,12 +1,8 @@
 <?php
 
 use app\helpers\Html;
-use app\models\County;
-use app\models\Region;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
-use yii\helpers\ArrayHelper;
-use yii\widgets\DetailView;
 
 /** @var $this yii\web\View */
 /** @var $regionFilterModel app\models\search\RegionSearch */
@@ -21,6 +17,15 @@ $this->title = Yii::$app->name.' | Admin panel';
 <div class="row mb-4">
     <div class="col-sm-12">
         <h1>Admin panel</h1>
+    </div>
+</div>
+<div class="row my-4">
+    <div class="col-sm-12">
+        <?= Html::a(
+            'Create new Admin',
+            '/admin/admin-create',
+            ['class' => 'btn btn-primary']
+        ); ?>
     </div>
 </div>
 <div class="row my-4">
