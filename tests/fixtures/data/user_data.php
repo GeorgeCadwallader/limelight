@@ -46,7 +46,7 @@ return [
         'first_name' => null,
         'last_name' => null,
         'date_of_birth' => null,
-        'telephone' => null,
+        'telephone' => '0123454321',
         'county_id' => null,
         'created_at' => '2020-02-27 21:44:37',
         'updated_at' => '2020-02-27 21:44:37',

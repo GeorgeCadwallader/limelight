@@ -338,15 +338,15 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         return $this->getAuthKey() === $authKey;
     }
 
-    // public function getArtist(): ActiveQueryInterface
-    // {
-    //     return $this->hasOne(Artist::class, ['managed_by' => 'user_id']);
-    // }
+    public function getArtist(): ActiveQueryInterface
+    {
+        return $this->hasOne(Artist::class, ['managed_by' => 'user_id']);
+    }
 
-    // public function getVenue(): ActiveQueryInterface
-    // {
-    //     return $this->hasOne(Venue::class, ['managed_by' => 'user_id']);
-    // }
+    public function getVenue(): ActiveQueryInterface
+    {
+        return $this->hasOne(Venue::class, ['managed_by' => 'user_id']);
+    }
 
     public function getUserData(): ActiveQueryInterface
     {
