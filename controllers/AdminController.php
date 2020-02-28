@@ -53,9 +53,19 @@ class AdminController extends \app\core\WebController
     /**
      * Displays the admin dashboard
      *
-     * @return string
+     * @return Response
      */
     public function actionIndex(): Response
+    {
+        return $this->createResponse('index');
+    }
+
+    /**
+     * Display the locations page for the admin dashboard
+     * 
+     * @return Response
+     */
+    public function actionLocations(): Response
     {
         $regionFilterModel = new RegionSearch;
         $regionDataProvider = $regionFilterModel->search($this->request->queryParams);
@@ -64,7 +74,7 @@ class AdminController extends \app\core\WebController
         $countyDataProvider = $countyFilterModel->search($this->request->queryParams);
 
         return $this->createResponse(
-            'index',
+            'locations',
             compact(
                 'regionFilterModel',
                 'regionDataProvider',
@@ -76,6 +86,8 @@ class AdminController extends \app\core\WebController
 
     /**
      * Action for an existing admin to create another admin
+     * 
+     * @return Response
      */
     public function actionAdminCreate(): Response
     {
@@ -105,6 +117,11 @@ class AdminController extends \app\core\WebController
         return $this->createResponse('create-admin', compact('user'));
     }
 
+    /**
+     * Action for adding a new Region
+     * 
+     * @return Response
+     */
     public function actionAddRegion(): Response
     {
         $region = new Region;
@@ -115,13 +132,18 @@ class AdminController extends \app\core\WebController
             
             if ($region->save() && $region->validate()) {
                 Yii::$app->session->addFlash('success', 'Region successfully created');
-                return $this->redirect('/admin');
+                return $this->redirect('/admin/locations');
             }
         }
 
         return $this->createResponse('edit-region', compact('region', 'edit'));
     }
 
+    /**
+     * Action for editing and existing Region
+     * 
+     * @return Response
+     */
     public function actionEditRegion(int $region_id): Response
     {
         $region = Region::findOne($region_id);
@@ -136,13 +158,18 @@ class AdminController extends \app\core\WebController
 
             if ($region->save() && $region->validate()) {
                 Yii::$app->session->addFlash('success', 'Region successfully updated');
-                return $this->redirect('/admin');
+                return $this->redirect('/admin/locations');
             }
         }
 
         return $this->createResponse('edit-region', compact('region', 'edit'));
     }
 
+    /**
+     * Action for creating a new County
+     * 
+     * @return Response
+     */
     public function actionAddCounty(): Response
     {
         $county = new County;
@@ -153,13 +180,18 @@ class AdminController extends \app\core\WebController
             
             if ($county->save() && $county->validate()) {
                 Yii::$app->session->addFlash('success', 'County successfully created');
-                return $this->redirect('/admin');
+                return $this->redirect('/admin/locations');
             }
         }
 
         return $this->createResponse('edit-county', compact('county', 'edit'));
     }
 
+    /**
+     * Action for editing an existing county
+     * 
+     * @return Response
+     */
     public function actionEditCounty(int $county_id): Response
     {
         $county = County::findOne($county_id);
@@ -174,7 +206,7 @@ class AdminController extends \app\core\WebController
 
             if ($county->save() && $county->validate()) {
                 Yii::$app->session->addFlash('success', 'County successfully updated');
-                return $this->redirect('/admin');
+                return $this->redirect('/admin/locations');
             }
         }
 

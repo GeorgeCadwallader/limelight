@@ -1,16 +1,33 @@
 <?php
 
 /** @var $this yii\web\View */
+/** @var $user app\models\User */
 
 use app\helpers\Html;
-use yii\bootstrap\ActiveForm;
 
-/** @var $user app\models\User */
+use yii\bootstrap4\Breadcrumbs;
+use yii\bootstrap\ActiveForm;
+use yii\helpers\Url;
 
 $this->title = 'Create new Admin';
 
 ?>
 
+<div class="row">
+    <div class="col-sm-12">
+        <?= Breadcrumbs::widget([
+            'links' => [
+                [
+                    'label' => 'Admin Dashboard',
+                    'url' => Url::to('/admin'),
+                ],
+                [
+                    'label' => 'Create new Admin',
+                ]
+            ]
+        ]); ?>
+    </div>
+</div>
 <div class="row">
     <div class="col-sm-12">
         <h1>
