@@ -3,6 +3,7 @@
 declare(strict_types = 1);
 
 use app\auth\Item;
+use app\models\Artist;
 use app\models\County;
 use app\models\Region;
 use app\models\User;
@@ -177,6 +178,31 @@ class AdminControllerCest
         $I->assertEquals('newAdminTest@email.com', $user->email);
 
         $I->assertArrayHasKey(Item::ROLE_ADMIN, Yii::$app->authManager->getRolesByUser($user->user_id));
+    }
+
+    /**
+     * Test that you can create an artist through the admin panel
+     * 
+     * @param \FunctionalTester $I
+     *
+     * @return void
+     */
+    public function testCreateArtistAdmin(\FunctionalTester $I): void
+    {
+        $I->amLoggedInAsAdmin();
+        $I->amOnRoute('/admin/add-artist');
+
+        $I->submitForm('#create-artist', [
+            'Artist' => [
+                'name' => 'adminArtistTest'
+            ]
+        ]);
+
+        $artist = Artist::find()->where(['name' => 'adminArtistTest'])->one();
+
+        $I->assertNotNull($artist);
+        $I->assertNull($artist->managed_by);
+        $I->assertEquals(Artist::STATUS_ACTIVE, $artist->status);
     }
 
 }

@@ -3,8 +3,10 @@
 namespace app\controllers;
 
 use app\auth\Item;
+use app\models\Artist;
 use app\models\County;
 use app\models\Region;
+use app\models\search\ArtistSearch;
 use app\models\search\CountySearch;
 use app\models\search\RegionSearch;
 use app\models\User;
@@ -82,6 +84,48 @@ class AdminController extends \app\core\WebController
                 'countyDataProvider'
             )
         );
+    }
+
+    /**
+     * Action to load the main page for artist management
+     * 
+     * @return Response
+     */
+    public function actionArtist(): Response
+    {
+        $artistFilterModel = new ArtistSearch;
+        $artistDataProvider = $artistFilterModel->search($this->request->queryParams);
+
+        return $this->createResponse(
+            'artists',
+            compact(
+                'artistFilterModel',
+                'artistDataProvider'
+            )
+        );
+    }
+
+    /**
+     * Creates a new artist page
+     * 
+     * @return Response
+     */
+    public function actionAddArtist(): Response
+    {
+        $artist = new Artist([
+            'status' => Artist::STATUS_ACTIVE
+        ]);
+
+        if ($this->request->isPost) {
+            $artist->load($this->request->post());
+
+            if ($artist->save() && $artist->validate()) {
+                Yii::$app->session->addFlash('success', 'Artist page successfully created');
+                return $this->redirect(['/artist/view', 'artist_id' => $artist->artist_id]);
+            }
+        }
+
+        return $this->createResponse('create-artist', compact('artist'));
     }
 
     /**

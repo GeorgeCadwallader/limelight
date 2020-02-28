@@ -35,7 +35,7 @@ $this->title = Yii::$app->name.' | Admin panel';
             <hr class="my-2">
             <p class="card-text">
                 Create a new admin to become apart of <?= Yii::$app->name; ?>.
-                <br>
+                <br><br>
                 This is the only way to add new admins to the site
             </p>
             <?= Html::a(
@@ -51,13 +51,49 @@ $this->title = Yii::$app->name.' | Admin panel';
             <hr class="my-2">
             <p class="card-text">
                 Create new and edit existing locations for <?= Yii::$app->name; ?>.
-                <br>
+                <br><br>
                 Add new or edit already existing regions and counties for <?= Yii::$app->name; ?> users
                 to discover more about what artists and venues are in their local area
             </p>
             <?= Html::a(
                 'Regions and Counties',
                 '/admin/locations',
+                ['class' => 'btn btn-primary']
+            ); ?>
+        </div>
+    </div>
+    <div class="col-sm-6 card">
+        <div class="card-body">
+            <h2 class="card-title">Artists page management</h2>
+            <hr class="my-2">
+            <p class="card-text">
+                View and manage artist pages on <?= Yii::$app->name; ?>.
+                <br><br>
+                This displays all the information on all the artist pages on the site. 
+                From here you can view the details of the artist page and its owner if it
+                has one. The status of an artist page can also be edited from here.
+            </p>
+            <?= Html::a(
+                'View Artists',
+                '/admin/artist',
+                ['class' => 'btn btn-primary']
+            ); ?>
+        </div>
+    </div>
+    <div class="col-sm-6 card">
+        <div class="card-body">
+            <h2 class="card-title">Venues page management</h2>
+            <hr class="my-2">
+            <p class="card-text">
+                View and manage venue pages on <?= Yii::$app->name; ?>.
+                <br><br>
+                This displays all the information on all the venue pages on the site. 
+                From here you can view the details of the venue page and its owner if it
+                has one. The status of an venue page can also be edited from here.
+            </p>
+            <?= Html::a(
+                'View Venues',
+                '/admin/venue',
                 ['class' => 'btn btn-primary']
             ); ?>
         </div>
