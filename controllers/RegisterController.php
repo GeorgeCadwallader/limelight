@@ -74,6 +74,8 @@ class RegisterController extends \app\core\WebController
             if ($user->save()) {
                 $transaction->commit();
                 Yii::$app->mailer->compose('member-email-confirm', ['user' => $user])
+                    ->setFrom(Yii::$app->params['senderEmail'])
+                    ->setTo([$user->email => $user->username])
                     ->setSubject('Welcome to '.Yii::$app->name)
                     ->send();
                 return $this->render('registered', compact('user'));

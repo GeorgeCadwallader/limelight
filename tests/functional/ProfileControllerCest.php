@@ -2,8 +2,6 @@
 
 declare(strict_types = 1);
 
-use app\tests\fixtures\UserDataFixture;
-
 /**
  * @category  Project
  * @package   {{package}}

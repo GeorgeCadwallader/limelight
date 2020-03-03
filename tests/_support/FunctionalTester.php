@@ -69,7 +69,7 @@ class FunctionalTester extends \Codeception\Actor
      *
      * @return void
      */
-    public function amLoggedInAsVenue(): void
+    public function amLoggedInAsVenueOwner(): void
     {
         $this->amLoggedInAs($this->grabUserByRole(Item::ROLE_VENUE_OWNER));
     }
