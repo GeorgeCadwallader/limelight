@@ -31,6 +31,23 @@ $this->title = Yii::$app->name.' | Admin panel';
 <div class="row my-4">
     <div class="col-sm-6 card">
         <div class="card-body">
+            <h2 class="card-title">View Ownership requests</h2>
+            <hr class="my-2">
+            <p class="card-text">
+                Manage requests for ownership of artist and venue pages on <?= Yii::$app->name; ?>.
+                <br><br>
+                Click here to view a table where you can view current pending requests for
+                users to take ownership of existing artist and venue pages
+            </p>
+            <?= Html::a(
+                'View ownership requests',
+                '/admin/request',
+                ['class' => 'btn btn-primary']
+            ); ?>
+        </div>
+    </div>
+    <div class="col-sm-6 card">
+        <div class="card-body">
             <h2 class="card-title">Create new Admin</h2>
             <hr class="my-2">
             <p class="card-text">

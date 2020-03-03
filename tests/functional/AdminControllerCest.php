@@ -5,6 +5,7 @@ declare(strict_types = 1);
 use app\auth\Item;
 use app\models\Artist;
 use app\models\County;
+use app\models\OwnerRequest;
 use app\models\Region;
 use app\models\User;
 
@@ -203,6 +204,52 @@ class AdminControllerCest
         $I->assertNotNull($artist);
         $I->assertNull($artist->managed_by);
         $I->assertEquals(Artist::STATUS_ACTIVE, $artist->status);
+    }
+
+    /**
+     * Test that you can set the status of an artist through the admin panel
+     * 
+     * @param \FunctionalTester $I
+     *
+     * @return void
+     */
+    public function testSetArtistStatus(\FunctionalTester $I): void
+    {
+        $I->amLoggedInAsAdmin();
+
+        $I->amOnRoute('/admin/set-artist-status', ['artist_id' => 999, 'status' => 10]);
+        $I->seeResponseCodeIsClientError();
+        
+        $I->amOnRoute('/admin/set-artist-status', ['artist_id' => 1, 'status' => 999]);
+        $I->seeResponseCodeIsClientError();
+
+        $artist = Artist::findOne(1);
+        $I->assertEquals(Artist::STATUS_UNVERIFIED, $artist->status);
+
+        $I->amOnRoute('/admin/set-artist-status', ['artist_id' => 1, 'status' => 10]);
+
+        $artist->refresh();
+        $I->assertEquals(Artist::STATUS_ACTIVE, $artist->status);
+    }
+
+    public function testApproveArtist(\FunctionalTester $I): void
+    {
+        $I->amLoggedInAsAdmin();
+
+        $request = OwnerRequest::findOne(1);
+        $I->assertEquals(OwnerRequest::TYPE_ARTIST, $request->type);
+
+        $I->amOnRoute('/admin/request-approve', ['owner_request_id' => 1]);
+
+        $artist = Artist::find()
+            ->where(['artist_id' => $request->fk])
+            ->one();
+        
+        $email = $I->grabLastSentEmail();
+
+        $I->assertNotNull($artist);
+        $I->assertEquals(Yii::$app->user->identity->email, array_key_first($email->getTo()));
+        $I->assertEquals($request->created_by, $artist->managed_by);
     }
 
 }

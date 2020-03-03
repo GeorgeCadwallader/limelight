@@ -41,8 +41,20 @@ use app\helpers\Html;
                     ownership rights of an already existing artist page. Select <strong class="text-primary">Create new artist page</strong> 
                     to create your brand new artist page.
                 </p>
-                <?= Html::a('Create new artist page', '/artist/create', ['class' => 'btn btn-primary']); ?>
-                <?= Html::a('Request ownership of existing artist page', '/artist/request', ['class' => 'btn btn-primary']); ?>
+                <?php if ($user->request !== null) { ?>
+                    <div class="alert alert-primary" role="alert">
+                        Your request is currently being processed by admins
+                    </div>
+                <?php } else { ?>
+                    <?= Html::a('Create new artist page', '/artist/create', ['class' => 'btn btn-primary']); ?>
+                    <?= Html::a('Request ownership of existing artist page', '/artist/request', ['class' => 'btn btn-primary']); ?>
+                <?php } ?>
+            </div>
+        <?php } elseif ($user->artist !== null) { ?>
+            <div class="jumbotron">
+                <h2>Your artist page: <strong><?= $user->artist->name; ?></strong></h2>
+                <?= Html::a('View artist page', ['/artist/view', 'artist_id' => $user->artist->artist_id], ['class' => 'btn btn-primary']); ?>
+                <?= Html::a('Edit artist page', ['/artist/edit', 'artist_id' => $user->artist->artist_id], ['class' => 'btn btn-primary']); ?>
             </div>
         <?php } ?>
     </div>

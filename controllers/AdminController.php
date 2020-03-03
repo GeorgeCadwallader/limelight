@@ -5,11 +5,14 @@ namespace app\controllers;
 use app\auth\Item;
 use app\models\Artist;
 use app\models\County;
+use app\models\OwnerRequest;
 use app\models\Region;
 use app\models\search\ArtistSearch;
 use app\models\search\CountySearch;
 use app\models\search\RegionSearch;
+use app\models\search\RequestSearch;
 use app\models\User;
+use app\models\Venue;
 use Yii;
 use yii\base\Response;
 use yii\filters\AccessControl;
@@ -126,6 +129,93 @@ class AdminController extends \app\core\WebController
         }
 
         return $this->createResponse('create-artist', compact('artist'));
+    }
+    
+    /**
+     * Action for setting the status of an artist
+     * 
+     * @return Response
+     */
+    public function actionSetArtistStatus(int $artist_id, int $status): Response
+    {
+        $artist = Artist::findOne($artist_id);
+
+        if ($artist === null) {
+            throw new BadRequestHttpException('Invalid artist');
+        }
+
+        $artist->status = $status;
+
+        if (!$artist->save()) {
+            throw new BadRequestHttpException('Unable to update artist status');
+        }
+
+        return $this->redirect('/admin/artist');
+    }
+
+    /**
+     * Action for an viewing the existing owner requests on the site
+     * 
+     * @return Response
+     */
+    public function actionRequest(): Response
+    {
+        $requestFilterModel = new RequestSearch;
+        $requestDataProvider = $requestFilterModel->search($this->request->queryParams);
+
+        return $this->createResponse(
+            'request',
+            compact(
+                'requestFilterModel',
+                'requestDataProvider'
+            )
+        );
+    }
+
+    /**
+     * Action for approving a request for ownership of an artist or venue page
+     * 
+     * @return Response
+     */
+    public function actionRequestApprove(int $owner_request_id): Response
+    {
+        $ownerRequest = OwnerRequest::findOne($owner_request_id);
+
+        if ($ownerRequest === null) {
+            throw new BadRequestHttpException('Invalid request');
+        }
+
+        if ($ownerRequest->type === OwnerRequest::TYPE_ARTIST) {
+            $isArtist = true;
+            $page = Artist::findOne($ownerRequest->fk);
+        }
+
+        if ($ownerRequest->type === OwnerRequest::TYPE_VENUE) {
+            $isArtist = false;
+            $page = Venue::findOne($ownerRequest->fk);
+        }
+
+        if ($ownerRequest->type === null) {
+            throw new BadRequestHttpException('Invalid request');
+        }
+
+        $page->managed_by = $ownerRequest->created_by;
+
+        if ($page->save() && $page->validate()) {
+            $user = Yii::$app->user->identity;
+            Yii::$app->mailer->compose(
+                'request-approve-form',
+                [
+                    'page' => $page,
+                    'isArtist' => $isArtist,
+                ])
+                    ->setFrom(Yii::$app->params['senderEmail'])
+                    ->setTo([$user->email => $user->username])
+                    ->setSubject('Request for '.$page->name.' accepted')
+                    ->send();
+            Yii::$app->session->addFlash('Request successfully approved');
+            return $this->redirect('/admin');
+        }
     }
 
     /**

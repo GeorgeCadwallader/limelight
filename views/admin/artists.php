@@ -100,7 +100,7 @@ use yii\helpers\Url;
                             return;
                         }
 
-                        return $manager->username.'('.$manager->email.')';
+                        return $manager->username.' ('.$manager->email.')';
                     }
                 ],
                 [
@@ -111,7 +111,7 @@ use yii\helpers\Url;
                         'menu' => function ($url, $model, $index): string {
                             $items = [
                                 [
-                                    'label' =>'View',
+                                    'label' => 'View',
                                     'url' => [
                                         '/artist/view',
                                         'artist_id' => $model->artist_id
@@ -123,6 +123,19 @@ use yii\helpers\Url;
                                         '/admin/set-artist-status',
                                         'artist_id' => $model->artist_id,
                                         'status' => $model::STATUS_ACTIVE
+                                    ],
+                                    'linkOptions' => [
+                                        'data' => [
+                                            'method' => 'POST'
+                                        ],
+                                    ],
+                                ],
+                                [
+                                    'label' => 'Set status: Unverified',
+                                    'url' => [
+                                        '/admin/set-artist-status',
+                                        'artist_id' => $model->artist_id,
+                                        'status' => $model::STATUS_UNVERIFIED
                                     ],
                                     'linkOptions' => [
                                         'data' => [

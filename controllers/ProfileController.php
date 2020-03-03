@@ -52,8 +52,9 @@ class ProfileController extends \app\core\WebController
     /**
      * Displays the user profile
      *
+     * @return Response
      */
-    public function actionIndex()
+    public function actionIndex(): Response
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect('/site/login');
@@ -66,23 +67,28 @@ class ProfileController extends \app\core\WebController
         }
 
         if (Yii::$app->user->can(Item::ROLE_MEMBER)) {
-            return $this->render('member', compact('user'));
+            return $this->createResponse('member', compact('user'));
         }
 
         if (Yii::$app->user->can(Item::ROLE_ARTIST_OWNER)) {
-            return $this->render('artist-owner', compact('user'));
+            return $this->createResponse('artist-owner', compact('user'));
         }
 
         if (Yii::$app->user->can(Item::ROLE_VENUE_OWNER)) {
-            return $this->render('venue-owner', compact('user'));
+            return $this->createResponse('venue-owner', compact('user'));
         }
 
         if (Yii::$app->user->can(Item::ROLE_ADMIN)) {
-            return $this->redirect(Yii::$app->homeUrl);
+            return $this->createResponse(Yii::$app->homeUrl);
         }
 
     }
 
+    /**
+     * Edit the user profile
+     *
+     * @return Response
+     */
     public function actionEdit(int $user_id): Response
     {
         $user = User::findOne($user_id);
