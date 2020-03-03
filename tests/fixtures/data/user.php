@@ -56,4 +56,15 @@ return [
         'created_at' => '2020-02-27 21:44:18',
         'updated_at' => '2020-02-27 21:44:37',
     ],
+    [
+        'user_id' => '12',
+        'username' => 'georgeartistowner2',
+        'auth_key' => 'FlnjVrZuk1U1P_VlhadUttEdPoG8hKHb',
+        'password_hash' => '$2y$13$LD4VdKjli9esCjZ9.kSz0eI8DTG7kjTzdIRhRTo8E.KYCFb3f2kOe',
+        'password_reset_token' => null,
+        'email' => 'georgeartistowner2@email.com',
+        'status' => '10',
+        'created_at' => '2020-03-03 19:23:44',
+        'updated_at' => '2020-03-03 19:24:08',
+    ],
 ];
