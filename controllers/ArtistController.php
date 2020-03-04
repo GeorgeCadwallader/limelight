@@ -24,7 +24,24 @@ class ArtistController extends \app\core\WebController
                 'rules' => [
                     [
                         'allow' => true,
+                        'actions' => [
+                            'create',
+                            'request',
+                            'edit',
+                        ],
                         'roles' => [Item::ROLE_ARTIST_OWNER],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => [
+                            'index',
+                            'view'
+                        ],
+                        'roles' => [
+                            Item::ROLE_ARTIST_OWNER,
+                            Item::ROLE_VENUE_OWNER,
+                            Item::ROLE_MEMBER
+                        ],
                     ]
                 ],
             ],
@@ -46,6 +63,16 @@ class ArtistController extends \app\core\WebController
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
         ];
+    }
+
+    /**
+     * Render the main artist listing page
+     *
+     * @return Response
+     */
+    public function actionIndex(): Response
+    {
+        return $this->createResponse('index');
     }
 
     /**
