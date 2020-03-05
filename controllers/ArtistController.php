@@ -5,7 +5,7 @@ namespace app\controllers;
 use app\auth\Item;
 use app\models\Artist;
 use app\models\OwnerRequest;
-
+use app\models\ReviewArtist;
 use Yii;
 use yii\base\Response;
 use yii\filters\AccessControl;
@@ -160,7 +160,21 @@ class ArtistController extends \app\core\WebController
             throw new BadRequestHttpException('Invalid artist');
         }
 
-        return $this->createResponse('view', compact('artist'));
+        $newReview = new ReviewArtist([
+            'status' => ReviewArtist::STATUS_ACTIVE,
+        ]);
+
+        if ($this->request->isPost) {
+            $newReview->load($this->request->post());
+            $newReview->link('artist', $artist);
+    
+            if ($newReview->save() && $newReview->validate()){
+                Yii::$app->session->addFlash('success', 'Your review has successfully been created');
+                return $this->redirect(['/artist/view', 'artist_id' => $artist->artist_id]);
+            }
+        }
+
+        return $this->createResponse('view', compact('artist', 'newReview'));
     }
 
 }

@@ -3,6 +3,7 @@
 declare(strict_types = 1);
 
 use app\models\Artist;
+use app\models\ReviewArtist;
 
 /**
  * @category  Project
@@ -36,6 +37,33 @@ class ArtistControllerCest
 
         $I->assertEquals(Artist::STATUS_UNVERIFIED, $artist->status);
         $I->assertEquals(Yii::$app->user->id, $artist->managed_by);
+    }
+
+    /**
+     * Tests reviewing an artist page
+     *
+     * @param \FunctionalTester $I
+     *
+     * @return void
+     */
+    public function testArtistReview(\FunctionalTester $I): void
+    {
+        $I->amLoggedInAs(13);
+
+        $I->amOnRoute('/artist/view', ['artist_id' => 2]);
+        $I->submitForm('#create-review', [
+            'ReviewArtist' => [
+                'content' => 'georgemember3 test artist review',
+                'overall_rating' => '1.5'
+            ]
+        ]);
+
+        $review = ReviewArtist::find()
+                ->orderBy(['created_at' => SORT_DESC])
+                ->one();
+
+        $I->assertEquals('georgemember3 test artist review', $review->content);
+        $I->assertEquals('1.5', $review->overall_rating);
     }
 
 }

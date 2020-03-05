@@ -36,7 +36,7 @@ class ProfileControllerCest
      */
     public function testUpdateProfile(\FunctionalTester $I): void
     {
-        $I->amLoggedInAsMember();
+        $I->amLoggedInAs(7);
         $userData = Yii::$app->user->identity->userData;
 
         $I->amOnRoute('/profile/edit', ['user_id' => 999]);
