@@ -37,4 +37,12 @@ return [
         'version' => 'm200303_164403_create_request_tables',
         'apply_time' => '1583263185',
     ],
+    [
+        'version' => 'm200304_205442_create_review_table',
+        'apply_time' => '1583365496',
+    ],
+    [
+        'version' => 'm200304_223813_create_user_vote_table',
+        'apply_time' => '1583365496',
+    ],
 ];
