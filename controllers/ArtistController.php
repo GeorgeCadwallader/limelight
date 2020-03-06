@@ -36,18 +36,12 @@ class ArtistController extends \app\core\WebController
                         'actions' => [
                             'index',
                             'view'
-                        ],
-                        'roles' => [
-                            Item::ROLE_ARTIST_OWNER,
-                            Item::ROLE_VENUE_OWNER,
-                            Item::ROLE_MEMBER
-                        ],
+                        ]
                     ]
                 ],
             ],
         ];
     }
-
 
     /**
      * {@inheritdoc}
