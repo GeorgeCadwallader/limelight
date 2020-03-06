@@ -5,7 +5,7 @@
 use app\models\Venue;
 use yii\bootstrap4\Breadcrumbs;
 
-$artists = Venue::find()->where(['status' => Venue::STATUS_ACTIVE])->all();
+$venues = Venue::find()->where(['status' => Venue::STATUS_ACTIVE])->all();
 
 ?>
 

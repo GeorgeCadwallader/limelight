@@ -110,11 +110,11 @@ class ReviewController extends \app\core\WebController
             }
             
             $query = UserVote::find()
-                ->where(
+                ->where([
                     'AND',
                     ['review_venue_id' => $review->venue_id],
                     ['created_by' => Yii::$app->user->id]
-                );
+                ]);
             
             if ($query->exists()) {
                 $vote = $query->one();
