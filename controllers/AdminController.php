@@ -11,6 +11,7 @@ use app\models\search\ArtistSearch;
 use app\models\search\CountySearch;
 use app\models\search\RegionSearch;
 use app\models\search\RequestSearch;
+use app\models\search\VenueSearch;
 use app\models\User;
 use app\models\Venue;
 use Yii;
@@ -87,6 +88,48 @@ class AdminController extends \app\core\WebController
                 'countyDataProvider'
             )
         );
+    }
+
+    /**
+     * Action to load the main page for venue management
+     * 
+     * @return Response
+     */
+    public function actionVenue(): Response
+    {
+        $venueFilterModel = new VenueSearch;
+        $venueDataProvider = $venueFilterModel->search($this->request->queryParams);
+
+        return $this->createResponse(
+            'venues',
+            compact(
+                'venueFilterModel',
+                'venueDataProvider'
+            )
+        );
+    }
+
+    /**
+     * Creates a new venue page
+     * 
+     * @return Response
+     */
+    public function actionAddVenue(): Response
+    {
+        $venue = new Venue([
+            'status' => Venue::STATUS_ACTIVE
+        ]);
+
+        if ($this->request->isPost) {
+            $venue->load($this->request->post());
+
+            if ($venue->save() && $venue->validate()) {
+                Yii::$app->session->addFlash('success', 'Venue page successfully created');
+                return $this->redirect(['/venue/view', 'venue_id' => $venue->venue_id]);
+            }
+        }
+
+        return $this->createResponse('create-venue', compact('venue'));
     }
 
     /**

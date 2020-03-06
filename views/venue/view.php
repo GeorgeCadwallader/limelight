@@ -1,34 +1,32 @@
 <?php
 
 /** @var $this yii\web\View */
-/** @var $artist app\models\Artist */
-/** @var $newReview app\models\ReviewArtist */
+/** @var $venue app\models\Venue */
+/** @var $newReview app\models\ReviewVenue */
 
 use app\auth\Item;
 use app\helpers\Html;
-use app\models\ReviewArtist;
-
+use app\models\ReviewVenue;
 use kartik\rating\StarRating;
-
 use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Url;
 
-$reviews = ReviewArtist::find()->where(['artist_id' => $artist->artist_id])->all();
+$reviews = ReviewVenue::find()->where(['venue_id' => $venue->venue_id])->all();
 
-$hasReviewed = ReviewArtist::find()
-    ->where(['artist_id' => $artist->artist_id])
+$hasReviewed = ReviewVenue::find()
+    ->where(['venue_id' => $venue->venue_id])
     ->andWhere(['created_by' => Yii::$app->user->id])
     ->exists();
 
-$this->title = $artist->name.' | '.Yii::$app->name;
+$this->title = $venue->name.' | '.Yii::$app->name;
 
 ?>
 
 <div class="row">
     <div class="col-sm-12">
         <h1>
-            <?= $artist->name; ?>
+            <?= $venue->name; ?>
         </h1>
     </div>
 </div>
@@ -37,11 +35,11 @@ $this->title = $artist->name.' | '.Yii::$app->name;
         <?= Breadcrumbs::widget([
             'links' => [
                 [
-                    'label' => 'Artists',
-                    'url' => Url::to('/artist/view')
+                    'label' => 'Venues',
+                    'url' => Url::to('/venue')
                 ],
                 [
-                    'label' => 'View Artist: '.$artist->name
+                    'label' => 'View Venue: '.$venue->name
                 ]
             ]
         ]); ?>
@@ -49,7 +47,7 @@ $this->title = $artist->name.' | '.Yii::$app->name;
 </div>
 <div class="row my-4">
     <?php foreach ($reviews as $review) { ?>
-        <?= $this->render('artist-review-single', compact('review')); ?>
+        <?= $this->render('venue-review-single', compact('review')); ?>
     <?php } ?>
 </div>
 <div class="row">
