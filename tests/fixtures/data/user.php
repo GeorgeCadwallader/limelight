@@ -67,4 +67,15 @@ return [
         'created_at' => '2020-03-03 19:23:44',
         'updated_at' => '2020-03-03 19:24:08',
     ],
+    [
+        'user_id' => '13',
+        'username' => 'georgemember3',
+        'auth_key' => 'YrNiJTy68TPy8Uoqh72Vb8xsK_MlyVlW',
+        'password_hash' => '$2y$13$c0XMRR8yCI/kqVZf25i7Ge9N6HO4d9EemjsVQquzhnFVmeyG8sEkG',
+        'password_reset_token' => null,
+        'email' => 'georgemember3@email.com',
+        'status' => '10',
+        'created_at' => '2020-03-05 00:43:30',
+        'updated_at' => '2020-03-05 00:43:45',
+    ],
 ];

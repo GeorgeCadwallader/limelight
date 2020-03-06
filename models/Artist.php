@@ -67,4 +67,9 @@ class Artist extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getReviews(): ActiveQueryInterface
+    {
+        return $this->hasMany(ReviewArtist::class, ['artist_id' => 'artist_id']);
+    }
+
 }

@@ -66,4 +66,17 @@ return [
         'created_by' => null,
         'updated_by' => '12',
     ],
+    [
+        'user_data_id' => '7',
+        'user_id' => '13',
+        'first_name' => null,
+        'last_name' => null,
+        'date_of_birth' => null,
+        'telephone' => null,
+        'county_id' => null,
+        'created_at' => '2020-03-05 00:43:45',
+        'updated_at' => '2020-03-05 00:43:45',
+        'created_by' => null,
+        'updated_by' => null,
+    ],
 ];

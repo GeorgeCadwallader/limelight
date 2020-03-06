@@ -1,9 +1,8 @@
 <?php
 
-/** @var $this yii\web\View */
-
 use app\models\Artist;
 
+/** @var $this yii\web\View */
 /** @var $artist app\models\Artist */
 
 ?>

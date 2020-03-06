@@ -91,7 +91,7 @@ if (is_file($file)) {
 </div>
 <div class="home-nav bg-white">
     <h4 class="home-nav-item m-0">
-        <a href="#" class="text-dark">
+        <a href="/artist" class="text-dark">
             Artists
         </a>
     </h4>
