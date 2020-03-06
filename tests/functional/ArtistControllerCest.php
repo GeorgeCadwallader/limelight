@@ -66,4 +66,22 @@ class ArtistControllerCest
         $I->assertEquals('1.5', $review->overall_rating);
     }
 
+    /**
+     * Tests that a member can not leave more than one review on an
+     * artist page
+     *
+     * @param \FunctionalTester $I
+     *
+     * @return void
+     */
+    public function testArtistReviewTwice(\FunctionalTester $I): void
+    {
+        $I->wantToTest('that you can not review the same artist twice');
+
+        $I->amLoggedInAs(7);
+        $I->amOnRoute('/artist/view', ['artist_id' => 2]);
+
+        $I->cantSeeElement('#create-review');
+    }
+
 }
