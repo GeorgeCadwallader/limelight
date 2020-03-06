@@ -15,6 +15,7 @@ use yii\web\BadRequestHttpException;
 
 class ReviewController extends \app\core\WebController
 {
+    
     /**
      * {@inheritdoc}
      */
@@ -55,6 +56,11 @@ class ReviewController extends \app\core\WebController
         ];
     }
 
+    /**
+     * Action for upvoting an artist or venue review
+     * 
+     * @return Response
+     */
     public function actionUpvote(int $review_id, bool $isArtist): Response
     {
         if ($isArtist) {
@@ -144,6 +150,11 @@ class ReviewController extends \app\core\WebController
         }
     }
 
+    /**
+     * Action for downvoting an artist or venue review
+     * 
+     * @return Response
+     */
     public function actionDownvote(int $review_id, bool $isArtist): Response
     {
         if ($isArtist) {
