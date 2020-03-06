@@ -13,6 +13,13 @@ class RegisterForm extends \yii\base\Model
 {
 
     /**
+     * Form user types
+     */
+    const TYPE_MEMBER = 1;
+    const TYPE_ARTIST_OWNER = 2;
+    const TYPE_VENUE_OWNER = 3;
+
+    /**
      * @var string
      */
     public $username;
@@ -38,9 +45,9 @@ class RegisterForm extends \yii\base\Model
     public $account_type;
 
     public static $accountTypes = [
-        1 => Item::ROLE_MEMBER,
-        2 => Item::ROLE_ARTIST_OWNER,
-        3 => Item::ROLE_VENUE_OWNER,
+        self::TYPE_MEMBER => Item::ROLE_MEMBER,
+        self::TYPE_ARTIST_OWNER => Item::ROLE_ARTIST_OWNER,
+        self::TYPE_VENUE_OWNER => Item::ROLE_VENUE_OWNER,
     ];
 
     /**

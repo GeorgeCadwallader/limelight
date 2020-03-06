@@ -101,7 +101,7 @@ if (is_file($file)) {
         </a>
     </h4>
     <h4 class="home-nav-item m-0">
-        <a href="#" class="text-dark">
+        <a href="/venue" class="text-dark">
             Venues
         </a>
     </h4>
