@@ -61,11 +61,11 @@ class RegisterController extends \app\core\WebController
 
             $accountType = (int)ArrayHelper::getValue($this->request->post(), 'RegisterForm.account_type');
 
-            if ($accountType === 1) {
+            if ($accountType === RegisterForm::TYPE_MEMBER) {
                 $user->updateAttributes(['roles' => [Item::ROLE_MEMBER]]);
-            } elseif ($accountType === 2) {
+            } elseif ($accountType === RegisterForm::TYPE_ARTIST_OWNER) {
                 $user->updateAttributes(['roles' => [Item::ROLE_ARTIST_OWNER]]);
-            } elseif ($accountType === 3) {
+            } elseif ($accountType === RegisterForm::TYPE_VENUE_OWNER) {
                 $user->updateAttributes(['roles' => [Item::ROLE_VENUE_OWNER]]);
             } else {
                 throw new BadRequestHttpException('Invalid Request');

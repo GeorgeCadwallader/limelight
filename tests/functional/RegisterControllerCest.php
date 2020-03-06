@@ -45,13 +45,13 @@ class RegisterControllerCest
     }
 
     /**
-     * Test that you can register on the site
+     * Test that you can register on the site as a member
      * 
      * @param \FunctionalTester $I
      *
      * @return void
      */
-    public function testRegister(\FunctionalTester $I): void
+    public function testRegisterMember(\FunctionalTester $I): void
     {
         $I->amOnRoute('/register');
         $I->submitForm('#register-form', [
@@ -69,6 +69,60 @@ class RegisterControllerCest
         $I->assertEquals('memberTest@email.com', $user->email);
         $I->assertEquals(User::STATUS_UNVERIFIED, $user->status);
         $I->assertArrayHasKey(Item::ROLE_MEMBER, Yii::$app->authManager->getRolesByUser($user->user_id));
+    }
+
+    /**
+     * Test that you can register on the site as an artist owner
+     * 
+     * @param \FunctionalTester $I
+     *
+     * @return void
+     */
+    public function testRegisterArtistOwner(\FunctionalTester $I): void
+    {
+        $I->amOnRoute('/register');
+        $I->submitForm('#register-form', [
+            'User' => [
+                'username' => 'artistOwnerTest',
+                'email' => 'artistOwnerTest@email.com'
+            ],
+            'RegisterForm' => [
+                'account_type' => '2',
+            ]
+        ]);
+
+        $user = User::find()->where(['username' => 'artistOwnerTest'])->one();
+
+        $I->assertEquals('artistOwnerTest@email.com', $user->email);
+        $I->assertEquals(User::STATUS_UNVERIFIED, $user->status);
+        $I->assertArrayHasKey(Item::ROLE_ARTIST_OWNER, Yii::$app->authManager->getRolesByUser($user->user_id));
+    }
+
+    /**
+     * Test that you can register on the site as an venue owner
+     * 
+     * @param \FunctionalTester $I
+     *
+     * @return void
+     */
+    public function testRegisterVenueOwner(\FunctionalTester $I): void
+    {
+        $I->amOnRoute('/register');
+        $I->submitForm('#register-form', [
+            'User' => [
+                'username' => 'venueOwnerTest',
+                'email' => 'venueOwnerTest@email.com'
+            ],
+            'RegisterForm' => [
+                'account_type' => '3',
+            ]
+        ]);
+
+        $user = User::find()->where(['username' => 'venueOwnerTest'])->one();
+
+        $I->assertEquals('venueOwnerTest@email.com', $user->email);
+        $I->assertEquals(User::STATUS_UNVERIFIED, $user->status);
+        $I->assertArrayHasKey(Item::ROLE_VENUE_OWNER, Yii::$app->authManager->getRolesByUser($user->user_id));
     }
 
 }
