@@ -81,4 +81,45 @@ class SiteControllerCest
         $I->seeResponseCodeIsClientError();
     }
 
+    /**
+     * Tests that you can request a password reset
+     *
+     * @param \FunctionalTester $I
+     *
+     * @return void
+     */
+    public function testPasswordResetRequest(\FunctionalTester $I): void
+    {
+        $user = User::findByEmail('georgemember3@email.com');
+
+        $I->amOnRoute('/site/request-password-reset');
+
+        $I->submitForm('#request-password-reset', [
+            'RequestPasswordResetForm' => [
+                'email' => $user->email
+            ]
+        ]);
+
+        $user->refresh();
+
+        $email = $I->grabLastSentEmail();
+        $I->assertArrayHasKey($user->email, $email->getTo());
+        $I->assertNotNull($user->password_reset_token);
+
+        $I->amOnRoute('/site/reset-password', ['token' => $user->password_reset_token]);
+        $I->seeResponseCodeIsSuccessful();
+
+        $I->submitForm('#reset-password-form', [
+            'ResetPasswordForm' => [
+                'password' => 'password1',
+                'password_repeat' => 'password1'
+            ]
+        ]);
+
+        $user->refresh();
+
+        $I->assertNull($user->password_reset_token);
+        $I->assertEquals($user->username, Yii::$app->user->identity->username);
+    }
+
 }

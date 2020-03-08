@@ -246,7 +246,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             return false;
         }
 
-        return self::getTokenExpiration($token, 'user.passwordResetTokenExpire') >= time();
+        return self::getTokenExpiration($token, 'user.activationTokenExpire') >= time();
     }
 
     /**
