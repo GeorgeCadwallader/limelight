@@ -38,7 +38,7 @@ $this->title = $artist->name.' | '.Yii::$app->name;
             'links' => [
                 [
                     'label' => 'Artists',
-                    'url' => Url::to('/artist/view')
+                    'url' => Url::to('/artist')
                 ],
                 [
                     'label' => 'View Artist: '.$artist->name

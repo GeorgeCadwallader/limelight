@@ -1,6 +1,7 @@
 <?php
 
 use app\helpers\Html;
+use app\helpers\UserDataHelper;
 use app\models\UserVote;
 use kartik\rating\StarRating;
 
@@ -29,7 +30,8 @@ $hasDownvoted = UserVote::find()
 
 <div class="col-sm-12">
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-3">
+            <?= Html::img(UserDataHelper::imageUrl($review->creator->userData), ['class' => 'img-fluid']); ?>
             <h4>
                 <?= Html::a(
                     $review->creator->username,
@@ -51,7 +53,7 @@ $hasDownvoted = UserVote::find()
                 ],
             ]); ?>
         </div>
-        <div class="col-sm-8">
+        <div class="col-sm-9">
             <h5>
                 <?= $date; ?>
             </h5>
