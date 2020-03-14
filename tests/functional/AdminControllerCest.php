@@ -5,6 +5,7 @@ declare(strict_types = 1);
 use app\auth\Item;
 use app\models\Artist;
 use app\models\County;
+use app\models\Genre;
 use app\models\OwnerRequest;
 use app\models\Region;
 use app\models\User;
@@ -232,6 +233,13 @@ class AdminControllerCest
         $I->assertEquals(Artist::STATUS_ACTIVE, $artist->status);
     }
 
+    /**
+     * Test that you can approve an artist page
+     * 
+     * @param \FunctionalTester $I
+     *
+     * @return void
+     */
     public function testApproveArtist(\FunctionalTester $I): void
     {
         $I->amLoggedInAsAdmin();
@@ -250,6 +258,85 @@ class AdminControllerCest
         $I->assertNotNull($artist);
         $I->assertEquals(Yii::$app->user->identity->email, array_key_first($email->getTo()));
         $I->assertEquals($request->created_by, $artist->managed_by);
+    }
+
+    /**
+     * Test that you can add a genre with no parent
+     * 
+     * @param \FunctionalTester $I
+     *
+     * @return void
+     */
+    public function testAddGenreNoParent(\FunctionalTester $I): void
+    {
+        $I->amLoggedInAsAdmin();
+
+        $I->amOnRoute('/admin/add-genre');
+        $I->submitForm('#genre-form', [
+            'Genre' => [
+                'name' => 'GenreTEST',
+            ]
+        ]);
+
+        $genre = Genre::find()->where(['name' => 'GenreTEST'])->one();
+
+        $I->assertNotNull($genre);
+        $I->assertNull($genre->parent_id);
+    }
+
+    /**
+     * Test that you can add a genre with a parent
+     * 
+     * @param \FunctionalTester $I
+     *
+     * @return void
+     */
+    public function testAddGenreWithParent(\FunctionalTester $I): void
+    {
+        $I->amLoggedInAsAdmin();
+
+        $I->amOnRoute('/admin/add-genre');
+        $I->submitForm('#genre-form', [
+            'Genre' => [
+                'name' => 'GenreTEST2',
+                'parent_id' => 1
+            ]
+        ]);
+
+        $genre = Genre::find()->where(['name' => 'GenreTEST2'])->one();
+        $parent = Genre::findOne(1);
+
+        $I->assertNotNull($genre);
+        $I->assertNotNull($genre->parent_id);
+        $I->assertEquals($parent->genre_id, $genre->parent_id);
+    }
+
+    /**
+     * Test that you can add edit a genre
+     * 
+     * @param \FunctionalTester $I
+     *
+     * @return void
+     */
+    public function testEditGenre(\FunctionalTester $I): void
+    {
+        $I->amLoggedInAsAdmin();
+
+        $genre = Genre::findOne(1);
+        $I->assertNotNull($genre);
+        $I->assertEquals('Rock', $genre->name);
+
+        $I->amOnRoute('/admin/edit-genre', ['genre_id' => $genre->genre_id]);
+        $I->submitForm('#genre-form', [
+            'Genre' => [
+                'name' => 'RockTEST',
+            ]
+        ]);
+
+        $genre->refresh();
+
+        $I->assertNotNull($genre);
+        $I->assertEquals('RockTEST', $genre->name);
     }
 
 }
