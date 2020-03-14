@@ -115,4 +115,22 @@ $this->title = Yii::$app->name.' | Admin panel';
             ); ?>
         </div>
     </div>
+    <div class="col-sm-6 card">
+        <div class="card-body">
+            <h2 class="card-title">Manage genres</h2>
+            <hr class="my-2">
+            <p class="card-text">
+                View and manage genres on <?= Yii::$app->name; ?>.
+                <br><br>
+                This displays all the available genres that members, artists and venues
+                can assign to their profile in order to discover related genres and attract
+                memebrs with similar genres.
+            </p>
+            <?= Html::a(
+                'View Genres',
+                '/admin/genre',
+                ['class' => 'btn btn-primary']
+            ); ?>
+        </div>
+    </div>
 </div>
