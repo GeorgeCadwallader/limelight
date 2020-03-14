@@ -5,6 +5,8 @@
 
 use app\helpers\Html;
 use app\models\County;
+use app\models\Genre;
+
 use conquer\select2\Select2Widget;
 use dosamigos\datepicker\DatePicker;
 
@@ -14,6 +16,8 @@ use yii\helpers\ArrayHelper;
 $this->title = Yii::$app->name.' | Edit '.$userData->user->username;
 
 $counties = ArrayHelper::map(County::find()->all(), 'county_id', 'name');
+
+$genres = ArrayHelper::map(Genre::find()->all(), 'genre_id', 'name');
 
 ?>
 
@@ -64,6 +68,16 @@ $counties = ArrayHelper::map(County::find()->all(), 'county_id', 'name');
                     Select2Widget::className(),
                     ['items' => $counties]
                 ); ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <?= $form->field($userData->user, 'genre')->widget(Select2Widget::className(), [
+                        'placeholder' => 'Select genres ...',
+                        'items' => $genres,
+                        'multiple' => true,
+                    ]
+                )->label('Choose your genres'); ?>
             </div>
         </div>
         <div class="row">
