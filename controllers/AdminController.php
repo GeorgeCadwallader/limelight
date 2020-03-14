@@ -5,10 +5,12 @@ namespace app\controllers;
 use app\auth\Item;
 use app\models\Artist;
 use app\models\County;
+use app\models\Genre;
 use app\models\OwnerRequest;
 use app\models\Region;
 use app\models\search\ArtistSearch;
 use app\models\search\CountySearch;
+use app\models\search\GenreSearch;
 use app\models\search\RegionSearch;
 use app\models\search\RequestSearch;
 use app\models\search\VenueSearch;
@@ -388,6 +390,73 @@ class AdminController extends \app\core\WebController
         }
 
         return $this->createResponse('edit-county', compact('county', 'edit'));
+    }
+
+    /**
+     * Action for viewing the main genre page
+     * 
+     * @return Response
+     */
+    public function actionGenre(): Response
+    {
+        $genreFilterModel = new GenreSearch;
+        $genreDataProvider = $genreFilterModel->search($this->request->queryParams);
+
+        return $this->createResponse(
+            'genres',
+            compact(
+                'genreFilterModel',
+                'genreDataProvider'
+            )
+        );
+    }
+
+    /**
+     * Action for creating a new Genre
+     * 
+     * @return Response
+     */
+    public function actionAddGenre(): Response
+    {
+        $genre = new Genre;
+        $edit = false;
+
+        if ($this->request->isPost) {
+            $genre->load($this->request->post());
+            
+            if ($genre->save() && $genre->validate()) {
+                Yii::$app->session->addFlash('success', 'Genre successfully created');
+                return $this->redirect('/admin/genre');
+            }
+        }
+
+        return $this->createResponse('edit-genre', compact('genre', 'edit'));
+    }
+
+    /**
+     * Action for editing an existing Genre
+     * 
+     * @return Response
+     */
+    public function actionEditGenre(int $genre_id): Response
+    {
+        $genre = Genre::findOne($genre_id);
+        $edit = true;
+
+        if ($genre === null) {
+            throw new BadRequestHttpException('Invalid Request');
+        }
+
+        if ($this->request->isPost) {
+            $genre->load($this->request->post());
+
+            if ($genre->save() && $genre->validate()) {
+                Yii::$app->session->addFlash('success', 'Genre successfully updated');
+                return $this->redirect('/admin/genre');
+            }
+        }
+
+        return $this->createResponse('edit-genre', compact('genre', 'edit'));
     }
 
 }

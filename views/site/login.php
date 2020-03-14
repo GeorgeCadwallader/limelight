@@ -19,7 +19,7 @@ $this->title = 'Login | '.Yii::$app->name;
         ]
     ]); ?>
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1>Login</h1>
 
     <p>Please fill out the following fields to login:</p>
 
