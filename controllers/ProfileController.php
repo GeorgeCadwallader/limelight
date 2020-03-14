@@ -10,6 +10,7 @@ use yii\base\Response;
 use yii\filters\AccessControl;
 use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
+use yii\web\UploadedFile;
 
 class ProfileController extends \app\core\WebController
 {
@@ -100,6 +101,12 @@ class ProfileController extends \app\core\WebController
         $userData = $user->userData;
 
         if ($this->request->isPost) {
+            $userData->imageFile = UploadedFile::getInstance($userData, 'imageFile');
+
+            if ($userData->imageFile !== null && !$userData->upload()) {
+                throw new BadRequestHttpException('There was an error uploading your image');
+            }
+
             if ($userData->load(Yii::$app->request->post()) && $userData->save()) {
                 Yii::$app->session->addFlash('success', 'Your profile has successfully been updated');
                 return $this->redirect('/profile');

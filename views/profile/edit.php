@@ -24,6 +24,20 @@ $counties = ArrayHelper::map(County::find()->all(), 'county_id', 'name');
         'id' => 'edit-form',
     ]); ?>
         <div class="row">
+            <?php if ($userData->profile_path !== null) { ?>
+                <div class="col-sm-4">
+                    <?= Html::img(Yii::$app->request->baseUrl.'/images/user/'.$userData->profile_path, ['class' => 'img-fluid']); ?>
+                </div>
+                <div class="col-sm-8">
+                    <?= $form->field($userData, 'imageFile')->fileInput(); ?>
+                </div>
+            <?php } else { ?>
+                <div class="col-sm-8">
+                    <?= $form->field($userData, 'imageFile')->fileInput(); ?>
+                </div>
+            <?php } ?>
+        </div>
+        <div class="row my-4">
             <div class="col-sm-6">
                 <?= $form->field($userData, 'first_name')->textInput(['autofocus' => true]); ?>
             </div>

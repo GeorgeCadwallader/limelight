@@ -4,6 +4,7 @@
 /config/*local*
 /web/.htaccess
 /web/assets
+/web/images/user
 Vagrantfile.local
 Makefile
 
