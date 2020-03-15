@@ -44,6 +44,9 @@ class Venue extends \yii\db\ActiveRecord
         self::STATUS_ACTIVE => 'Active',
     ];
 
+    /**
+     * @inheritDoc
+     */
     public function rules(): array
     {
         return [
@@ -59,6 +62,9 @@ class Venue extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * @inheritDoc
+     */
     public function behaviors(): array
     {
         return [

@@ -49,4 +49,8 @@ return [
         'version' => 'm200314_160448_add_columns_to_user_data_table',
         'apply_time' => '1584212445',
     ],
+    [
+        'version' => 'm200315_162555_add_data_tables_for_artist_and_venue',
+        'apply_time' => '1584290282',
+    ],
 ];

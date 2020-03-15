@@ -1,9 +1,11 @@
 <?php
 
 use app\models\Artist;
+use yii\bootstrap\ActiveForm;
 
 /** @var $this yii\web\View */
 /** @var $artist app\models\Artist */
+/** @var $artistData app\models\ArtistData */
 
 ?>
 
@@ -30,6 +32,17 @@ use app\models\Artist;
 </div>
 <div class="row">
     <div class="col-sm-12">
-        
+        <?php $form = ActiveForm::begin([
+            'id' => 'artist-edit-form'
+            ]); ?>
+            <div class="row">
+                <div class="col-sm-12">
+                    <?= $form->field($artistData, 'description')->textarea(); ?>
+                </div>
+                <div class="col-sm-12">
+                    <?= $form->field($artistData, 'imageFile')->fileInput(); ?>
+                </div>
+            </div>
+        <?php ActiveForm::end(); ?>
     </div>
 </div>

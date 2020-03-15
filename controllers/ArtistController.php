@@ -4,12 +4,15 @@ namespace app\controllers;
 
 use app\auth\Item;
 use app\models\Artist;
+use app\models\ArtistData;
 use app\models\OwnerRequest;
 use app\models\ReviewArtist;
+
 use Yii;
 use yii\base\Response;
 use yii\filters\AccessControl;
 use yii\web\BadRequestHttpException;
+use yii\web\UploadedFile;
 
 class ArtistController extends \app\core\WebController
 {
@@ -125,14 +128,32 @@ class ArtistController extends \app\core\WebController
             ->where(['artist_id' => $artist_id])
             ->one();
 
-        if ($artist->managed_by === Yii::$app->user->id) {
-            return $this->createResponse('edit', compact('artist'));
+        if ($artist === null) {
+            throw new BadRequestHttpException('Invalid Artist');
+        }
+
+        if ($artist->data === null) {
+            $artistData = new ArtistData(['artist_id' => $artist->artist_id]);
+
+            if (!$artistData->save()) {
+                throw new BadRequestHttpException('Invalid Request');
+            }
+        } else {
+            $artistData = $artist->data;
         }
 
         $roles = Yii::$app->authManager->getRolesByUser(Yii::$app->user->id);
 
-        if (array_key_exists(Item::ROLE_ADMIN, $roles)) {
-            return $this->createResponse('edit', compact('artist'));
+        if (array_key_exists(Item::ROLE_ADMIN, $roles) || $artist->managed_by === Yii::$app->user->id) {
+            if ($this->request->isPost) {
+                $artistData->imageFile = UploadedFile::getInstance($artistData, 'imageFile');
+
+                if ($artistData->imageFile !== null && !$artistData->upload()) {
+                    throw new BadRequestHttpException('There was an error uploading your image');
+                }
+            }
+
+            return $this->createResponse('edit', compact('artist', 'artistData'));
         }
 
         throw new BadRequestHttpException('You do not have access to edit this artist');

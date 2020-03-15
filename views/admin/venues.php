@@ -118,6 +118,13 @@ use yii\helpers\Url;
                                     ]
                                 ],
                                 [
+                                    'label' => 'Edit',
+                                    'url' => [
+                                        '/venue/edit',
+                                        'venue_id' => $model->venue_id
+                                    ]
+                                ],
+                                [
                                     'label' => 'Set status: Active',
                                     'url' => [
                                         '/admin/set-venue-status',

@@ -23,6 +23,11 @@ use yii\db\ActiveQueryInterface;
 class Artist extends \yii\db\ActiveRecord
 {
 
+    /**
+     * @var UploadedFile
+     */
+    public $imageFile;
+
     public static function tableName(): string
     {
         return '{{%artist}}';
@@ -44,6 +49,9 @@ class Artist extends \yii\db\ActiveRecord
         self::STATUS_ACTIVE => 'Active',
     ];
 
+    /**
+     * @inheritDoc
+     */
     public function rules(): array
     {
         return [
@@ -59,6 +67,9 @@ class Artist extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * @inheritDoc
+     */
     public function behaviors(): array
     {
         return [
@@ -67,9 +78,50 @@ class Artist extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * @inheritDoc
+     * 
+     * @return bool
+     */
+    public function upload(): bool
+    {
+        if ($this->validate()) {
+            if ($this->profile_path !== null) {
+                unlink(Yii::getAlias('@web').'images/artist/'.$this->profile_path);
+            }
+
+            $path = $this->imageFile->baseName.'_'.Yii::$app->security->generateRandomString(5).'.'.$this->imageFile->extension;
+
+            $this->profile_path = $path;
+            $this->save();
+
+            $this->imageFile->saveAs(
+                'images/artist/'.$path
+            );
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Get the reviews for the artist
+     * 
+     * @return ActiveQueryInterface
+     */
     public function getReviews(): ActiveQueryInterface
     {
         return $this->hasMany(ReviewArtist::class, ['artist_id' => 'artist_id']);
+    }
+
+    /**
+     * Get the data for the artist
+     * 
+     * @return ActiveQueryInterface
+     */
+    public function getData(): ActiveQueryInterface
+    {
+        return $this->hasOne(ArtistData::class, ['artist_id' => 'artist_id']);
     }
 
 }
