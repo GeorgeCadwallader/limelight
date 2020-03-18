@@ -5,6 +5,8 @@
 /web/.htaccess
 /web/assets
 /web/images/user
+/web/images/artist
+/web/images/venue
 Vagrantfile.local
 Makefile
 
