@@ -66,4 +66,32 @@ class VenueControllerCest
         $I->assertEquals('3.5', $review->overall_rating);
     }
 
+    /**
+     * Tests editing a venue page
+     * 
+     * @param \FunctionalTester $I
+     * 
+     * @return void
+     */
+    public function testVenueEdit(\FunctionalTester $I): void
+    {
+        $I->amLoggedInAsAdmin();
+
+        $venueData = Venue::findOne(1);
+        $venueData = $venueData->data;
+
+        $I->assertEquals('Venue page description', $venueData->description);
+
+        $I->amOnRoute('/venue/edit', ['venue_id' => 1]);
+        $I->submitForm('#venue-edit-form', [
+            'VenueData' => [
+                'description' => 'venue-description-change'
+            ]
+        ]);
+
+        $venueData->refresh();
+
+        $I->assertNotEquals('Venue page description', $venueData->description);
+    }
+
 }

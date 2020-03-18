@@ -8,7 +8,7 @@ return [
         'last_name' => 'Cadwallader',
         'date_of_birth' => '1998-06-02',
         'telephone' => '012345678',
-        'profile_path' => 'bird_yiZmM.jpg',
+        'profile_path' => null,
         'county_id' => '395',
         'created_at' => '1970-01-01 00:00:00',
         'updated_at' => '2020-03-14 17:38:22',
