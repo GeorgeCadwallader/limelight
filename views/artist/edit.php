@@ -1,7 +1,11 @@
 <?php
 
+use app\helpers\Html;
 use app\models\Artist;
+
+use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap\ActiveForm;
+use yii\helpers\Url;
 
 /** @var $this yii\web\View */
 /** @var $artist app\models\Artist */
@@ -9,6 +13,19 @@ use yii\bootstrap\ActiveForm;
 
 ?>
 
+<div class="row">
+    <div class="col-sm-12">
+        <?= Breadcrumbs::widget([
+            'links' => [
+                [
+                    'label' => 'View: '.$artist->name,
+                    'url' => Url::to(['/artist/view', 'artist_id' => $artist->artist_id])
+                ],
+                ['label' => 'Edit: '.$artist->name]
+            ]
+        ]); ?>
+    </div>
+</div>
 <div class="row">
     <div class="col-sm-12">
         <h1>Edit <?= $artist->name; ?></h1>
@@ -39,8 +56,22 @@ use yii\bootstrap\ActiveForm;
                 <div class="col-sm-12">
                     <?= $form->field($artistData, 'description')->textarea(); ?>
                 </div>
-                <div class="col-sm-12">
-                    <?= $form->field($artistData, 'imageFile')->fileInput(); ?>
+                <div class="row my-3">
+                    <?php if ($artistData->profile_path !== null) { ?>
+                        <div class="col-sm-4">
+                            <?= Html::img(Yii::$app->request->baseUrl.'/images/artist/'.$artistData->profile_path, ['class' => 'img-fluid']); ?>
+                        </div>
+                        <div class="col-sm-8">
+                            <?= $form->field($artistData, 'imageFile')->fileInput(); ?>
+                        </div>
+                    <?php } else { ?>
+                        <div class="col-sm-8">
+                            <?= $form->field($artistData, 'imageFile')->fileInput(); ?>
+                        </div>
+                    <?php } ?>
+                </div>
+                <div class="col-sm-12 my-3">
+                    <?= Html::submitButton('Save', ['class' => 'btn btn-primary']); ?>
                 </div>
             </div>
         <?php ActiveForm::end(); ?>
