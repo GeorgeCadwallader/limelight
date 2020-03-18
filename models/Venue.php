@@ -73,4 +73,14 @@ class Venue extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * Get the data for the Venue
+     * 
+     * @return ActiveQueryInterface
+     */
+    public function getData(): ActiveQueryInterface
+    {
+        return $this->hasOne(VenueData::class, ['venue_id' => 'venue_id']);
+    }
+
 }

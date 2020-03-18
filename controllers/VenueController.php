@@ -6,11 +6,12 @@ use app\auth\Item;
 use app\models\OwnerRequest;
 use app\models\ReviewVenue;
 use app\models\Venue;
-
+use app\models\VenueData;
 use Yii;
 use yii\base\Response;
 use yii\filters\AccessControl;
 use yii\web\BadRequestHttpException;
+use yii\web\UploadedFile;
 
 /**
  * Class for the venue actions of the app
@@ -129,14 +130,39 @@ class VenueController extends \app\core\WebController
             ->where(['venue_id' => $venue_id])
             ->one();
 
-        if ($venue->managed_by === Yii::$app->user->id) {
-            return $this->createResponse('edit', compact('venue'));
+        if ($venue === null) {
+            throw new BadRequestHttpException('Invalid Venue');
+        }
+
+        if ($venue->data === null) {
+            $venueData = new VenueData(['venue_id' => $venue->venue_id]);
+
+            if (!$venueData->save()) {
+                throw new BadRequestHttpException('Invalid Request');
+            }
+        } else {
+            $venueData = $venue->data;
         }
 
         $roles = Yii::$app->authManager->getRolesByUser(Yii::$app->user->id);
 
-        if (array_key_exists(Item::ROLE_ADMIN, $roles)) {
-            return $this->createResponse('edit', compact('venue'));
+        if (array_key_exists(Item::ROLE_ADMIN, $roles) || $venue->managed_by === Yii::$app->user->id) {
+            if ($this->request->isPost) {
+                $venueData->imageFile = UploadedFile::getInstance($venueData, 'imageFile');
+
+                if ($venueData->imageFile !== null && !$venueData->upload()) {
+                    throw new BadRequestHttpException('There was an error uploading your image');
+                }
+
+                $venueData->load($this->request->post());
+
+                if ($venueData->save() && $venueData->validate()) {
+                    Yii::$app->session->addFlash('success', 'Venue successfully updated');
+                    return $this->redirect(['/venue/view', 'venue_id' => $venue->venue_id]);
+                }
+            }
+
+            return $this->createResponse('edit', compact('venue', 'venueData'));
         }
 
         throw new BadRequestHttpException('You do not have access to edit this venue');

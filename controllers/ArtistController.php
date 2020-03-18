@@ -151,6 +151,13 @@ class ArtistController extends \app\core\WebController
                 if ($artistData->imageFile !== null && !$artistData->upload()) {
                     throw new BadRequestHttpException('There was an error uploading your image');
                 }
+
+                $artistData->load($this->request->post());
+
+                if ($artistData->save() && $artistData->validate()) {
+                    Yii::$app->session->addFlash('success', 'Artist successfully updated');
+                    return $this->redirect(['/artist/view', 'artist_id' => $artist->artist_id]);
+                }
             }
 
             return $this->createResponse('edit', compact('artist', 'artistData'));

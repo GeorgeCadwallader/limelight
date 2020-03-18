@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\auth\Item;
 use app\models\Artist;
+use app\models\ArtistData;
 use app\models\County;
 use app\models\Genre;
 use app\models\OwnerRequest;
@@ -16,6 +17,7 @@ use app\models\search\RequestSearch;
 use app\models\search\VenueSearch;
 use app\models\User;
 use app\models\Venue;
+use app\models\VenueData;
 use Yii;
 use yii\base\Response;
 use yii\filters\AccessControl;
@@ -124,10 +126,15 @@ class AdminController extends \app\core\WebController
 
         if ($this->request->isPost) {
             $venue->load($this->request->post());
-
+            
             if ($venue->save() && $venue->validate()) {
-                Yii::$app->session->addFlash('success', 'Venue page successfully created');
-                return $this->redirect(['/venue/view', 'venue_id' => $venue->venue_id]);
+                $venueData = new VenueData;
+                $venue->link('data', $venueData);
+
+                if ($venueData->save()) {
+                    Yii::$app->session->addFlash('success', 'Venue page successfully created');
+                    return $this->redirect(['/venue/view', 'venue_id' => $venue->venue_id]);
+                }
             }
         }
 
@@ -168,8 +175,13 @@ class AdminController extends \app\core\WebController
             $artist->load($this->request->post());
 
             if ($artist->save() && $artist->validate()) {
-                Yii::$app->session->addFlash('success', 'Artist page successfully created');
-                return $this->redirect(['/artist/view', 'artist_id' => $artist->artist_id]);
+                $artistData = new ArtistData;
+                $artist->link('data', $artistData);
+
+                if ($artistData->save()) {
+                    Yii::$app->session->addFlash('success', 'Artist page successfully created');
+                    return $this->redirect(['/artist/view', 'artist_id' => $artist->artist_id]);
+                }
             }
         }
 

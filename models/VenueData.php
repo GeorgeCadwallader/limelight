@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\behaviors\TimestampBehavior;
+use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\db\ActiveQueryInterface;
 
@@ -22,6 +23,11 @@ class VenueData extends \yii\db\ActiveRecord
 {
 
     /**
+     * @var UploadedFile
+     */
+    public $imageFile;
+
+    /**
      * @inheritDoc
      */
     public static function tableName(): string
@@ -37,6 +43,14 @@ class VenueData extends \yii\db\ActiveRecord
         return [
             [['description'], 'string', 'max' => 255],
             [['venue_id'], 'integer'],
+            [
+                ['imageFile'],
+                'file',
+                'skipOnEmpty' => true,
+                'tooBig' => true,
+                'maxSize' => 1024 * 1024 * 2, //2mb
+                'extensions' => 'png, jpg'
+            ],
         ];
     }
 
@@ -49,6 +63,32 @@ class VenueData extends \yii\db\ActiveRecord
             ['class' => TimestampBehavior::class],
             ['class' => BlameableBehavior::class],
         ];
+    }
+
+    /**
+     * @inheritDoc
+     * 
+     * @return bool
+     */
+    public function upload(): bool
+    {
+        if ($this->validate()) {
+            if ($this->profile_path !== null) {
+                unlink(Yii::getAlias('@web').'images/venue/'.$this->profile_path);
+            }
+
+            $path = $this->imageFile->baseName.'_'.Yii::$app->security->generateRandomString(5).'.'.$this->imageFile->extension;
+
+            $this->profile_path = $path;
+            $this->save();
+
+            $this->imageFile->saveAs(
+                'images/venue/'.$path
+            );
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

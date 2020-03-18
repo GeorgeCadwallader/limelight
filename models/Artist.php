@@ -23,11 +23,6 @@ use yii\db\ActiveQueryInterface;
 class Artist extends \yii\db\ActiveRecord
 {
 
-    /**
-     * @var UploadedFile
-     */
-    public $imageFile;
-
     public static function tableName(): string
     {
         return '{{%artist}}';
