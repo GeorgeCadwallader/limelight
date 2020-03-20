@@ -22,6 +22,8 @@ $hasReviewed = ReviewArtist::find()
     ->andWhere(['created_by' => Yii::$app->user->id])
     ->exists();
 
+$artistImg = ($artist->data->profile_path) ? Yii::$app->request->baseUrl.'/images/artist/'.$artist->data->profile_path : '/images/venue-placeholder.png';
+
 $this->title = $artist->name.' | '.Yii::$app->name;
 
 ?>
@@ -54,7 +56,7 @@ $this->title = $artist->name.' | '.Yii::$app->name;
 </div>
 <div class="row bg-white p-3">
     <div class="col-sm-4">
-        <?= Html::img(Yii::$app->request->baseUrl.'/images/artist/'.$artist->data->profile_path, ['class' => 'img-fluid']); ?>
+        <?= Html::img($artistImg, ['class' => 'img-fluid']); ?>
         <h1 class="my-2"><?= $artist->name; ?></h1>
         <?= StarRating::widget([
             'name' => 'review-artist-'.$artist->artist_id,
@@ -69,7 +71,15 @@ $this->title = $artist->name.' | '.Yii::$app->name;
         ]); ?>
     </div>
     <div class="col-sm-8">
-        <p><?= ($artist->data->description) ?? $artist->data->description; ?></p>
+        <ul class="list-group">
+            <h4>Genres</h4>
+            <?php foreach ($artist->genre as $genre) { ?>
+                <li class="list-group-item">
+                    <strong><?= $genre->name; ?></strong>
+                </li>
+            <?php } ?>
+        </ul>
+        <p><?= ($artist->data->description) ?? Html::encode($artist->data->description); ?></p>
     </div>
 </div>
 <div class="row my-4">

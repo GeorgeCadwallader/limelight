@@ -22,6 +22,8 @@ $hasReviewed = ReviewVenue::find()
     ->andWhere(['created_by' => Yii::$app->user->id])
     ->exists();
 
+$venueImg = ($venue->data->profile_path) ? Yii::$app->request->baseUrl.'/images/venue/'.$venue->data->profile_path : '/images/venue-placeholder.png';
+
 $this->title = $venue->name.' | '.Yii::$app->name;
 
 ?>
@@ -57,7 +59,7 @@ $this->title = $venue->name.' | '.Yii::$app->name;
 </div>
 <div class="row bg-white p-3">
     <div class="col-sm-4">
-        <?= Html::img(Yii::$app->request->baseUrl.'/images/venue/'.$venue->data->profile_path, ['class' => 'img-fluid']); ?>
+        <?= Html::img($venueImg, ['class' => 'img-fluid']); ?>
         <h1 class="my-2"><?= $venue->name; ?></h1>
         <?= StarRating::widget([
             'name' => 'review-venue-'.$venue->venue_id,
@@ -72,7 +74,15 @@ $this->title = $venue->name.' | '.Yii::$app->name;
         ]); ?>
     </div>
     <div class="col-sm-8">
-        <p><?= ($venue->data->description) ?? $venue->data->description; ?></p>
+        <ul class="list-group">
+            <h4>Genres</h4>
+            <?php foreach ($venue->genre as $genre) { ?>
+                <li class="list-group-item">
+                    <strong><?= $genre->name; ?></strong>
+                </li>
+            <?php } ?>
+        </ul>
+        <p><?= ($venue->data->description) ?? Html::encode($venue->data->description); ?></p>
     </div>
 </div>
 <div class="row my-4">
