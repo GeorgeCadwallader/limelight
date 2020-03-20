@@ -2,14 +2,20 @@
 
 use app\helpers\Html;
 use app\models\Artist;
+use app\models\Genre;
+
+use conquer\select2\Select2Widget;
 
 use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap\ActiveForm;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
 /** @var $this yii\web\View */
 /** @var $artist app\models\Artist */
 /** @var $artistData app\models\ArtistData */
+
+$genres = ArrayHelper::map(Genre::find()->all(), 'genre_id', 'name');
 
 ?>
 
@@ -69,6 +75,14 @@ use yii\helpers\Url;
                             <?= $form->field($artistData, 'imageFile')->fileInput(); ?>
                         </div>
                     <?php } ?>
+                </div>
+                <div class="col-sm-12">
+                    <?= $form->field($artistData->artist, 'genre')->widget(Select2Widget::className(), [
+                            'placeholder' => 'Select genres ...',
+                            'items' => $genres,
+                            'multiple' => true,
+                        ]
+                    )->label('Choose your genres'); ?>
                 </div>
                 <div class="col-sm-12 my-3">
                     <?= Html::submitButton('Save', ['class' => 'btn btn-primary']); ?>

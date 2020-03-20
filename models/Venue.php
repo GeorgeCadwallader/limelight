@@ -83,4 +83,15 @@ class Venue extends \yii\db\ActiveRecord
         return $this->hasOne(VenueData::class, ['venue_id' => 'venue_id']);
     }
 
+    /**
+     * Gets the Genres related to this venue
+     *
+     * @return ActiveQueryInterface
+     */
+    public function getGenre(): ActiveQueryInterface
+    {
+        return $this->hasMany(Genre::class, ['genre_id' => 'genre_id'])
+            ->viaTable('{{%venue_genre}}', ['venue_id' => 'venue_id']);
+    }
+
 }

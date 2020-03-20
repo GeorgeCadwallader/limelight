@@ -119,4 +119,15 @@ class Artist extends \yii\db\ActiveRecord
         return $this->hasOne(ArtistData::class, ['artist_id' => 'artist_id']);
     }
 
+    /**
+     * Gets the Genres related to this artist
+     *
+     * @return ActiveQueryInterface
+     */
+    public function getGenre(): ActiveQueryInterface
+    {
+        return $this->hasMany(Genre::class, ['genre_id' => 'genre_id'])
+            ->viaTable('{{%artist_genre}}', ['artist_id' => 'artist_id']);
+    }
+
 }

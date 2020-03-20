@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\auth\Item;
+use app\models\Genre;
 use app\models\OwnerRequest;
 use app\models\ReviewVenue;
 use app\models\Venue;
@@ -154,9 +155,25 @@ class VenueController extends \app\core\WebController
                     throw new BadRequestHttpException('There was an error uploading your image');
                 }
 
+                if (Yii::$app->request->post()['Venue']['genre']) {
+                    $venue->unlinkAll('genre', true);
+    
+                    foreach (Yii::$app->request->post()['Venue']['genre'] as $genre) {
+                        $genreModel = Genre::findOne($genre);
+    
+                        if ($genreModel === null) {
+                            throw new BadRequestHttpException('Invalid genre');
+                        }
+    
+                        $venue->link('genre', $genreModel);
+                    }
+                } else {
+                    $venue->unlinkAll('genre', true);
+                }
+
                 $venueData->load($this->request->post());
 
-                if ($venueData->save() && $venueData->validate()) {
+                if ($venueData->save() && $venueData->validate() && $venue->save()) {
                     Yii::$app->session->addFlash('success', 'Venue successfully updated');
                     return $this->redirect(['/venue/view', 'venue_id' => $venue->venue_id]);
                 }
