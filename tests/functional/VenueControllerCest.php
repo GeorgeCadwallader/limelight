@@ -81,16 +81,23 @@ class VenueControllerCest
         $venueData = $venueData->data;
 
         $I->assertEquals('Venue page description', $venueData->description);
+        $I->assertEquals(0, count($venueData->venue->genre));
 
         $I->amOnRoute('/venue/edit', ['venue_id' => 1]);
         $I->submitForm('#venue-edit-form', [
             'VenueData' => [
                 'description' => 'venue-description-change'
+            ],
+            'Venue' => [
+                'genre' => [
+                    0 => '1',
+                ]
             ]
         ]);
 
         $venueData->refresh();
 
+        $I->assertEquals(1, count($venueData->venue->genre));
         $I->assertNotEquals('Venue page description', $venueData->description);
     }
 
