@@ -44,6 +44,9 @@ class Venue extends \yii\db\ActiveRecord
         self::STATUS_ACTIVE => 'Active',
     ];
 
+    /**
+     * @inheritDoc
+     */
     public function rules(): array
     {
         return [
@@ -59,12 +62,36 @@ class Venue extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * @inheritDoc
+     */
     public function behaviors(): array
     {
         return [
             ['class' => TimestampBehavior::class],
             ['class' => BlameableBehavior::class],
         ];
+    }
+
+    /**
+     * Get the data for the Venue
+     * 
+     * @return ActiveQueryInterface
+     */
+    public function getData(): ActiveQueryInterface
+    {
+        return $this->hasOne(VenueData::class, ['venue_id' => 'venue_id']);
+    }
+
+    /**
+     * Gets the Genres related to this venue
+     *
+     * @return ActiveQueryInterface
+     */
+    public function getGenre(): ActiveQueryInterface
+    {
+        return $this->hasMany(Genre::class, ['genre_id' => 'genre_id'])
+            ->viaTable('{{%venue_genre}}', ['venue_id' => 'venue_id']);
     }
 
 }

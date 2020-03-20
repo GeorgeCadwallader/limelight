@@ -5,8 +5,10 @@ declare(strict_types = 1);
 namespace app\models;
 
 use app\behaviors\TimestampBehavior;
+use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\db\ActiveQueryInterface;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "user_data"
@@ -25,6 +27,11 @@ use yii\db\ActiveQueryInterface;
  */
 class UserData extends \yii\db\ActiveRecord
 {
+
+    /**
+     * @var UploadedFile
+     */
+    public $imageFile;
 
     /**
      * @inheritdoc
@@ -50,11 +57,22 @@ class UserData extends \yii\db\ActiveRecord
                 'max' => 255,
             ],
             [['telephone'], 'string', 'max' => 15],
+            [
+                ['imageFile'],
+                'file',
+                'skipOnEmpty' => true,
+                'tooBig' => true,
+                'maxSize' => 1024 * 1024 * 2, //2mb
+                'extensions' => 'png, jpg'
+            ],
             ['user_id', 'exist', 'targetRelation' => 'User'],
             ['county_id', 'exist', 'targetRelation' => 'County']
         ];
     }
 
+    /**
+     * @inheritDoc
+     */
     public function behaviors(): array
     {
         return [
@@ -63,6 +81,9 @@ class UserData extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * @inheritDoc
+     */
     public function attributeLabels(): array
     {
         return [
@@ -70,11 +91,47 @@ class UserData extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * @inheritDoc
+     * 
+     * @return bool
+     */
+    public function upload(): bool
+    {
+        if ($this->validate()) {
+            if ($this->profile_path !== null) {
+                unlink(Yii::getAlias('@web').'images/user/'.$this->profile_path);
+            }
+
+            $path = $this->imageFile->baseName.'_'.Yii::$app->security->generateRandomString(5).'.'.$this->imageFile->extension;
+
+            $this->profile_path = $path;
+            $this->save();
+
+            $this->imageFile->saveAs(
+                'images/user/'.$path
+            );
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Gets the user associated with this UserData
+     * 
+     * @return ActiveQueryInterface
+     */
     public function getUser(): ActiveQueryInterface
     {
         return $this->hasOne(User::class, ['user_id' => 'user_id']);
     }
 
+    /**
+     * Gets the County associated with this UserData
+     * 
+     * @return ActiveQueryInterface
+     */
     public function getCounty(): ActiveQueryInterface
     {
         return $this->hasOne(County::class, ['county_id' => 'county_id']);

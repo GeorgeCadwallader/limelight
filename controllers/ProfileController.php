@@ -3,13 +3,17 @@
 namespace app\controllers;
 
 use app\auth\Item;
+use app\models\Genre;
 use app\models\User;
 use app\models\UserData;
+use app\models\UserGenre;
 use Yii;
 use yii\base\Response;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
+use yii\web\UploadedFile;
 
 class ProfileController extends \app\core\WebController
 {
@@ -100,7 +104,29 @@ class ProfileController extends \app\core\WebController
         $userData = $user->userData;
 
         if ($this->request->isPost) {
-            if ($userData->load(Yii::$app->request->post()) && $userData->save()) {
+            $userData->imageFile = UploadedFile::getInstance($userData, 'imageFile');
+
+            if ($userData->imageFile !== null && !$userData->upload()) {
+                throw new BadRequestHttpException('There was an error uploading your image');
+            }
+
+            if (Yii::$app->request->post()['User']['genre']) {
+                $user->unlinkAll('genre', true);
+
+                foreach (Yii::$app->request->post()['User']['genre'] as $genre) {
+                    $genreModel = Genre::findOne($genre);
+
+                    if ($genreModel === null) {
+                        throw new BadRequestHttpException('Invalid genre');
+                    }
+
+                    $user->link('genre', $genreModel);
+                }
+            } else {
+                $user->unlinkAll('genre', true);
+            }
+
+            if ($userData->load(Yii::$app->request->post()) && $userData->save() && $user->save()) {
                 Yii::$app->session->addFlash('success', 'Your profile has successfully been updated');
                 return $this->redirect('/profile');
             }

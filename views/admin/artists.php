@@ -118,6 +118,13 @@ use yii\helpers\Url;
                                     ]
                                 ],
                                 [
+                                    'label' => 'Edit',
+                                    'url' => [
+                                        '/artist/edit',
+                                        'artist_id' => $model->artist_id
+                                    ]
+                                ],
+                                [
                                     'label' => 'Set status: Active',
                                     'url' => [
                                         '/admin/set-artist-status',

@@ -45,4 +45,12 @@ return [
         'version' => 'm200304_223813_create_user_vote_table',
         'apply_time' => '1583365496',
     ],
+    [
+        'version' => 'm200314_160448_add_columns_to_user_data_table',
+        'apply_time' => '1584212445',
+    ],
+    [
+        'version' => 'm200315_162555_add_data_tables_for_artist_and_venue',
+        'apply_time' => '1584290282',
+    ],
 ];

@@ -2,6 +2,8 @@
 
 declare(strict_types = 1);
 
+use app\models\UserGenre;
+
 /**
  * @category  Project
  * @package   {{package}}
@@ -37,6 +39,7 @@ class ProfileControllerCest
     public function testUpdateProfile(\FunctionalTester $I): void
     {
         $I->amLoggedInAs(7);
+        $user = Yii::$app->user->identity;
         $userData = Yii::$app->user->identity->userData;
 
         $I->amOnRoute('/profile/edit', ['user_id' => 999]);
@@ -48,6 +51,7 @@ class ProfileControllerCest
         $I->assertEquals('George', $userData->first_name);
         $I->assertEquals('1998-06-02', $userData->date_of_birth);
         $I->assertEquals('395', $userData->county_id);
+        $I->assertEquals(3, count($userData->user->genre));
 
         $I->submitForm('#edit-form', [
             'UserData' => [
@@ -56,6 +60,12 @@ class ProfileControllerCest
                 'date_of_birth' => '1980-12-25',
                 'telephone' => '012345678',
                 'county_id' => '250',
+            ],
+            'User' => [
+                'genre' => [
+                    0 => '1',
+                    1 => '2',
+                ]
             ]
         ]);
 

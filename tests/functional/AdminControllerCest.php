@@ -9,6 +9,7 @@ use app\models\Genre;
 use app\models\OwnerRequest;
 use app\models\Region;
 use app\models\User;
+use app\models\Venue;
 
 /**
  * @category  Project
@@ -205,6 +206,31 @@ class AdminControllerCest
         $I->assertNotNull($artist);
         $I->assertNull($artist->managed_by);
         $I->assertEquals(Artist::STATUS_ACTIVE, $artist->status);
+    }
+
+    /**
+     * Test that you can create an venue through the admin panel
+     * 
+     * @param \FunctionalTester $I
+     *
+     * @return void
+     */
+    public function testCreateVenueAdmin(\FunctionalTester $I): void
+    {
+        $I->amLoggedInAsAdmin();
+        $I->amOnRoute('/admin/add-venue');
+
+        $I->submitForm('#create-venue', [
+            'Venue' => [
+                'name' => 'adminVenueTest'
+            ]
+        ]);
+
+        $venue = Venue::find()->where(['name' => 'adminVenueTest'])->one();
+
+        $I->assertNotNull($venue);
+        $I->assertNull($venue->managed_by);
+        $I->assertEquals(Venue::STATUS_ACTIVE, $venue->status);
     }
 
     /**

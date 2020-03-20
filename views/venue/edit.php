@@ -1,13 +1,36 @@
 <?php
 
+use app\helpers\Html;
+use app\models\Genre;
 use app\models\Venue;
+
+use conquer\select2\Select2Widget;
+
+use yii\bootstrap4\Breadcrumbs;
+use yii\bootstrap\ActiveForm;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 
 /** @var $this yii\web\View */
 /** @var $venue app\models\venue */
+/** @var $venueData app\models\VenueData */
+
+$genres = ArrayHelper::map(Genre::find()->all(), 'genre_id', 'name');
 
 ?>
 
 <div class="row">
+    <div class="col-sm-12">
+        <?= Breadcrumbs::widget([
+            'links' => [
+                [
+                    'label' => 'View: '.$venue->name,
+                    'url' => Url::to(['/venue/view', 'venue_id' => $venue->venue_id])
+                ],
+                ['label' => 'Edit: '.$venue->name]
+            ]
+        ]); ?>
+    </div>
     <div class="col-sm-12">
         <h1>Edit <?= $venue->name; ?></h1>
     </div>
@@ -26,5 +49,43 @@ use app\models\Venue;
                 everyone who accesses <?= Yii::$app->name; ?>
             </div>
         <?php } ?>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <?php $form = ActiveForm::begin([
+            'id' => 'venue-edit-form'
+            ]); ?>
+            <div class="row">
+                <div class="col-sm-12">
+                    <?= $form->field($venueData, 'description')->textarea(); ?>
+                </div>
+                <div class="row my-3">
+                    <?php if ($venueData->profile_path !== null) { ?>
+                        <div class="col-sm-4">
+                            <?= Html::img(Yii::$app->request->baseUrl.'/images/venue/'.$venueData->profile_path, ['class' => 'img-fluid']); ?>
+                        </div>
+                        <div class="col-sm-8">
+                            <?= $form->field($venueData, 'imageFile')->fileInput(); ?>
+                        </div>
+                    <?php } else { ?>
+                        <div class="col-sm-8">
+                            <?= $form->field($venueData, 'imageFile')->fileInput(); ?>
+                        </div>
+                    <?php } ?>
+                </div>
+                <div class="col-sm-12">
+                    <?= $form->field($venueData->venue, 'genre')->widget(Select2Widget::className(), [
+                            'placeholder' => 'Select genres ...',
+                            'items' => $genres,
+                            'multiple' => true,
+                        ]
+                    )->label('Choose your genres'); ?>
+                </div>
+                <div class="col-sm-12 my-3">
+                    <?= Html::submitButton('Save', ['class' => 'btn btn-primary']); ?>
+                </div>
+            </div>
+        <?php ActiveForm::end(); ?>
     </div>
 </div>

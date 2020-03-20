@@ -5,6 +5,7 @@
 /** @var $newReview app\models\ReviewArtist */
 
 use app\auth\Item;
+use app\helpers\ArtistHelper;
 use app\helpers\Html;
 use app\models\ReviewArtist;
 
@@ -21,15 +22,21 @@ $hasReviewed = ReviewArtist::find()
     ->andWhere(['created_by' => Yii::$app->user->id])
     ->exists();
 
+$artistImg = ($artist->data->profile_path) ? Yii::$app->request->baseUrl.'/images/artist/'.$artist->data->profile_path : '/images/venue-placeholder.png';
+
 $this->title = $artist->name.' | '.Yii::$app->name;
 
 ?>
 
-<div class="row">
+<div class="row mb-3">
     <div class="col-sm-12">
-        <h1>
-            <?= $artist->name; ?>
-        </h1>
+        <?php if (Yii::$app->user->can(Item::ROLE_ADMIN) || $artist->managed_by === Yii::$app->user->id) { ?>
+            <?= Html::a(
+                'Edit '.$artist->name,
+                ['/artist/edit', 'artist_id' => $artist->artist_id],
+                ['class' => 'btn btn-primary']
+            ); ?>
+        <?php } ?>
     </div>
 </div>
 <div class="row">
@@ -38,13 +45,41 @@ $this->title = $artist->name.' | '.Yii::$app->name;
             'links' => [
                 [
                     'label' => 'Artists',
-                    'url' => Url::to('/artist/view')
+                    'url' => Url::to('/artist')
                 ],
                 [
                     'label' => 'View Artist: '.$artist->name
                 ]
             ]
         ]); ?>
+    </div>
+</div>
+<div class="row bg-white p-3">
+    <div class="col-sm-4">
+        <?= Html::img($artistImg, ['class' => 'img-fluid']); ?>
+        <h1 class="my-2"><?= $artist->name; ?></h1>
+        <?= StarRating::widget([
+            'name' => 'review-artist-'.$artist->artist_id,
+            'value' => ArtistHelper::averageOverallRating($artist),
+            'pluginOptions' => [
+                'filledStar' => '<i class="fa fa-star"></i>',
+                'emptyStar' => '<i class="fa fa-star"></i>',
+                'readonly' => true,
+                'showClear' => false,
+                'showCaption' => false,
+            ],
+        ]); ?>
+    </div>
+    <div class="col-sm-8">
+        <ul class="list-group">
+            <h4>Genres</h4>
+            <?php foreach ($artist->genre as $genre) { ?>
+                <li class="list-group-item">
+                    <strong><?= $genre->name; ?></strong>
+                </li>
+            <?php } ?>
+        </ul>
+        <p><?= ($artist->data->description) ?? Html::encode($artist->data->description); ?></p>
     </div>
 </div>
 <div class="row my-4">

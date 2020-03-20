@@ -5,6 +5,8 @@
 
 use app\helpers\Html;
 use app\models\County;
+use app\models\Genre;
+
 use conquer\select2\Select2Widget;
 use dosamigos\datepicker\DatePicker;
 
@@ -15,6 +17,8 @@ $this->title = Yii::$app->name.' | Edit '.$userData->user->username;
 
 $counties = ArrayHelper::map(County::find()->all(), 'county_id', 'name');
 
+$genres = ArrayHelper::map(Genre::find()->all(), 'genre_id', 'name');
+
 ?>
 
 <div class="container">
@@ -24,6 +28,20 @@ $counties = ArrayHelper::map(County::find()->all(), 'county_id', 'name');
         'id' => 'edit-form',
     ]); ?>
         <div class="row">
+            <?php if ($userData->profile_path !== null) { ?>
+                <div class="col-sm-4">
+                    <?= Html::img(Yii::$app->request->baseUrl.'/images/user/'.$userData->profile_path, ['class' => 'img-fluid']); ?>
+                </div>
+                <div class="col-sm-8">
+                    <?= $form->field($userData, 'imageFile')->fileInput(); ?>
+                </div>
+            <?php } else { ?>
+                <div class="col-sm-8">
+                    <?= $form->field($userData, 'imageFile')->fileInput(); ?>
+                </div>
+            <?php } ?>
+        </div>
+        <div class="row my-4">
             <div class="col-sm-6">
                 <?= $form->field($userData, 'first_name')->textInput(['autofocus' => true]); ?>
             </div>
@@ -50,6 +68,16 @@ $counties = ArrayHelper::map(County::find()->all(), 'county_id', 'name');
                     Select2Widget::className(),
                     ['items' => $counties]
                 ); ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <?= $form->field($userData->user, 'genre')->widget(Select2Widget::className(), [
+                        'placeholder' => 'Select genres ...',
+                        'items' => $genres,
+                        'multiple' => true,
+                    ]
+                )->label('Choose your genres'); ?>
             </div>
         </div>
         <div class="row">

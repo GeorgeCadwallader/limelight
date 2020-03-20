@@ -84,4 +84,37 @@ class ArtistControllerCest
         $I->cantSeeElement('#create-review');
     }
 
+    /**
+     * Tests that you can edit an artist page
+     *
+     * @param \FunctionalTester $I
+     *
+     * @return void
+     */
+    public function testArtistEdit(\FunctionalTester $I): void
+    {
+        $I->amLoggedInAsAdmin();
+
+        $artist = Artist::findOne(2);
+        $I->assertEquals('Artist page 2 description', $artist->data->description);
+        $I->assertEquals(0, count($artist->genre));
+
+        $I->amOnRoute('/artist/edit', ['artist_id' => $artist->artist_id]);
+        $I->submitForm('#artist-edit-form', [
+            'ArtistData' => [
+                'description' => 'Artist page 2 description TEST',
+            ],
+            'Artist' => [
+                'genre' => [
+                    0 => '1',
+                ]
+            ]
+        ]);
+
+        $artist->refresh();
+
+        $I->assertEquals(1, count($artist->genre));
+        $I->assertEquals('Artist page 2 description TEST', $artist->data->description);
+    }
+
 }
