@@ -8,6 +8,7 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\Response;
 use app\models\forms\LoginForm;
+use app\models\forms\RequestEmailResetForm;
 use app\models\forms\RequestPasswordResetForm;
 use app\models\forms\ResetPasswordForm;
 use app\models\forms\UserActivationForm;
@@ -203,6 +204,87 @@ class SiteController extends \app\core\WebController
         }
 
         return $this->createResponse('request-password-reset', compact('requestForm'));
+    }
+
+    /**
+     * Load page to request a new email
+     * 
+     * @return Response
+     */
+    public function actionChangeEmailRequest(): Response
+    {
+        if (Yii::$app->user->isGuest) {
+            throw new BadRequestHttpException('You must be logged in to do this');
+        }
+
+        $user = Yii::$app->user->identity;
+
+        $emailForm = new RequestEmailResetForm;
+
+        if ($this->request->isPost) {
+            $emailForm->load($this->request->post());
+
+            if ($emailForm->validate()) {
+                $user->generatePasswordResetToken();
+                $user->email_new = $emailForm->email_new;
+                $user->save();
+                Yii::$app->mailer->compose(
+                    'request-new-email-form',
+                    ['user' => $user]
+                )
+                    ->setFrom(Yii::$app->params['senderEmail'])
+                    ->setTo([$user->email_new => $user->username])
+                    ->setSubject('Email reset request | '.Yii::$app->name)
+                    ->send();
+                Yii::$app->session->addFlash('success', 'Request successfully sent');
+                return $this->goHome();
+            }
+
+            throw new BadRequestHttpException('Invalid Request');
+        }
+
+        return $this->createResponse('new-email-request', compact('emailForm'));
+    }
+
+    /**
+     * Changes a users email
+     *
+     * @param string $token
+     * @return Response
+     */
+    public function actionChangeEmail($token): Response
+    {
+        if ($token === null) {
+            throw new BadRequestHttpException('Token can not be blank');
+        }
+
+        $user = User::findByPasswordResetToken($token);
+
+        if ($user === null) {
+            throw new BadRequestHttpException('Invalid user');
+        }
+
+        $transaction = Yii::$app->db->beginTransaction();
+
+        if ($user->email_new !== null) {
+            $user->email = $user->email_new;
+            $user->email_new = null;
+            $user->password_reset_token = null;
+
+            if ($user->save()) {
+                $transaction->commit();
+                
+                if (Yii::$app->user->isGuest) {
+                    Yii::$app->user->login($user);
+                }
+
+                Yii::$app->session->addFlash('success', 'Your email has successfully been changed');
+                return $this->goHome();
+            }
+        }
+        $transaction->rollBack();
+        Yii::$app->session->addFlash('error', 'There was a problem updating your email address');
+        return $this->goHome();
     }
 
 }

@@ -53,4 +53,8 @@ return [
         'version' => 'm200315_162555_add_data_tables_for_artist_and_venue',
         'apply_time' => '1584290282',
     ],
+    [
+        'version' => 'm200321_010950_add_email_new_column_to_user_table',
+        'apply_time' => '1584755570',
+    ],
 ];

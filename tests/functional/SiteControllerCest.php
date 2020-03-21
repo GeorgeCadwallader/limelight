@@ -122,4 +122,40 @@ class SiteControllerCest
         $I->assertEquals($user->username, Yii::$app->user->identity->username);
     }
 
+    /**
+     * Tests that you can request and complete an email reset
+     *
+     * @param \FunctionalTester $I
+     *
+     * @return void
+     */
+    public function testChangeEmail(\FunctionalTester $I): void
+    {
+        $I->amLoggedInAs(12);
+
+        $user = Yii::$app->user->identity;
+
+        $I->assertEquals('georgeartistowner2@email.com', $user->email);
+        $I->assertNull($user->password_reset_token);
+        $I->assertNull($user->email_new);
+
+        $I->amOnRoute('/site/change-email-request');
+        $I->submitForm('#request-email-form', [
+            'RequestEmailResetForm' => [
+                'email_new' => 'emailchange@test.com'
+            ]
+        ]);
+
+        $email = $I->grabLastSentEmail();
+        $I->assertEquals('emailchange@test.com', array_key_first($email->getTo()));
+
+        $I->amOnRoute('/site/change-email', ['token' => $user->password_reset_token]);
+
+        $user->refresh();
+
+        $I->assertEquals('emailchange@test.com', $user->email);
+        $I->assertNull($user->password_reset_token);
+        $I->assertNull($user->email_new);
+    }
+
 }
