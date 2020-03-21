@@ -11,8 +11,15 @@ use app\helpers\Html;
         <?= Html::encode($userData->user->username); ?>
     </li>
     <li class="list-group-item">
-        <strong>Email:</strong>
-        <?= Html::encode($userData->user->email); ?>
+        <div class="row">
+            <div class="col-sm-10">
+                <strong>Email:</strong>
+                <?= Html::encode($userData->user->email); ?>
+            </div>
+            <div class="col-sm-2">
+                <?= Html::a('Change Email', '/site/change-email-request', ['class' => 'btn btn-primary']); ?>
+            </div>
+        </div>
     </li>
 </ul>
 
