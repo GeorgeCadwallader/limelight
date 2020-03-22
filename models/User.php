@@ -389,4 +389,34 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             ->viaTable('{{%user_genre}}', ['user_id' => 'user_id']);
     }
 
+    /**
+     * Gets the Artist Reviews by this user
+     *
+     * @return ActiveQueryInterface
+     */
+    public function getArtistReview(): ActiveQueryInterface
+    {
+        return $this->hasMany(ReviewArtist::class, ['created_by' => 'user_id']);
+    }
+
+    /**
+     * Gets the Venue Reviews by this user
+     *
+     * @return ActiveQueryInterface
+     */
+    public function getVenueReview(): ActiveQueryInterface
+    {
+        return $this->hasMany(ReviewVenue::class, ['created_by' => 'user_id']);
+    }
+
+    /**
+     * Get the badges for this user
+     *
+     * @return ActiveQueryInterface
+     */
+    public function getBadges(): ActiveQueryInterface
+    {
+        return $this->hasMany(UserBadge::class, ['user_id' => 'user_id']);
+    }
+
 }
