@@ -57,4 +57,8 @@ return [
         'version' => 'm200321_010950_add_email_new_column_to_user_table',
         'apply_time' => '1584755570',
     ],
+    [
+        'version' => 'm200322_170843_create_user_badge_table',
+        'apply_time' => '1584901954',
+    ],
 ];

@@ -48,9 +48,9 @@ class VenueControllerCest
      */
     public function testVenueReview(\FunctionalTester $I): void
     {
-        $I->amLoggedInAs(7);
+        $I->amLoggedInAs(13);
 
-        $I->amOnRoute('/venue/view', ['venue_id' => 1]);
+        $I->amOnRoute('/venue/view', ['venue_id' => 2]);
         $I->submitForm('#create-review', [
             'ReviewVenue' => [
                 'content' => 'georgemember test venue review',
@@ -80,13 +80,13 @@ class VenueControllerCest
         $venueData = Venue::findOne(1);
         $venueData = $venueData->data;
 
-        $I->assertEquals('Venue page description', $venueData->description);
+        $I->assertEquals('Wembley Arena description', $venueData->description);
         $I->assertEquals(0, count($venueData->venue->genre));
 
         $I->amOnRoute('/venue/edit', ['venue_id' => 1]);
         $I->submitForm('#venue-edit-form', [
             'VenueData' => [
-                'description' => 'venue-description-change'
+                'description' => 'Wembley Arena description TEST'
             ],
             'Venue' => [
                 'genre' => [
@@ -98,7 +98,7 @@ class VenueControllerCest
         $venueData->refresh();
 
         $I->assertEquals(1, count($venueData->venue->genre));
-        $I->assertNotEquals('Venue page description', $venueData->description);
+        $I->assertNotEquals('Wembley Arena description', $venueData->description);
     }
 
     /**
