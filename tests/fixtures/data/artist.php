@@ -14,7 +14,7 @@ return [
     [
         'artist_id' => '2',
         'name' => 'georgeartistpage2',
-        'managed_by' => null,
+        'managed_by' => '12',
         'status' => '10',
         'created_at' => '2020-03-03 19:25:47',
         'updated_at' => '2020-03-03 19:25:47',

@@ -4,8 +4,11 @@ declare(strict_types = 1);
 
 namespace app\helpers;
 
+use app\auth\Item;
 use app\models\Artist;
 use app\models\ReviewArtist;
+
+use Yii;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -50,6 +53,25 @@ class ArtistHelper
         }
 
         return 0;
+    }
+
+    /**
+     * Checks to see if the current user can edit an artist page
+     * 
+     * @param Artist $artist
+     * @return string
+     */
+    public static function canEdit(Artist $artist): bool
+    {
+        if (Yii::$app->user->isGuest) {
+            return false;
+        }
+
+        if (Yii::$app->user->can(Item::ROLE_ADMIN) || $artist->managed_by === Yii::$app->user->id) {
+            return true;
+        }
+
+        return false;
     }
 
 }

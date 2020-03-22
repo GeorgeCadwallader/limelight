@@ -33,11 +33,11 @@ $this->title = $venue->name.' | '.Yii::$app->name;
         <h1>
             <?= $venue->name; ?>
         </h1>
-        <?php if (Yii::$app->user->can(Item::ROLE_ADMIN) || $venue->managed_by === Yii::$app->user->id) { ?>
+        <?php if (VenueHelper::canEdit($venue)) { ?>
             <?= Html::a(
                 'Edit '.$venue->name,
                 ['/venue/edit', 'venue_id' => $venue->venue_id],
-                ['class' => 'btn btn-primary']
+                ['class' => 'btn btn-primary view-edit-button']
             ); ?>
         <?php } ?>
     </div>
