@@ -117,4 +117,33 @@ class ArtistControllerCest
         $I->assertEquals('Artist page 2 description TEST', $artist->data->description);
     }
 
+    /**
+     * Tests the authentication for displaying the edit button
+     *
+     * @param \FunctionalTester $I
+     *
+     * @return void
+     */
+    public function testArtistEditButton(\FunctionalTester $I): void
+    {
+        //guest
+        $I->amOnRoute('/artist/view', ['artist_id' => 2]);
+        $I->cantSeeElement('.view-edit-button');
+
+        //admin
+        $I->amLoggedInAsAdmin();
+        $I->amOnRoute('/artist/view', ['artist_id' => 2]);
+        $I->canSeeElement('.view-edit-button');
+
+        //manager
+        $I->amLoggedInAs(12);
+        $I->amOnRoute('/artist/view', ['artist_id' => 2]);
+        $I->canSeeElement('.view-edit-button');
+
+        //non-manager
+        $I->amLoggedInAs(11);
+        $I->amOnRoute('/artist/view', ['artist_id' => 2]);
+        $I->cantSeeElement('.view-edit-button');
+    }
+
 }

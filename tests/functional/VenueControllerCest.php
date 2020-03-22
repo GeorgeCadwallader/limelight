@@ -101,4 +101,33 @@ class VenueControllerCest
         $I->assertNotEquals('Venue page description', $venueData->description);
     }
 
+    /**
+     * Tests the authentication for displaying the edit button
+     *
+     * @param \FunctionalTester $I
+     *
+     * @return void
+     */
+    public function testVenueEditButton(\FunctionalTester $I): void
+    {
+        //guest
+        $I->amOnRoute('/venue/view', ['venue_id' => 1]);
+        $I->cantSeeElement('.view-edit-button');
+
+        //admin
+        $I->amLoggedInAsAdmin();
+        $I->amOnRoute('/venue/view', ['venue_id' => 1]);
+        $I->canSeeElement('.view-edit-button');
+
+        //manager
+        $I->amLoggedInAs(10);
+        $I->amOnRoute('/venue/view', ['venue_id' => 1]);
+        $I->canSeeElement('.view-edit-button');
+
+        //non-manager
+        $I->amLoggedInAs(11);
+        $I->amOnRoute('/venue/view', ['venue_id' => 1]);
+        $I->cantSeeElement('.view-edit-button');
+    }
+
 }
