@@ -30,11 +30,11 @@ $this->title = $artist->name.' | '.Yii::$app->name;
 
 <div class="row mb-3">
     <div class="col-sm-12">
-        <?php if (Yii::$app->user->can(Item::ROLE_ADMIN) || $artist->managed_by === Yii::$app->user->id) { ?>
+        <?php if (ArtistHelper::canEdit($artist)) { ?>
             <?= Html::a(
                 'Edit '.$artist->name,
                 ['/artist/edit', 'artist_id' => $artist->artist_id],
-                ['class' => 'btn btn-primary']
+                ['class' => 'btn btn-primary view-edit-button']
             ); ?>
         <?php } ?>
     </div>

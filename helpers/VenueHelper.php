@@ -4,8 +4,11 @@ declare(strict_types = 1);
 
 namespace app\helpers;
 
+use app\auth\Item;
 use app\models\Venue;
 use app\models\ReviewVenue;
+
+use Yii;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -50,6 +53,25 @@ class VenueHelper
         }
 
         return 0;
+    }
+
+    /**
+     * Checks to see if the current user can edit a venue page
+     * 
+     * @param Venue $venue
+     * @return string
+     */
+    public static function canEdit(Venue $venue): bool
+    {
+        if (Yii::$app->user->isGuest) {
+            return false;
+        }
+
+        if (Yii::$app->user->can(Item::ROLE_ADMIN) || $venue->managed_by === Yii::$app->user->id) {
+            return true;
+        }
+
+        return false;
     }
 
 }
