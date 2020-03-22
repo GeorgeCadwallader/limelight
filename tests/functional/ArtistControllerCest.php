@@ -96,13 +96,13 @@ class ArtistControllerCest
         $I->amLoggedInAsAdmin();
 
         $artist = Artist::findOne(2);
-        $I->assertEquals('Artist page 2 description', $artist->data->description);
+        $I->assertEquals('Tom Jones description', $artist->data->description);
         $I->assertEquals(0, count($artist->genre));
 
         $I->amOnRoute('/artist/edit', ['artist_id' => $artist->artist_id]);
         $I->submitForm('#artist-edit-form', [
             'ArtistData' => [
-                'description' => 'Artist page 2 description TEST',
+                'description' => 'Tom Jones description TEST',
             ],
             'Artist' => [
                 'genre' => [
@@ -114,7 +114,7 @@ class ArtistControllerCest
         $artist->refresh();
 
         $I->assertEquals(1, count($artist->genre));
-        $I->assertEquals('Artist page 2 description TEST', $artist->data->description);
+        $I->assertEquals('Tom Jones description TEST', $artist->data->description);
     }
 
     /**

@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace app\models;
 
 use app\behaviors\TimestampBehavior;
+use app\helpers\BadgeHelper;
 use yii\behaviors\BlameableBehavior;
 use yii\db\ActiveQueryInterface;
 
@@ -77,6 +78,22 @@ class ReviewVenue extends \yii\db\ActiveRecord
             ['class' => TimestampBehavior::class],
             ['class' => BlameableBehavior::class],
         ];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function afterSave($insert, $changedAttributes): void
+    {
+        parent::afterSave($insert, $changedAttributes);
+
+        if ($insert) {
+            if (count($this->creator->venueReview) >= UserBadge::COUNT_AMATUER_VENUE_REVIEWER) {
+                $user = User::findOne($this->created_by);
+
+                BadgeHelper::addBadge($user, UserBadge::TYPE_AMATUER_VENUE_REVIEWER);
+            }
+        }
     }
 
     /**
