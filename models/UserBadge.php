@@ -52,6 +52,7 @@ class UserBadge extends \yii\db\ActiveRecord
     {
         return [
             ['user_id', 'exist', 'targetRelation' => 'User'],
+            ['type', 'in', 'range' => array_keys(self::$badges)],
         ];
     }
 

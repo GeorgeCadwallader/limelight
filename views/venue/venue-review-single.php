@@ -1,7 +1,9 @@
 <?php
 
+use app\helpers\BadgeHelper;
 use app\helpers\Html;
 use app\models\UserVote;
+
 use kartik\rating\StarRating;
 
 /** @var $this yii\web\View */
@@ -39,6 +41,7 @@ $hasDownvoted = UserVote::find()
                     ]
                 ); ?>
             </h4>
+            <?= BadgeHelper::displayBadges($review->creator); ?>
             <?= StarRating::widget([
                 'name' => 'review-'.$review->venue->venue_id.'-'.$review->creator->user_id,
                 'value' => $review->overall_rating,

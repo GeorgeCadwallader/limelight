@@ -41,4 +41,20 @@ class BadgeHelper
         $userBadge->save();
     }
 
+    /**
+     * Returns visual representation of users badges
+     * 
+     * @return string
+     */
+    public static function displayBadges(User $user): string
+    {
+        $badges = '';
+
+        foreach ($user->badges as $badge) {
+            $badges .= Html::tag('span', UserBadge::$badges[$badge->type], ['class' => 'badge badge-pill badge-primary']);
+        }
+
+        return $badges;
+    }
+
 }

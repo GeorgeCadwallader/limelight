@@ -45,6 +45,9 @@ class BadgeControllerCest
             ->exists();
 
         $I->assertTrue($hasBadgeNew);
+
+        $I->amOnRoute('/artist/view', ['artist_id' => 6]);
+        $I->see('Amatuer Artist Reviewer', '.badge');
     }
 
     /**
@@ -78,6 +81,9 @@ class BadgeControllerCest
             ->exists();
 
         $I->assertTrue($hasBadgeNew);
+
+        $I->amOnRoute('/venue/view', ['venue_id' => 5]);
+        $I->see('Amatuer Venue Reviewer', '.badge');
     }
 
 }
