@@ -37,6 +37,7 @@ $url = ArtistHelper::imageUrl($artist);
                         'showCaption' => false,
                     ],
                 ]); ?>
+                <strong>( <?= $artist->reviewCount; ?> )</strong>
             </div>
         </div>
     </div>

@@ -75,7 +75,7 @@ class ArtistController extends \app\core\WebController
         $artistFilterModel = new ArtistFilterSearch;
         $artistDataProvider = $artistFilterModel->search($this->request->queryParams);
 
-        return $this->createResponse('index', compact('artistDataProvider'));
+        return $this->createResponse('index', compact('artistFilterModel', 'artistDataProvider'));
     }
 
     /**

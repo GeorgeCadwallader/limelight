@@ -37,6 +37,7 @@ $url = VenueHelper::imageUrl($venue);
                         'showCaption' => false,
                     ],
                 ]); ?>
+                <strong>( <?= $venue->reviewCount; ?> )</strong>
             </div>
         </div>
     </div>

@@ -6,6 +6,10 @@
         background-repeat: no-repeat;
         background-size: cover;
 
+        .rating-container {
+            display: inline-block;
+        }
+
         .rating-stars, .rating-disabled .rating-input {
             cursor: inherit;
 

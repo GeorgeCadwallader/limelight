@@ -104,4 +104,14 @@ class Venue extends \yii\db\ActiveRecord
         return $this->hasMany(ReviewVenue::class, ['venue_id' => 'venue_id']);
     }
 
+    /**
+     * Get the count of reviews for the venue
+     * 
+     * @return ActiveQueryInterface
+     */
+    public function getReviewCount(): int
+    {
+        return (int)$this->hasMany(ReviewVenue::class, ['venue_id' => 'venue_id'])->count();
+    }
+
 }
