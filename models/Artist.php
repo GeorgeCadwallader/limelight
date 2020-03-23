@@ -64,8 +64,6 @@ class Artist extends \yii\db\ActiveRecord
                 'integer',
             ],
             ['status', 'in', 'range' => array_keys(self::$statuses)],
-            ['review_artist_id', 'exist', 'targetRelation' => 'Reviews'],
-            ['artist_data_id', 'exist', 'targetRelation' => 'Data'],
         ];
     }
 
