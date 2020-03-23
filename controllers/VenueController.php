@@ -6,6 +6,8 @@ use app\auth\Item;
 use app\models\Genre;
 use app\models\OwnerRequest;
 use app\models\ReviewVenue;
+use app\models\search\VenueFilterSearch;
+use app\models\search\VenueSearch;
 use app\models\Venue;
 use app\models\VenueData;
 use Yii;
@@ -72,7 +74,10 @@ class VenueController extends \app\core\WebController
      */
     public function actionIndex(): Response
     {
-        return $this->createResponse('index');
+        $venueFilterModel = new VenueFilterSearch;
+        $venueDataProvider = $venueFilterModel->search($this->request->queryParams);
+
+        return $this->createResponse('index', compact('venueDataProvider'));
     }
 
     /**

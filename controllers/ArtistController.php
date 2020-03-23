@@ -8,9 +8,11 @@ use app\models\ArtistData;
 use app\models\Genre;
 use app\models\OwnerRequest;
 use app\models\ReviewArtist;
-
+use app\models\search\ArtistFilterSearch;
+use app\models\search\ArtistSearch;
 use Yii;
 use yii\base\Response;
+use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\BadRequestHttpException;
 use yii\web\UploadedFile;
@@ -70,7 +72,10 @@ class ArtistController extends \app\core\WebController
      */
     public function actionIndex(): Response
     {
-        return $this->createResponse('index');
+        $artistFilterModel = new ArtistFilterSearch;
+        $artistDataProvider = $artistFilterModel->search($this->request->queryParams);
+
+        return $this->createResponse('index', compact('artistDataProvider'));
     }
 
     /**
