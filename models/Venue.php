@@ -94,4 +94,14 @@ class Venue extends \yii\db\ActiveRecord
             ->viaTable('{{%venue_genre}}', ['venue_id' => 'venue_id']);
     }
 
+    /**
+     * Get the reviews for the venue
+     * 
+     * @return ActiveQueryInterface
+     */
+    public function getReviews(): ActiveQueryInterface
+    {
+        return $this->hasMany(ReviewVenue::class, ['venue_id' => 'venue_id']);
+    }
+
 }

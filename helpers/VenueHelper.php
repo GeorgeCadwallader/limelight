@@ -25,8 +25,8 @@ class VenueHelper
      */
     public static function imageUrl(Venue $venue): string
     {
-        if ($venue->profile_path !== null) {
-            return '/images/venue/'.$venue->profile_path;
+        if ($venue->data->profile_path !== null) {
+            return '/images/venue/'.$venue->data->profile_path;
         }
 
         return '/images/logo.png';

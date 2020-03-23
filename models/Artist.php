@@ -5,8 +5,10 @@ namespace app\models;
 use Yii;
 
 use app\behaviors\TimestampBehavior;
+
 use yii\behaviors\BlameableBehavior;
 use yii\db\ActiveQueryInterface;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "artist"
@@ -23,18 +25,13 @@ use yii\db\ActiveQueryInterface;
 class Artist extends \yii\db\ActiveRecord
 {
 
-    public static function tableName(): string
-    {
-        return '{{%artist}}';
-    }
-
     /**
      * Artist status definitions
      */
     const STATUS_UNVERIFIED = 1;
     const STATUS_DEACTIVATED = 2;
     const STATUS_ACTIVE = 10;
-
+    
     /**
      * Artist status definations array
      */
@@ -43,6 +40,14 @@ class Artist extends \yii\db\ActiveRecord
         self::STATUS_DEACTIVATED => 'Deactivated',
         self::STATUS_ACTIVE => 'Active',
     ];
+    
+    /**
+     * @inheritDoc
+     */
+    public static function tableName(): string
+    {
+        return '{{%artist}}';
+    }
 
     /**
      * @inheritDoc
@@ -59,6 +64,8 @@ class Artist extends \yii\db\ActiveRecord
                 'integer',
             ],
             ['status', 'in', 'range' => array_keys(self::$statuses)],
+            ['review_artist_id', 'exist', 'targetRelation' => 'Reviews'],
+            ['artist_data_id', 'exist', 'targetRelation' => 'Data'],
         ];
     }
 
@@ -107,6 +114,16 @@ class Artist extends \yii\db\ActiveRecord
     public function getReviews(): ActiveQueryInterface
     {
         return $this->hasMany(ReviewArtist::class, ['artist_id' => 'artist_id']);
+    }
+
+    /**
+     * Get the reviews count for artist
+     * 
+     * @return ActiveQueryInterface
+     */
+    public function getReviewCount(): int
+    {
+        return (int)$this->hasMany(ReviewArtist::class, ['artist_id' => 'artist_id'])->count();
     }
 
     /**

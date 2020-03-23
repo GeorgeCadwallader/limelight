@@ -1,9 +1,12 @@
 <?php
 
 /** @var $this yii\web\View */
+/** @var $venueDataProvider yii\data\ActiveDataProvider*/
 
 use app\models\Venue;
+
 use yii\bootstrap4\Breadcrumbs;
+use yii\widgets\ListView;
 
 $venues = Venue::find()->where(['status' => Venue::STATUS_ACTIVE])->all();
 
@@ -25,10 +28,12 @@ $venues = Venue::find()->where(['status' => Venue::STATUS_ACTIVE])->all();
         <h1>Venues</h1>
     </div>
 </div>
-<div class="row my-3">
-    <?php foreach ($venues as $venue) { ?>
-        <div class="col-sm-4">
-            <?= $this->render('venue-contained', compact('venue')); ?>
-        </div>
-    <?php } ?>
-</div>
+<?= ListView::widget([
+        'dataProvider' => $venueDataProvider,
+        'itemView' => 'venue-contained',
+        'options' => ['class' => 'list-view row'],
+        'summaryOptions' => ['class' => 'summary w-100 px-3'],
+        'itemOptions' => ['class' => 'col-lg-4 my-4'],
+        'layout' => "{sorter}\n{summary}\n{items}\n{pager}",
+    ]);
+?>

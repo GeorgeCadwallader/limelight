@@ -1,10 +1,12 @@
 <?php
 
 /** @var $this yii\web\View */
+/** @var $artistDataProvider yii\data\ActiveDataProvider*/
 
 use app\models\Artist;
 
 use yii\bootstrap4\Breadcrumbs;
+use yii\widgets\ListView;
 
 $artists = Artist::find()->where(['status' => Artist::STATUS_ACTIVE])->all();
 
@@ -26,10 +28,12 @@ $artists = Artist::find()->where(['status' => Artist::STATUS_ACTIVE])->all();
         <h1>Artists</h1>
     </div>
 </div>
-<div class="row my-3">
-    <?php foreach ($artists as $artist) { ?>
-        <div class="col-sm-4">
-            <?= $this->render('artist-contained', compact('artist')); ?>
-        </div>
-    <?php } ?>
-</div>
+<?= ListView::widget([
+        'dataProvider' => $artistDataProvider,
+        'itemView' => 'artist-contained',
+        'options' => ['class' => 'list-view row'],
+        'summaryOptions' => ['class' => 'summary w-100 px-3'],
+        'itemOptions' => ['class' => 'col-lg-4 my-4'],
+        'layout' => "{sorter}\n{summary}\n{items}\n{pager}",
+    ]);
+?>

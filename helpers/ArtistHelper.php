@@ -25,8 +25,8 @@ class ArtistHelper
      */
     public static function imageUrl(Artist $artist): string
     {
-        if ($artist->profile_path !== null) {
-            return '/images/artist/'.$artist->profile_path;
+        if ($artist->data->profile_path !== null) {
+            return '/images/artist/'.$artist->data->profile_path;
         }
 
         return '/images/logo.png';
