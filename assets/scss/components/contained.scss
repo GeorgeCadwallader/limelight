@@ -1,0 +1,47 @@
+.contained {
+    &-image {
+        height: 300px;
+        width: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+
+        .rating-stars, .rating-disabled .rating-input {
+            cursor: inherit;
+
+            .star i {
+                font-size: 25px;
+            }
+        }
+    }
+
+    &-link:hover {
+        text-decoration: none;
+
+        .contained-content-inner {
+            background-color: darken($off-white, 20%);
+
+            h3 {
+                font-size: 30px;
+            }
+        }
+    }
+
+    &-content {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        justify-content: flex-end;
+
+        &-inner {
+            transition: all .25s ease-in-out;
+            background-color: $off-white;
+
+            h3 {
+                transition: all .25s ease-in-out;
+                color: $primary;
+                margin: 0;
+            }
+        }
+    }
+}

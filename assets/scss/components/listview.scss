@@ -1,0 +1,23 @@
+.list-view {
+    .sorter {
+        list-style-type: none;
+        display: flex;
+        padding: 0;
+
+        li {
+            margin: 0 15px;
+
+            a.desc::after {
+                content: "\f0dd";
+                font-family: FontAwesome;
+                padding: 0 5px;
+            }
+
+            a.asc::after {
+                content: "\f0de";
+                font-family: FontAwesome;
+                padding: 0 5px;
+            }
+        }
+    }
+}
