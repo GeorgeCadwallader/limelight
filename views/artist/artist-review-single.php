@@ -30,7 +30,7 @@ $hasDownvoted = UserVote::find()
 
 ?>
 
-<div class="col-sm-12">
+<div class="col-sm-12 my-4">
     <div class="row">
         <div class="col-sm-3">
             <?= Html::img(UserDataHelper::imageUrl($review->creator->userData), ['class' => 'img-fluid']); ?>

@@ -4,7 +4,7 @@
 /** @var $model app\models\Venue */
 
 use app\helpers\VenueHelper;
-
+use app\models\ReviewVenue;
 use kartik\rating\StarRating;
 
 use yii\helpers\Url;
@@ -28,7 +28,7 @@ $url = VenueHelper::imageUrl($venue);
                 <h3><?= $venue->name; ?></h3>
                 <?= StarRating::widget([
                     'name' => 'contained-venue-'.$venue->venue_id,
-                    'value' => VenueHelper::averageOverallRating($venue),
+                    'value' => VenueHelper::averageRating($venue, ReviewVenue::REVIEW_VENUE_OVERALL),
                     'pluginOptions' => [
                         'filledStar' => '<i class="fa fa-star"></i>',
                         'emptyStar' => '<i class="fa fa-star"></i>',

@@ -41,6 +41,16 @@ class ReviewArtist extends \yii\db\ActiveRecord
     ];
 
     /**
+     * Review criteria definitions
+     */
+    const REVIEW_ARTIST_OVERALL = 'overall_rating';
+    const REVIEW_ARTIST_ENERGY = 'energy';
+    const REVIEW_ARTIST_VOCALS = 'vocals';
+    const REVIEW_ARTIST_SOUND = 'sound';
+    const REVIEW_ARTIST_STAGE_PRESENCE = 'stage_presence';
+    const REVIEW_ARTIST_SONG_AESTHETIC = 'song_aesthetic';
+
+    /**
      * @inheritdoc
      */
     public static function tableName(): string
@@ -54,7 +64,19 @@ class ReviewArtist extends \yii\db\ActiveRecord
     public function rules(): array
     {
         return [
-            [['overall_rating'], 'double', 'max' => 5, 'min' => 0],
+            [
+                [
+                    'overall_rating',
+                    'energy',
+                    'vocals',
+                    'sound',
+                    'stage_presence',
+                    'song_aesthetic'
+                ],
+                'double',
+                'max' => 5,
+                'min' => 0
+            ],
             [
                 [
                     'upvotes',
@@ -77,6 +99,31 @@ class ReviewArtist extends \yii\db\ActiveRecord
         return [
             ['class' => TimestampBehavior::class],
             ['class' => BlameableBehavior::class],
+        ];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function attributeLabels(): array
+    {
+        return [
+            'content' => 'Review content'
+        ];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function attributeHints(): array
+    {
+        return [
+            'overall_rating' => 'Your overall rating of the artist',
+            'energy' => 'How energetic was the performance you saw?',
+            'vocals' => 'How good did that artist sound?',
+            'sound' => 'How did the rest of the performance sound?',
+            'stage_presence' => 'How engaging was the artist with the crowd?',
+            'song_aesthetic' => 'How did the performance look visually?'
         ];
     }
 
