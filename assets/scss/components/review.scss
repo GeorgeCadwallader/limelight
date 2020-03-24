@@ -1,0 +1,26 @@
+.review-advanced-button[aria-expanded="false"], .review-view-button[aria-expanded="false"] {
+    &::after {
+        transition: transform .25s ease-in-out;
+        content: '\f054';
+        font-family: FontAwesome;
+        padding: 0 5px;
+        display: inline-block;
+    }
+}
+
+.review-advanced-button[aria-expanded="true"], .review-view-button[aria-expanded="true"] {
+    &::after {
+        transform: rotate(90deg);
+        transition: transform .25s ease-in-out;
+        content: '\f054';
+        font-family: FontAwesome;
+        padding: 0 5px;
+        display: inline-block;
+    }
+}
+
+.view-criteria-container {
+    .rating-stars .star {
+        font-size: 25px;
+    }
+}
