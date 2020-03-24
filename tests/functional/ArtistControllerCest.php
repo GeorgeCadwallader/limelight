@@ -54,7 +54,12 @@ class ArtistControllerCest
         $I->submitForm('#create-review', [
             'ReviewArtist' => [
                 'content' => 'georgemember3 test artist review',
-                'overall_rating' => '1.5'
+                'overall_rating' => '1.5',
+                'energy' => '2',
+                'vocals' => '3.5',
+                'sound' => '0.5',
+                'stage_presence' => '4.5',
+                'song_aesthetic' => '5'
             ]
         ]);
 
@@ -62,8 +67,14 @@ class ArtistControllerCest
                 ->orderBy(['created_at' => SORT_DESC])
                 ->one();
 
+        $I->assertNotNull($review);
         $I->assertEquals('georgemember3 test artist review', $review->content);
         $I->assertEquals('1.5', $review->overall_rating);
+        $I->assertEquals('2', $review->energy);
+        $I->assertEquals('3.5', $review->vocals);
+        $I->assertEquals('0.5', $review->sound);
+        $I->assertEquals('4.5', $review->stage_presence);
+        $I->assertEquals('5', $review->song_aesthetic);
     }
 
     /**

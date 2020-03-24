@@ -54,7 +54,12 @@ class VenueControllerCest
         $I->submitForm('#create-review', [
             'ReviewVenue' => [
                 'content' => 'georgemember test venue review',
-                'overall_rating' => '3.5'
+                'overall_rating' => '3.5',
+                'service' => '1.5',
+                'location' => '3.5',
+                'value' => '4',
+                'cleanliness' => '2',
+                'size' => '2.5'
             ]
         ]);
 
@@ -62,8 +67,14 @@ class VenueControllerCest
                 ->orderBy(['created_at' => SORT_DESC])
                 ->one();
 
+        $I->assertNotNull($review);
         $I->assertEquals('georgemember test venue review', $review->content);
         $I->assertEquals('3.5', $review->overall_rating);
+        $I->assertEquals('1.5', $review->service);
+        $I->assertEquals('3.5', $review->location);
+        $I->assertEquals('4', $review->value);
+        $I->assertEquals('2', $review->cleanliness);
+        $I->assertEquals('2.5', $review->size);
     }
 
     /**
