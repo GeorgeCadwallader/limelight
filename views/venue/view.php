@@ -63,15 +63,10 @@ $this->title = $venue->name.' | '.Yii::$app->name;
         <h1 class="my-2"><?= $venue->name; ?></h1>
         <?= StarRating::widget([
             'name' => 'review-venue-'.$venue->venue_id,
-            'value' => VenueHelper::averageOverallRating($venue),
-            'pluginOptions' => [
-                'filledStar' => '<i class="fa fa-star"></i>',
-                'emptyStar' => '<i class="fa fa-star"></i>',
-                'readonly' => true,
-                'showClear' => false,
-                'showCaption' => false,
-            ],
+            'value' => VenueHelper::averageRating($venue, ReviewVenue::REVIEW_VENUE_OVERALL),
+            'pluginOptions' => Yii::$app->params['reviewVenueDisplay']
         ]); ?>
+        <?= $this->render('criteria', compact('venue')); ?>
     </div>
     <div class="col-sm-8">
         <ul class="list-group">
@@ -92,25 +87,6 @@ $this->title = $venue->name.' | '.Yii::$app->name;
 </div>
 <div class="row">
     <?php if (Yii::$app->user->can(Item::ROLE_MEMBER) && !$hasReviewed) { ?>
-        <div class="col-sm-12">
-            <div class="card card-body">
-                <?php $form = ActiveForm::begin([
-                    'id' => 'create-review',
-                ]); ?>
-                    <?= $form->field($newReview, 'content')->textarea(); ?>
-                    <?= $form->field($newReview, 'overall_rating')->widget(StarRating::class, [
-                        'pluginOptions' => [
-                            'filledStar' => '<i class="fa fa-star"></i>',
-                            'emptyStar' => '<i class="fa fa-star"></i>',
-                            'min' => 0,
-                            'max' => 5,
-                            'step' => 0.5,
-                            'showCaption' => false,
-                        ]
-                    ]); ?>
-                    <?= Html::submitButton('Save Review', ['class' => 'btn btn-primary']); ?>
-                <?php ActiveForm::end(); ?>
-            </div>
-        </div>
+        <?= $this->render('venue-create-review', compact('newReview')); ?>
     <?php } ?>
 </div>

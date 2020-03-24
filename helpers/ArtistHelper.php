@@ -33,19 +33,20 @@ class ArtistHelper
     }
 
     /**
-     * Gets the average score of the overall rating for the artist
+     * Gets the average score of the rating for the artist
      * 
      * @param Artist $artist
+     * @param string $type
      * @return string
      */
-    public static function averageOverallRating(Artist $artist): float
+    public static function averageRating(Artist $artist, string $type): float
     {
         $ratingsQuery = ReviewArtist::find()
             ->where(['artist_id' => $artist->artist_id])
             ->andWhere(['status' => ReviewArtist::STATUS_ACTIVE]);
 
         if ($ratingsQuery->exists()) {
-            $ratings = ArrayHelper::map($ratingsQuery->all(), 'review_artist_id', 'overall_rating');
+            $ratings = ArrayHelper::map($ratingsQuery->all(), 'review_artist_id', $type);
     
             $average = array_sum($ratings)/count($ratings);
     

@@ -41,6 +41,16 @@ class ReviewVenue extends \yii\db\ActiveRecord
     ];
 
     /**
+     * Review criteria definitions
+     */
+    const REVIEW_VENUE_OVERALL = 'overall_rating';
+    const REVIEW_VENUE_SERVICE = 'service';
+    const REVIEW_VENUE_LOCATION = 'location';
+    const REVIEW_VENUE_VALUE = 'value';
+    const REVIEW_VENUE_CLEANLINESS = 'cleanliness';
+    const REVIEW_VENUE_SIZE = 'size';
+
+    /**
      * @inheritdoc
      */
     public static function tableName(): string
@@ -54,7 +64,19 @@ class ReviewVenue extends \yii\db\ActiveRecord
     public function rules(): array
     {
         return [
-            [['overall_rating'], 'double', 'max' => 5, 'min' => 0],
+            [
+                [
+                    'overall_rating',
+                    'service',
+                    'location',
+                    'value',
+                    'cleanliness',
+                    'size'
+                ],
+                'double',
+                'max' => 5,
+                'min' => 0
+            ],
             [
                 [
                     'upvotes',
@@ -77,6 +99,31 @@ class ReviewVenue extends \yii\db\ActiveRecord
         return [
             ['class' => TimestampBehavior::class],
             ['class' => BlameableBehavior::class],
+        ];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function attributeLabels(): array
+    {
+        return [
+            'content' => 'Review content'
+        ];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function attributeHints(): array
+    {
+        return [
+            'overall_rating' => 'Your overall rating of the venue',
+            'service' => 'How was the facilities of the venue?',
+            'location' => 'How was it getting to the venue?',
+            'value' => 'Was the venue expensive?',
+            'cleanliness' => 'How clean was the venue?',
+            'size' => 'How spacious is the venue?'
         ];
     }
 

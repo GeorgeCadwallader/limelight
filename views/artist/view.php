@@ -60,15 +60,10 @@ $this->title = $artist->name.' | '.Yii::$app->name;
         <h1 class="my-2"><?= $artist->name; ?></h1>
         <?= StarRating::widget([
             'name' => 'review-artist-'.$artist->artist_id,
-            'value' => ArtistHelper::averageOverallRating($artist),
-            'pluginOptions' => [
-                'filledStar' => '<i class="fa fa-star"></i>',
-                'emptyStar' => '<i class="fa fa-star"></i>',
-                'readonly' => true,
-                'showClear' => false,
-                'showCaption' => false,
-            ],
+            'value' => ArtistHelper::averageRating($artist, ReviewArtist::REVIEW_ARTIST_OVERALL),
+            'pluginOptions' => Yii::$app->params['reviewArtistDisplay']
         ]); ?>
+        <?= $this->render('criteria', compact('artist')); ?>
     </div>
     <div class="col-sm-8">
         <ul class="list-group">
@@ -89,25 +84,6 @@ $this->title = $artist->name.' | '.Yii::$app->name;
 </div>
 <div class="row">
     <?php if (Yii::$app->user->can(Item::ROLE_MEMBER) && !$hasReviewed) { ?>
-        <div class="col-sm-12">
-            <div class="card card-body">
-                <?php $form = ActiveForm::begin([
-                    'id' => 'create-review',
-                ]); ?>
-                    <?= $form->field($newReview, 'content')->textarea(); ?>
-                    <?= $form->field($newReview, 'overall_rating')->widget(StarRating::class, [
-                        'pluginOptions' => [
-                            'filledStar' => '<i class="fa fa-star"></i>',
-                            'emptyStar' => '<i class="fa fa-star"></i>',
-                            'min' => 0,
-                            'max' => 5,
-                            'step' => 0.5,
-                            'showCaption' => false,
-                        ]
-                    ]); ?>
-                    <?= Html::submitButton('Save Review', ['class' => 'btn btn-primary']); ?>
-                <?php ActiveForm::end(); ?>
-            </div>
-        </div>
+        <?= $this->render('artist-create-review', compact('newReview')); ?>
     <?php } ?>
 </div>

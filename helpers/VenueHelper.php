@@ -33,19 +33,19 @@ class VenueHelper
     }
 
     /**
-     * Gets the average score of the overall rating for the venue
+     * Gets the average score of the rating for the venue
      * 
      * @param Venue $venue
      * @return string
      */
-    public static function averageOverallRating(Venue $venue): float
+    public static function averageRating(Venue $venue, string $type): float
     {
         $ratingsQuery = ReviewVenue::find()
             ->where(['venue_id' => $venue->venue_id])
             ->andWhere(['status' => ReviewVenue::STATUS_ACTIVE]);
 
         if ($ratingsQuery->exists()) {
-            $ratings = ArrayHelper::map($ratingsQuery->all(), 'review_venue_id', 'overall_rating');
+            $ratings = ArrayHelper::map($ratingsQuery->all(), 'review_venue_id', $type);
     
             $average = array_sum($ratings)/count($ratings);
     

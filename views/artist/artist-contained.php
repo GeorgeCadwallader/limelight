@@ -4,7 +4,7 @@
 /** @var $model app\models\Artist */
 
 use app\helpers\ArtistHelper;
-
+use app\models\ReviewArtist;
 use kartik\rating\StarRating;
 
 use yii\helpers\Url;
@@ -28,7 +28,7 @@ $url = ArtistHelper::imageUrl($artist);
                 <h3><?= $artist->name; ?></h3>
                 <?= StarRating::widget([
                     'name' => 'contained-artist-'.$artist->artist_id,
-                    'value' => ArtistHelper::averageOverallRating($artist),
+                    'value' => ArtistHelper::averageRating($artist, ReviewArtist::REVIEW_ARTIST_OVERALL),
                     'pluginOptions' => [
                         'filledStar' => '<i class="fa fa-star"></i>',
                         'emptyStar' => '<i class="fa fa-star"></i>',

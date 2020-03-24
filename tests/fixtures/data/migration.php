@@ -61,4 +61,8 @@ return [
         'version' => 'm200322_170843_create_user_badge_table',
         'apply_time' => '1584901954',
     ],
+    [
+        'version' => 'm200324_173613_add_columns_to_review_tables',
+        'apply_time' => '1585071795',
+    ],
 ];
