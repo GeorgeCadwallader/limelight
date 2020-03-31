@@ -1,7 +1,5 @@
 
 $('.compare-artist-select').on('change', function (event) {
-    console.log('changed');
-
     var previous = $(this).data('previous');
     $('.compare-artist-select').not(this).find('option[value="' + previous + '"]').show();
     var value = $(this).val();
