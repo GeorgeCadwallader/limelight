@@ -211,6 +211,28 @@ class AdminController extends \app\core\WebController
     }
 
     /**
+     * Action for setting the status of a venue
+     * 
+     * @return Response
+     */
+    public function actionSetVenueStatus(int $venue_id, int $status): Response
+    {
+        $venue = Venue::findOne($venue_id);
+
+        if ($venue === null) {
+            throw new BadRequestHttpException('Invalid venue');
+        }
+
+        $venue->status = $status;
+
+        if (!$venue->save()) {
+            throw new BadRequestHttpException('Unable to update venue status');
+        }
+
+        return $this->redirect('/admin/venue');
+    }
+
+    /**
      * Action for an viewing the existing owner requests on the site
      * 
      * @return Response
