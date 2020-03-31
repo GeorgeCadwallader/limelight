@@ -260,6 +260,32 @@ class AdminControllerCest
     }
 
     /**
+     * Testing setting the venue status in the admin panel
+     * 
+     * @param \FunctionalTester $I
+     * 
+     * @return void
+     */
+    public function testSetVenueStatus(\FunctionalTester $I): void
+    {
+        $I->amLoggedInAsAdmin();
+
+        $I->amOnRoute('/admin/set-venue-status', ['venue_id' => 999, 'status' => 10]);
+        $I->seeResponseCodeIsClientError();
+
+        $I->amOnRoute('/admin/set-venue-status', ['venue_id' => 1, 'status' => 999]);
+        $I->seeResponseCodeIsClientError();
+
+        $venue = Venue::findOne(1);
+        $I->assertEquals(Venue::STATUS_ACTIVE, $venue->status);
+
+        $I->amOnRoute('/admin/set-venue-status', ['venue_id' => $venue->venue_id, 'status' => Venue::STATUS_DEACTIVATED]);
+
+        $venue->refresh();
+        $I->assertEquals(Venue::STATUS_DEACTIVATED, $venue->status);
+    }
+
+    /**
      * Test that you can approve an artist page
      * 
      * @param \FunctionalTester $I
