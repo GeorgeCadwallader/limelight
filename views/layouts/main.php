@@ -111,12 +111,41 @@ if (is_file($file)) {
     <?= Alert::widget() ?>
     <?= $content ?>
 </div>
+<!-- 
 
 <footer class="footer">
-    <div class="container-fluid">
-        <p class="pull-left">&copy; Limelight <?= date('Y') ?></p>
+    <<div class="container-fluid">
+        <p class="pull-left">&copy; Limelight</p>
     </div>
-</footer>
+
+    -->
+<footer id="llfooter" class="py-4 text-white-50">
+    <div class="container text-center">
+      <small >Copyright &copy; Limelight <?= date('Y') ?> 
+    <br></br>
+    </small>
+
+      <div class="social-icons align-content-center">
+
+        <a class="social-icon social-icon--twitter" href="https://www.facebook.com/Studiogenix" style="text-decoration: none;">
+            <i class="fa fa-twitter"></i>
+      <div class="tooltip">Twitter</div>
+  </a>
+        <a class="social-icon social-icon--instagram" href="https://www.facebook.com/Studiogenix" style="text-decoration: none;">
+            <i class="fa fa-instagram"></i>
+       <div class="tooltip">Instagram</div>
+  </a>
+        <a class="social-icon social-icon--linkedin" href="https://www.linkedin.com/company/42078791" style="text-decoration: none;">
+            <i class="fa fa-linkedin"></i>
+        <div class="tooltip">LinkedIn</div>
+  </a>
+        <a class="social-icon social-icon--facebook" href="https://www.facebook.com/Studiogenix" style="text-decoration: none;">
+            <i class="fa fa-facebook"></i>
+        <div class="tooltip">Facebook</div>
+  </a>
+</div>
+    </div>
+  </footer>
 
 <?php $this->endBody() ?>
 </body>
