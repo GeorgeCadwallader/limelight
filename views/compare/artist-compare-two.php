@@ -9,11 +9,11 @@ use yii\bootstrap4\Breadcrumbs;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
-$query = Artist::find();
+$query = Artist::find()->where(['status' => Artist::STATUS_ACTIVE]);
 
 $artists = ArrayHelper::map($query->all(), 'artist_id', 'name');
 
-$filteredArtists = ArrayHelper::map($query->where(['!=', 'artist_id', $artistTwo->artist_id])->all(), 'artist_id', 'name');
+$filteredArtists = ArrayHelper::map($query->andWhere(['!=', 'artist_id', $artistTwo->artist_id])->all(), 'artist_id', 'name');
 
 ?>
 

@@ -7,7 +7,7 @@ use yii\bootstrap4\Breadcrumbs;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
-$venues = ArrayHelper::map(Venue::find()->all(), 'venue_id', 'name');
+$venues = ArrayHelper::map(Venue::find()->where(['status' => Venue::STATUS_ACTIVE])->all(), 'venue_id', 'name');
 
 ?>
 

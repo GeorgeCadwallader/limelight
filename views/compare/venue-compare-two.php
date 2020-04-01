@@ -9,11 +9,11 @@ use yii\bootstrap4\Breadcrumbs;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
-$query = Venue::find();
+$query = Venue::find()->where(['status' => Venue::STATUS_ACTIVE]);
 
 $venues = ArrayHelper::map($query->all(), 'venue_id', 'name');
 
-$filteredVenues = ArrayHelper::map($query->where(['!=', 'venue_id', $venueTwo->venue_id])->all(), 'venue_id', 'name');
+$filteredVenues = ArrayHelper::map($query->andWhere(['!=', 'venue_id', $venueTwo->venue_id])->all(), 'venue_id', 'name');
 
 ?>
 

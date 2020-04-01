@@ -7,7 +7,7 @@ use yii\bootstrap4\Breadcrumbs;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
-$artists = ArrayHelper::map(Artist::find()->all(), 'artist_id', 'name');
+$artists = ArrayHelper::map(Artist::find()->where(['status' => Artist::STATUS_ACTIVE])->all(), 'artist_id', 'name');
 
 ?>
 
