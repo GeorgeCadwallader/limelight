@@ -1,13 +1,13 @@
 #llfooter {
     flex-shrink: none;
-    background-color: #064000 !important;
+    background-color: $dark-green;
   }
 
 
-  $color-twitter: #0d8000;
-  $color-instagram: #0d8000;
-  $color-linkedin: #0d8000;
-  $color-facebook: #0d8000;
+  $color-twitter: $green;
+  $color-instagram: $green;
+  $color-linkedin: $green;
+  $color-facebook: $green;
   
   /* Social Icon Mixin */
   @mixin social-icon($color) {
