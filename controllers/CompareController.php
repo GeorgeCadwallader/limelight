@@ -4,11 +4,38 @@ namespace app\controllers;
 
 use app\models\Artist;
 use app\models\Venue;
+
 use yii\base\Response;
+use yii\filters\AccessControl;
 use yii\web\BadRequestHttpException;
 
+/**
+ * Class for the compare actions
+ */
 class CompareController extends \app\core\WebController
 {
+
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors(): array
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => [
+                            'index',
+                            'artist',
+                            'venue'
+                        ]
+                    ]
+                ],
+            ]
+        ];
+    }
 
     /**
      * {@inheritdoc}
@@ -27,10 +54,22 @@ class CompareController extends \app\core\WebController
     }
 
     /**
+     * Index action for the compare controller
+     * 
+     * @return Response
+     */
+    public function actionIndex(): Response
+    {
+        return $this->createResponse('index');
+    }
+
+    /**
      * Render the comparison page for artists
      * 
      * @param int $artist_id_one
      * @param int $artist_id_two
+     * 
+     * @return Response
      */
     public function actionArtist(int $artist_id_one = null, int $artist_id_two = null): Response
     {
