@@ -74,4 +74,52 @@ class VenueHelper
         return false;
     }
 
+    /**
+     * Gets the status colour for an venue when comparing
+     * 
+     * @param Venue $venueOne
+     * @param Venue $artistTwo
+     * 
+     * @return string
+     */
+    public static function getCompareColorVenueOne(Venue $venueOne, Venue $venueTwo, string $type): string
+    {
+        $venueOneRating = self::averageRating($venueOne, $type);
+        $venueTwoRating = self::averageRating($venueTwo, $type);
+
+        if ($venueOneRating > $venueTwoRating) {
+            return 'bg-primary';
+        }
+
+        if ($venueOneRating < $venueTwoRating) {
+            return 'bg-danger';
+        }
+
+        return 'bg-warning';
+    }
+
+    /**
+     * Gets the status colour for an venue when comparing
+     * 
+     * @param Venue $venueOne
+     * @param Venue $artistTwo
+     * 
+     * @return string
+     */
+    public static function getCompareColorVenueTwo(Venue $venueOne, Venue $venueTwo, string $type): string
+    {
+        $venueOneRating = self::averageRating($venueOne, $type);
+        $venueTwoRating = self::averageRating($venueTwo, $type);
+
+        if ($venueOneRating < $venueTwoRating) {
+            return 'bg-primary';
+        }
+
+        if ($venueOneRating > $venueTwoRating) {
+            return 'bg-danger';
+        }
+
+        return 'bg-warning';
+    }
+
 }

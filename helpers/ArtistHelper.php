@@ -75,4 +75,52 @@ class ArtistHelper
         return false;
     }
 
+    /**
+     * Gets the status colour for an artist when comparing
+     * 
+     * @param Artist $artistOne
+     * @param Artist $artistTwo
+     * 
+     * @return string
+     */
+    public static function getCompareColorArtistOne(Artist $artistOne, Artist $artistTwo, string $type): string
+    {
+        $artistOneRating = self::averageRating($artistOne, $type);
+        $artistTwoRating = self::averageRating($artistTwo, $type);
+
+        if ($artistOneRating > $artistTwoRating) {
+            return 'bg-primary';
+        }
+
+        if ($artistOneRating < $artistTwoRating) {
+            return 'bg-danger';
+        }
+
+        return 'bg-warning';
+    }
+
+    /**
+     * Gets the status colour for an artist when comparing
+     * 
+     * @param Artist $artistOne
+     * @param Artist $artistTwo
+     * 
+     * @return string
+     */
+    public static function getCompareColorArtistTwo(Artist $artistOne, Artist $artistTwo, string $type): string
+    {
+        $artistOneRating = self::averageRating($artistOne, $type);
+        $artistTwoRating = self::averageRating($artistTwo, $type);
+
+        if ($artistOneRating < $artistTwoRating) {
+            return 'bg-primary';
+        }
+
+        if ($artistOneRating > $artistTwoRating) {
+            return 'bg-danger';
+        }
+
+        return 'bg-warning';
+    }
+
 }
