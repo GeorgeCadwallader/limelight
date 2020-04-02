@@ -30,6 +30,26 @@ class ProfileControllerCest
     }
 
     /**
+     * Tests viewing a user profile
+     * 
+     * @param \FunctionalTester $I
+     * 
+     * @return void
+     */
+    public function testView(\FunctionalTester $I): void
+    {
+        $I->amOnRoute('/profile/view', ['user_id' => 7]);
+        $I->seeResponseCodeIsSuccessful();
+
+        $I->amLoggedInAs(7);
+        $I->amOnRoute('/profile/view', ['user_id' => 7]);
+        $I->seeCurrentUrlEquals('/profile');
+
+        $I->amOnRoute('/profile/view', ['user_id' => 999]);
+        $I->canSeeResponseCodeIsClientError();
+    }
+
+    /**
      * Tests that a user can update their profile
      * 
      * @param \FuncionalTester $I
