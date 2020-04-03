@@ -30,7 +30,9 @@ class ReviewController extends \app\core\WebController
                         'actions' => [
                             'upvote',
                             'downvote',
-                            'create-artist'
+                            'create-artist',
+                            'edit-artist',
+                            'edit-venue'
                         ],
                         'roles' => [Item::ROLE_MEMBER],
                     ]
@@ -54,6 +56,55 @@ class ReviewController extends \app\core\WebController
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
         ];
+    }
+
+    /**
+     * Action for editing a review for an artist
+     * 
+     * @return Response
+     */
+    public function actionEditArtist(int $review_id): Response
+    {
+        $review = ReviewArtist::findOne($review_id);
+
+        if ($review === null) {
+            throw new BadRequestHttpException('Invalid review');
+        }
+
+        $review->load($this->request->post());
+
+        if ($review->save() && $review->validate()) {
+            Yii::$app->session->setFlash('success', 'Review successfully edited');
+            return $this->redirect(['/artist/view', 'artist_id' => $review->artist_id]);
+        }
+
+        Yii::$app->session->addFlash('error', 'We are unable to update your review');
+        return $this->redirect(['/artist/view', 'artist_id' => $review->artist_id]);
+    }
+
+    /**
+     * Action for editing a review for an venue
+     * 
+     * @return Response
+     */
+    public function actionEditVenue(int $review_id): Response
+    {
+        $review = ReviewVenue::findOne($review_id);
+
+        if ($review === null) {
+            throw new BadRequestHttpException('Invalid review');
+        }
+
+        if ($this->request->isPost) {
+            $review->load($this->request->post());
+
+            if ($review->save() && $review->validate()) {
+                Yii::$app->session->setFlash('success', 'Review successfully edited');
+                return $this->redirect(['/venue/view', 'venue_id' => $review->venue_id]);
+            }
+
+            throw new BadRequestHttpException('Unable to update your review');
+        }
     }
 
     /**

@@ -2,6 +2,7 @@
 
 use app\helpers\BadgeHelper;
 use app\helpers\Html;
+use app\helpers\UserDataHelper;
 use app\models\UserVote;
 
 use kartik\rating\StarRating;
@@ -29,9 +30,10 @@ $hasDownvoted = UserVote::find()
 
 ?>
 
-<div class="col-sm-12">
-    <div class="row">
+<div class="col-sm-12 review-single-container">
+    <div class="row <?= 'review-view-container-'.$review->review_venue_id; ?>">
         <div class="col-sm-4">
+            <?= Html::img(UserDataHelper::imageUrl($review->creator->userData), ['class' => 'img-fluid']); ?>
             <h4>
                 <?= Html::a(
                     $review->creator->username,
@@ -55,6 +57,18 @@ $hasDownvoted = UserVote::find()
             ]); ?>
         </div>
         <div class="col-sm-8">
+            <?php if ($review->creator->user_id === Yii::$app->user->id) { ?>
+                <div class="text-right">
+                    <?= Html::a(
+                        'Edit Review'.Html::icon('pencil', ['class' => 'pl-3']),
+                        '#edit',
+                        [
+                            'class' => 'review-edit-btn btn btn-primary',
+                            'data-review-id' => $review->review_venue_id
+                        ]
+                    ); ?>
+                </div>
+            <?php } ?>
             <h5>
                 <?= $date; ?>
             </h5>
@@ -87,4 +101,11 @@ $hasDownvoted = UserVote::find()
             </p>
         </div>
     </div>
+    <?php if ($review->creator->user_id === Yii::$app->user->id) { ?>
+        <div class="row review-edit-container review-edit-container-<?= $review->review_venue_id; ?>">
+            <div class="col-sm-12">
+                <?= $this->render('./partials/venue-review-edit', compact('review')); ?>
+            </div>
+        </div>
+    <?php } ?>
 </div>

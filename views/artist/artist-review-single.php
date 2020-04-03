@@ -30,8 +30,8 @@ $hasDownvoted = UserVote::find()
 
 ?>
 
-<div class="col-sm-12 my-4">
-    <div class="row">
+<div class="col-sm-12 review-single-container">
+    <div class="row <?= 'review-view-container-'.$review->review_artist_id; ?>">
         <div class="col-sm-3">
             <?= Html::img(UserDataHelper::imageUrl($review->creator->userData), ['class' => 'img-fluid']); ?>
             <h4>
@@ -57,6 +57,18 @@ $hasDownvoted = UserVote::find()
             ]); ?>
         </div>
         <div class="col-sm-9">
+            <?php if ($review->creator->user_id === Yii::$app->user->id) { ?>
+                <div class="text-right">
+                    <?= Html::a(
+                        'Edit Review'.Html::icon('pencil', ['class' => 'pl-3']),
+                        '#edit',
+                        [
+                            'class' => 'review-edit-btn btn btn-primary',
+                            'data-review-id' => $review->review_artist_id
+                        ]
+                    ); ?>
+                </div>
+            <?php } ?>
             <h5>
                 <?= $date; ?>
             </h5>
@@ -89,4 +101,11 @@ $hasDownvoted = UserVote::find()
             </p>
         </div>
     </div>
+    <?php if ($review->creator->user_id === Yii::$app->user->id) { ?>
+        <div class="row review-edit-container review-edit-container-<?= $review->review_artist_id; ?>">
+            <div class="col-sm-12">
+                <?= $this->render('./partials/artist-review-edit', compact('review')); ?>
+            </div>
+        </div>
+    <?php } ?>
 </div>
