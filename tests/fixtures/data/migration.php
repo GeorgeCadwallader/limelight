@@ -65,4 +65,8 @@ return [
         'version' => 'm200324_173613_add_columns_to_review_tables',
         'apply_time' => '1585071795',
     ],
+    [
+        'version' => 'm200405_143040_create_events_table',
+        'apply_time' => '1586099499',
+    ],
 ];
