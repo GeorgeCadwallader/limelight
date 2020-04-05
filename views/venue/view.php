@@ -73,7 +73,7 @@ $this->title = $venue->name.' | '.Yii::$app->name;
             <h4>Genres</h4>
             <?php foreach ($venue->genre as $genre) { ?>
                 <li class="list-group-item">
-                    <strong><?= $genre->name; ?></strong>
+                    <?= Html::a($genre->name, ['/genre/view', 'genre_id' => $genre->genre_id]); ?>
                 </li>
             <?php } ?>
         </ul>

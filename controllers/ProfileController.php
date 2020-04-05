@@ -135,4 +135,24 @@ class ProfileController extends \app\core\WebController
         return $this->createResponse('edit', compact('userData'));
     }
 
+    /**
+     * View someone elses profile
+     * 
+     * @return Response
+     */
+    public function actionView(int $user_id): Response
+    {
+        $user = User::findOne($user_id);
+
+        if ($user === null) {
+            throw new BadRequestHttpException('Invalid user');
+        }
+
+        if (!Yii::$app->user->isGuest && $user_id === Yii::$app->user->id) {
+            return $this->redirect('/profile');
+        }
+
+        return $this->createResponse('view', compact('user'));
+    }
+
 }

@@ -15,4 +15,11 @@ import '../../vendor/kartik-v/bootstrap-star-rating/css/star-rating.css';
 
 import '../../vendor/bower-asset/select2/dist/js/select2.full.js';
 
+/**
+ * Custom
+ */
+
+import './components/compare';
+import './components/review';
+
 import '../scss/main.scss';

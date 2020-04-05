@@ -2,9 +2,12 @@
 
 declare(strict_types = 1);
 
+use app\models\Artist;
 use app\models\ReviewArtist;
 use app\models\ReviewVenue;
+use app\models\User;
 use app\models\UserVote;
+use app\models\Venue;
 
 /**
  * @category  Project
@@ -14,6 +17,80 @@ use app\models\UserVote;
  */
 class ReviewControllerCest
 {
+
+    /**
+     * Tests that you can edit a review for an artist
+     */
+    public function testEditReviewArtist(\FunctionalTester $I): void
+    {
+        $user = User::findOne(7);
+        $artist = Artist::findOne(3);
+
+        $query = ReviewArtist::find()
+            ->where(['created_by' => $user->user_id])
+            ->andWhere(['artist_id' => $artist->artist_id]);
+            
+        $I->assertTrue($query->exists());
+        $I->assertEquals(1, (int)$query->count());
+
+        $review = $query->one();
+
+        $I->assertEquals('Arctic Monkeys review', $review->content);
+        $I->assertEquals(5, $review->overall_rating);
+
+        $I->amLoggedInAs(7);
+
+        $I->amOnRoute('/artist/view', ['artist_id' => $artist->artist_id]);
+        $I->submitForm('#edit-review', [
+            'ReviewArtist' => [
+                'content' => 'Arctic Monkeys review CHANGED',
+                'overall_rating' => 2
+            ]
+        ]);
+
+        $review->refresh();
+
+        $I->assertEquals('Arctic Monkeys review CHANGED', $review->content);
+        $I->assertEquals(2, $review->overall_rating);
+        $I->assertEquals(1, (int)$query->count());
+    }
+
+    /**
+     * Tests that you can edit a review for an venue
+     */
+    public function testEditReviewVenue(\FunctionalTester $I): void
+    {
+        $user = User::findOne(7);
+        $venue = Venue::findOne(1);
+
+        $query = ReviewVenue::find()
+            ->where(['created_by' => $user->user_id])
+            ->andWhere(['venue_id' => $venue->venue_id]);
+            
+        $I->assertTrue($query->exists());
+        $I->assertEquals(1, (int)$query->count());
+
+        $review = $query->one();
+
+        $I->assertEquals('Wembley Arena Review', $review->content);
+        $I->assertEquals(4.5, $review->overall_rating);
+
+        $I->amLoggedInAs(7);
+
+        $I->amOnRoute('/venue/view', ['venue_id' => $venue->venue_id]);
+        $I->submitForm('#edit-review', [
+            'ReviewVenue' => [
+                'content' => 'Wembley Arena Review CHANGED',
+                'overall_rating' => 2
+            ]
+        ]);
+
+        $review->refresh();
+
+        $I->assertEquals('Wembley Arena Review CHANGED', $review->content);
+        $I->assertEquals(2, $review->overall_rating);
+        $I->assertEquals(1, (int)$query->count());
+    }
 
     /**
      * Tests that you can upvote a venue review successfully
