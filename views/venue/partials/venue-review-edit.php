@@ -1,8 +1,12 @@
 <?php
 
 use app\helpers\Html;
+
 use kartik\rating\StarRating;
+
 use yii\bootstrap4\ActiveForm;
+
+use dosamigos\tinymce\TinyMce;
 
 $form = ActiveForm::begin([
         'id' => 'edit-review',
@@ -19,7 +23,9 @@ $form = ActiveForm::begin([
             ]
         ); ?>
     </div>
-    <?= $form->field($review, 'content')->textarea(['rows' => 5]); ?>
+    <?= $form->field($review, 'content')->widget(TinyMce::class,
+        Yii::$app->params['richtextOptions']
+    ); ?>
     <?= $form->field($review, 'overall_rating')->widget(StarRating::class,
         Yii::$app->params['reviewVenueNew']
     ); ?>

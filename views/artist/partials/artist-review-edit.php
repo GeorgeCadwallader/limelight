@@ -8,6 +8,8 @@ use kartik\rating\StarRating;
 
 use yii\bootstrap4\ActiveForm;
 
+use dosamigos\tinymce\TinyMce;
+
 ?>
 
 <?php $form = ActiveForm::begin([
@@ -25,7 +27,9 @@ use yii\bootstrap4\ActiveForm;
             ]
         ); ?>
     </div>
-    <?= $form->field($review, 'content')->textarea(['rows' => 5]); ?>
+    <?= $form->field($review, 'content')->widget(TinyMce::class,
+        Yii::$app->params['richtextOptions']
+    ); ?>
     <?= $form->field($review, 'overall_rating')->widget(StarRating::class,
         Yii::$app->params['reviewArtistNew']
     ); ?>
