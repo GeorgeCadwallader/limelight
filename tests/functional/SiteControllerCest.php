@@ -14,6 +14,41 @@ class SiteControllerCest
 {
 
     /**
+     * Tests the sorting of different user roles to different
+     * views in the index action
+     *
+     * @param \FunctionalTester $I
+     *
+     * @return void
+     */
+    public function testIndex(\FunctionalTester $I): void
+    {
+        $I->amOnRoute('/site/index');
+        $I->seeResponseCodeIsSuccessful();
+        $I->see('Rate Venues & Artists Live');
+
+        $I->amLoggedInAsAdmin();
+        $I->amOnRoute('/site/index');
+        $I->seeResponseCodeIsSuccessful();
+        $I->seeInCurrentUrl('/admin');
+
+        $I->amLoggedInAsArtistOwner();
+        $I->amOnRoute('/site/index');
+        $I->seeResponseCodeIsSuccessful();
+        $I->see(Yii::$app->user->identity->username);
+
+        $I->amLoggedInAsVenueOwner();
+        $I->amOnRoute('/site/index');
+        $I->seeResponseCodeIsSuccessful();
+        $I->see(Yii::$app->user->identity->username);
+
+        $I->amLoggedInAsMember();
+        $I->amOnRoute('/site/index');
+        $I->seeResponseCodeIsSuccessful();
+        $I->see(Yii::$app->user->identity->username);
+    }
+
+    /**
      * Tests that you can logout successfully
      *
      * @param \FunctionalTester $I
