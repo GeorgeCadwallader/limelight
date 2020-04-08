@@ -42,7 +42,7 @@ class ReviewControllerCest
 
         $I->amOnRoute('/artist/view', ['artist_id' => $artist->artist_id]);
         $I->submitForm('#edit-review', [
-            'ReviewArtist' => [
+            'ReviewArtistFilterSearch' => [
                 'content' => 'Arctic Monkeys review CHANGED',
                 'overall_rating' => 2
             ]
@@ -79,7 +79,7 @@ class ReviewControllerCest
 
         $I->amOnRoute('/venue/view', ['venue_id' => $venue->venue_id]);
         $I->submitForm('#edit-review', [
-            'ReviewVenue' => [
+            'ReviewVenueFilterSearch' => [
                 'content' => 'Wembley Arena Review CHANGED',
                 'overall_rating' => 2
             ]
