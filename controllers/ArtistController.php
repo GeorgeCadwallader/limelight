@@ -10,6 +10,8 @@ use app\models\OwnerRequest;
 use app\models\ReviewArtist;
 use app\models\search\ArtistFilterSearch;
 use app\models\search\ArtistSearch;
+use app\models\search\ReviewArtistFilterSearch;
+
 use Yii;
 use yii\base\Response;
 use yii\data\ActiveDataProvider;
@@ -204,6 +206,9 @@ class ArtistController extends \app\core\WebController
             throw new BadRequestHttpException('Invalid artist');
         }
 
+        $reviewFilterModel = new ReviewArtistFilterSearch;
+        $reviewDataProvider = $reviewFilterModel->search($this->request->queryParams);
+
         $newReview = new ReviewArtist([
             'status' => ReviewArtist::STATUS_ACTIVE,
         ]);
@@ -218,7 +223,7 @@ class ArtistController extends \app\core\WebController
             }
         }
 
-        return $this->createResponse('view', compact('artist', 'newReview'));
+        return $this->createResponse('view', compact('artist', 'newReview', 'reviewDataProvider'));
     }
 
 }

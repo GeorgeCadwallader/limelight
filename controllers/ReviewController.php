@@ -67,11 +67,13 @@ class ReviewController extends \app\core\WebController
     {
         $review = ReviewArtist::findOne($review_id);
 
+        $model = ['ReviewArtist' => $this->request->post()['ReviewArtistFilterSearch']];
+
         if ($review === null) {
             throw new BadRequestHttpException('Invalid review');
         }
 
-        $review->load($this->request->post());
+        $review->load($model);
 
         if ($review->save() && $review->validate()) {
             Yii::$app->session->setFlash('success', 'Review successfully edited');
@@ -96,7 +98,8 @@ class ReviewController extends \app\core\WebController
         }
 
         if ($this->request->isPost) {
-            $review->load($this->request->post());
+            $model = ['ReviewVenue' => $this->request->post()['ReviewVenueFilterSearch']];
+            $review->load($model);
 
             if ($review->save() && $review->validate()) {
                 Yii::$app->session->setFlash('success', 'Review successfully edited');
