@@ -23,7 +23,8 @@
         "fightbulc/moment": "^1.30",
         "conquer/select2": "*",
         "2amigos/yii2-date-picker-widget" : "~1.0",
-        "kartik-v/yii2-widget-rating": "dev-master"
+        "kartik-v/yii2-widget-rating": "dev-master",
+        "2amigos/yii2-tinymce-widget" : "~1.1"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
