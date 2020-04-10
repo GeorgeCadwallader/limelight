@@ -44,6 +44,8 @@ if (is_file($file)) {
 <body>
 <?php $this->beginBody() ?>
 
+
+<!-- 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary m-0">
     <button
         class="navbar-toggler navbar-toggler-right collapsed"
@@ -63,24 +65,65 @@ if (is_file($file)) {
             <li class="nav-item">
                 <a class="nav-link" href="/">Home</a>
             </li>
-            <?php if (Yii::$app->user->isGuest) { ?>
+            // <?php if (Yii::$app->user->isGuest) { ?>
                 <li class="nav-item">
                     <a href="/site/login" class="nav-link">Log in</a>
                 </li>
                 <li class="nav-item">
                     <a href="/register" class="nav-link">Sign up</a>
                 </li>
-            <?php } else { ?>
+            // <?php } else { ?>
                 <li class="nav-item">
                     <a href="/profile" class="nav-link">Profile</a>
                 </li>
                 <li class="nav-item">
                     <a href="/site/logout" class="nav-link">Log out</a>
                 </li>
-            <?php } ?>
+            //<?php } ?>
         </ul>
     </div>
 </nav>
+            --> 
+
+
+            <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <div class="container">
+    <a class="navbar-brand js-scroll-trigger" href="#" style="width: 70%;">
+          <img src="images/logo.png" alt="" style="height: 25%; width: 25%;">
+        </a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fa fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+          <?php if (Yii::$app->user->isGuest) { ?>
+            <a class="nav-link js-scroll-trigger" href="#Login">Log In</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#Signup">Sign Up</a>
+          </li>
+          <?php } else { ?>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#Profile">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#Logout">Logout</a>
+          </li>
+          <?php } ?>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#Artists">Artists</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#Venues">Venues</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
 <div
     class="banner"
     style="background-image:url(<?= Url::to('@images/banner.jpg'); ?>)"

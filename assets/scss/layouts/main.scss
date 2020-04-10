@@ -40,3 +40,59 @@
     border-top-right-radius: $border-radius;
     border-bottom-right-radius: $border-radius;
 }
+
+#mainNav {
+    background-color: $off-white;
+  }
+  
+  #mainNav .navbar-toggler {
+    font-weight: 900;
+    font-size: 12px;
+    right: 0;
+    padding: 13px;
+    color: $primary;
+    border: 0;
+    background-color: $off-white;
+  }
+  
+  #mainNav .navbar-brand.active, #mainNav .navbar-brand:active, #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
+    color: $off-white;
+  }
+  
+  #mainNav .navbar-nav .nav-item .nav-link {
+    font-weight: 900;
+    font-size: 95%;
+    padding: 0.75em 0;
+    letter-spacing: 1px;
+    color: $primary;
+  }
+  
+  #mainNav .navbar-nav .nav-item .nav-link.active, #mainNav .navbar-nav .nav-item .nav-link:hover {
+    color: $dark-green;
+  }
+  
+  @media (min-width: 992px) {
+    #mainNav {
+      padding-top: 25px;
+      padding-bottom: 25px;
+      transition: padding-top 0.3s, padding-bottom 0.3s;
+      border: none;
+      background-color: transparent;
+    }
+    #mainNav .navbar-brand {
+      transition: all 0.3s;
+      width: 50% !important;
+    }
+    #mainNav .navbar-nav .nav-item .nav-link {
+      padding: 1.6em 1em !important;
+      width: 9.5em;
+    }
+    #mainNav.navbar-shrink {
+      padding-top: 0;
+      padding-bottom: 0;
+      background-color: $off-white;
+    }
+    #mainNav.navbar-shrink .navbar-brand {
+      width: 303px !important;
+    }
+  }

@@ -21,5 +21,6 @@ import '../../vendor/bower-asset/select2/dist/js/select2.full.js';
 
 import './components/compare';
 import './components/review';
+import './components/navbar';
 
 import '../scss/main.scss';
