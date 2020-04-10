@@ -5,7 +5,7 @@ use app\models\Genre;
 use app\models\Venue;
 
 use conquer\select2\Select2Widget;
-
+use dosamigos\tinymce\TinyMce;
 use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
@@ -57,22 +57,26 @@ $genres = ArrayHelper::map(Genre::find()->all(), 'genre_id', 'name');
             'id' => 'venue-edit-form'
             ]); ?>
             <div class="row">
-                <div class="col-sm-12">
-                    <?= $form->field($venueData, 'description')->textarea(); ?>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <?php if ($venueData->profile_path !== null) { ?>
+                            <div class="col-sm-5">
+                                <?= Html::img(Yii::$app->request->baseUrl.'/images/venue/'.$venueData->profile_path, ['class' => 'img-fluid']); ?>
+                            </div>
+                            <div class="col-sm-7">
+                                <?= $form->field($venueData, 'imageFile')->fileInput(); ?>
+                            </div>
+                        <?php } else { ?>
+                            <div class="col-sm-8">
+                                <?= $form->field($venueData, 'imageFile')->fileInput(); ?>
+                            </div>
+                        <?php } ?>
+                    </div>    
                 </div>
-                <div class="row my-3">
-                    <?php if ($venueData->profile_path !== null) { ?>
-                        <div class="col-sm-4">
-                            <?= Html::img(Yii::$app->request->baseUrl.'/images/venue/'.$venueData->profile_path, ['class' => 'img-fluid']); ?>
-                        </div>
-                        <div class="col-sm-8">
-                            <?= $form->field($venueData, 'imageFile')->fileInput(); ?>
-                        </div>
-                    <?php } else { ?>
-                        <div class="col-sm-8">
-                            <?= $form->field($venueData, 'imageFile')->fileInput(); ?>
-                        </div>
-                    <?php } ?>
+                <div class="col-sm-6">
+                    <?= $form->field($venueData, 'description')->widget(TinyMce::class,
+                        Yii::$app->params['richtextOptions']
+                    ); ?>
                 </div>
                 <div class="col-sm-12">
                     <?= $form->field($venueData->venue, 'genre')->widget(Select2Widget::className(), [

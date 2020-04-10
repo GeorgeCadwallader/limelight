@@ -75,7 +75,7 @@ $hasDownvoted = UserVote::find()
                 <?= $date; ?>
             </h5>
             <p class="my-3">
-                <?= ($review->content) ? Html::encode($review->content) : ''; ?>
+                <?= ($review->content) ? $review->content : ''; ?>
             </p>
             <p>
                 <?= $review->upvotes.' member(s) found this helpful'; ?>
