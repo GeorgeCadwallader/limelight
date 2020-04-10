@@ -85,7 +85,7 @@ class ReviewVenue extends \yii\db\ActiveRecord
                 ],
                 'integer'
             ],
-            [['content'], 'string', 'max' => 255],
+            [['content'], 'string', 'max' => 2500],
             ['status', 'in', 'range' => array_keys(self::$statuses)],
             ['venue_id', 'exist', 'targetRelation' => 'venue'],
         ];
