@@ -163,4 +163,14 @@ class ReviewArtist extends \yii\db\ActiveRecord
         return $this->hasOne(Artist::class, ['artist_id' => 'artist_id']);
     }
 
+    /**
+     * Get the user votes for this review
+     * 
+     * @return ActiveQueryInterface
+     */
+    public function getUserVote(): ActiveQueryInterface
+    {
+        return $this->hasMany(UserVote::class, ['review_artist_id' => 'review_artist_id']);
+    }
+
 }

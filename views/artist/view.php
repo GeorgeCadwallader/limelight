@@ -3,6 +3,7 @@
 /** @var $this yii\web\View */
 /** @var $artist app\models\Artist */
 /** @var $newReview app\models\ReviewArtist */
+/** @var $reviewDataProvider app\models\search\ReviewArtist */
 
 use app\auth\Item;
 use app\helpers\ArtistHelper;
@@ -12,8 +13,8 @@ use app\models\ReviewArtist;
 use kartik\rating\StarRating;
 
 use yii\bootstrap4\Breadcrumbs;
-use yii\bootstrap\ActiveForm;
 use yii\helpers\Url;
+use yii\widgets\ListView;
 
 $reviews = ReviewArtist::find()->where(['artist_id' => $artist->artist_id])->all();
 
@@ -78,9 +79,15 @@ $this->title = $artist->name.' | '.Yii::$app->name;
     </div>
 </div>
 <div class="row my-4">
-    <?php foreach ($reviews as $review) { ?>
-        <?= $this->render('artist-review-single', compact('review')); ?>
-    <?php } ?>
+    <?= ListView::widget([
+            'dataProvider' => $reviewDataProvider,
+            'itemView' => 'artist-review-single',
+            'options' => ['class' => 'list-view row'],
+            'summaryOptions' => ['class' => 'summary w-100 px-3'],
+            'itemOptions' => ['class' => 'col-sm-12 my-4'],
+            'layout' => "{sorter}\n{summary}\n{items}\n{pager}",
+        ]
+    ); ?>
 </div>
 <div class="row">
     <?php if (Yii::$app->user->can(Item::ROLE_MEMBER) && !$hasReviewed) { ?>

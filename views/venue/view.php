@@ -3,6 +3,7 @@
 /** @var $this yii\web\View */
 /** @var $venue app\models\Venue */
 /** @var $newReview app\models\ReviewVenue */
+/** @var $reviewDataProvider app\models\search\ReviewArtist */
 
 use app\auth\Item;
 use app\helpers\Html;
@@ -12,8 +13,8 @@ use app\models\ReviewVenue;
 use kartik\rating\StarRating;
 
 use yii\bootstrap4\Breadcrumbs;
-use yii\bootstrap\ActiveForm;
 use yii\helpers\Url;
+use yii\widgets\ListView;
 
 $reviews = ReviewVenue::find()->where(['venue_id' => $venue->venue_id])->all();
 
@@ -81,9 +82,15 @@ $this->title = $venue->name.' | '.Yii::$app->name;
     </div>
 </div>
 <div class="row my-4">
-    <?php foreach ($reviews as $review) { ?>
-        <?= $this->render('venue-review-single', compact('review')); ?>
-    <?php } ?>
+    <?= ListView::widget([
+            'dataProvider' => $reviewDataProvider,
+            'itemView' => 'venue-review-single',
+            'options' => ['class' => 'list-view row'],
+            'summaryOptions' => ['class' => 'summary w-100 px-3'],
+            'itemOptions' => ['class' => 'col-sm-12 my-4'],
+            'layout' => "{sorter}\n{summary}\n{items}\n{pager}",
+        ]
+    ); ?>
 </div>
 <div class="row">
     <?php if (Yii::$app->user->can(Item::ROLE_MEMBER) && !$hasReviewed) { ?>

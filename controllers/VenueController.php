@@ -6,6 +6,7 @@ use app\auth\Item;
 use app\models\Genre;
 use app\models\OwnerRequest;
 use app\models\ReviewVenue;
+use app\models\search\ReviewVenueFilterSearch;
 use app\models\search\VenueFilterSearch;
 use app\models\search\VenueSearch;
 use app\models\Venue;
@@ -206,6 +207,9 @@ class VenueController extends \app\core\WebController
             throw new BadRequestHttpException('Invalid venue');
         }
 
+        $reviewFilterModel = new ReviewVenueFilterSearch;
+        $reviewDataProvider = $reviewFilterModel->search($this->request->queryParams);
+
         $newReview = new ReviewVenue([
             'status' => ReviewVenue::STATUS_ACTIVE,
         ]);
@@ -220,7 +224,7 @@ class VenueController extends \app\core\WebController
             }
         }
 
-        return $this->createResponse('view', compact('venue', 'newReview'));
+        return $this->createResponse('view', compact('venue', 'newReview', 'reviewDataProvider'));
     }
 
 }

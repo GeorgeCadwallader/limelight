@@ -10,6 +10,8 @@ use kartik\rating\StarRating;
 /** @var $this yii\web\View */
 /** @var $review app\models\ReviewVenue */
 
+$review = $model;
+
 $date = Yii::$app->formatter->asDate($review->created_at, 'php:d/m/Y');
 
 $hasUpvoted = UserVote::find()
@@ -73,7 +75,7 @@ $hasDownvoted = UserVote::find()
                 <?= $date; ?>
             </h5>
             <p class="my-3">
-                <?= ($review->content) ? Html::encode($review->content) : ''; ?>
+                <?= ($review->content) ? $review->content : ''; ?>
             </p>
             <p>
                 <?= $review->upvotes.' member(s) found this helpful'; ?>

@@ -3,7 +3,7 @@
 /** @var $newReview app\models\ReviewArtist */
 
 use app\helpers\Html;
-
+use dosamigos\tinymce\TinyMce;
 use kartik\rating\StarRating;
 
 use yii\bootstrap4\ActiveForm;
@@ -13,7 +13,9 @@ use yii\bootstrap4\ActiveForm;
 <?php $form = ActiveForm::begin([
         'id' => 'create-review',
     ]); ?>
-    <?= $form->field($newReview, 'content')->textarea(['rows' => 5]); ?>
+    <?= $form->field($newReview, 'content')->widget(TinyMce::class, 
+        Yii::$app->params['richtextOptions']
+    ); ?>
     <?= $form->field($newReview, 'overall_rating')->widget(StarRating::class,
         Yii::$app->params['reviewArtistNew']
     ); ?>
