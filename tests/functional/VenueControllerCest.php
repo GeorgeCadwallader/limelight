@@ -2,6 +2,7 @@
 
 declare(strict_types = 1);
 
+use app\models\ReviewTone;
 use app\models\ReviewVenue;
 use app\models\Venue;
 
@@ -50,10 +51,12 @@ class VenueControllerCest
     {
         $I->amLoggedInAs(13);
 
+        $reviewContent = 'I did not enjoy my experience being at this venue all. The price was awful and there was barely any space.';
+
         $I->amOnRoute('/venue/view', ['venue_id' => 2]);
         $I->submitForm('#create-review', [
             'ReviewVenue' => [
-                'content' => 'georgemember test venue review',
+                'content' => $reviewContent,
                 'overall_rating' => '3.5',
                 'service' => '1.5',
                 'location' => '3.5',
@@ -68,13 +71,19 @@ class VenueControllerCest
                 ->one();
 
         $I->assertNotNull($review);
-        $I->assertEquals('georgemember test venue review', $review->content);
+        $I->assertEquals($reviewContent, $review->content);
         $I->assertEquals('3.5', $review->overall_rating);
         $I->assertEquals('1.5', $review->service);
         $I->assertEquals('3.5', $review->location);
         $I->assertEquals('4', $review->value);
         $I->assertEquals('2', $review->cleanliness);
         $I->assertEquals('2.5', $review->size);
+
+        $reviewTone = ReviewTone::find()
+            ->where(['fk' => $review->review_venue_id])
+            ->andWhere(['type' => ReviewTone::TYPE_VENUE]);
+
+        $I->assertTrue($reviewTone->exists());
     }
 
     /**
