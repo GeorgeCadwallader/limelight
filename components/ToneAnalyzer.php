@@ -56,6 +56,10 @@ class ToneAnalyzer extends \yii\base\BaseObject
             }
         }
 
+        if (empty($response->document_tone->tones)) {
+            return;
+        }
+
         foreach ($response->document_tone->tones as $tone) {
             $reviewTone = new ReviewTone([
                 'fk' => $review_id,
