@@ -99,24 +99,24 @@ if (is_file($file)) {
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
           <?php if (Yii::$app->user->isGuest) { ?>
-            <a class="nav-link js-scroll-trigger" href="#Login">Log In</a>
+            <a class="nav-link js-scroll-trigger" href="/site/login">Log In</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#Signup">Sign Up</a>
+            <a class="nav-link js-scroll-trigger" href="/register">Sign Up</a>
           </li>
           <?php } else { ?>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#Profile">Profile</a>
+            <a class="nav-link js-scroll-trigger" href="/profile">Profile</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#Logout">Logout</a>
+            <a class="nav-link js-scroll-trigger" href="/site/logout">Logout</a>
           </li>
           <?php } ?>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#Artists">Artists</a>
+            <a class="nav-link js-scroll-trigger" href="/artist">Artists</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#Venues">Venues</a>
+            <a class="nav-link js-scroll-trigger" href="/venue">Venues</a>
           </li>
         </ul>
       </div>
@@ -124,15 +124,23 @@ if (is_file($file)) {
   </nav>
 
 
-<div
-    class="banner"
-    style="background-image:url(<?= Url::to('@images/banner.jpg'); ?>)"
->
-    <a class="banner-logo" href="<?= Yii::$app->homeUrl; ?>">
+<div id="center-heading" class="masthead" style="background-image:url(<?= Url::to('@images/banner.jpg'); ?>); background-color: $off-white;">
+    <div class="container">
+      <div class="intro-text">
+        <div class="intro-lead-in">Welcome to Limelight!</div>
+        <div class="intro-heading">Rate Venues & Artists Live</div>
+        <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="/register">Get Started</a>
+      </div>
+    </div>
+   <!-- <a class="banner-logo" href="<?= Yii::$app->homeUrl; ?>">
         <?= Html::img('@images/logo.png', ['class' => 'img-fluid']); ?>
-    </a>
+    </a> -->
+          </div>
+    </div> 
 </div>
-<div class="home-nav bg-white">
+
+
+<!-- <div class="home-nav bg-white">
     <h4 class="home-nav-item m-0">
         <a href="/artist" class="text-dark">
             Artists
@@ -149,11 +157,14 @@ if (is_file($file)) {
         </a>
     </h4>
 </div>
-
+          -->
+                    
 <div class="container my-4">
     <?= Alert::widget() ?>
     <?= $content ?>
 </div>
+
+
 <!-- 
 
 <footer class="footer">
