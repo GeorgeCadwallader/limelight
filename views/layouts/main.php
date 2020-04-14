@@ -44,6 +44,8 @@ if (is_file($file)) {
 <body>
 <?php $this->beginBody() ?>
 
+
+<!-- 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary m-0">
     <button
         class="navbar-toggler navbar-toggler-right collapsed"
@@ -63,33 +65,82 @@ if (is_file($file)) {
             <li class="nav-item">
                 <a class="nav-link" href="/">Home</a>
             </li>
-            <?php if (Yii::$app->user->isGuest) { ?>
+            // <?php if (Yii::$app->user->isGuest) { ?>
                 <li class="nav-item">
                     <a href="/site/login" class="nav-link">Log in</a>
                 </li>
                 <li class="nav-item">
                     <a href="/register" class="nav-link">Sign up</a>
                 </li>
-            <?php } else { ?>
+            // <?php } else { ?>
                 <li class="nav-item">
                     <a href="/profile" class="nav-link">Profile</a>
                 </li>
                 <li class="nav-item">
                     <a href="/site/logout" class="nav-link">Log out</a>
                 </li>
-            <?php } ?>
+            //<?php } ?>
         </ul>
     </div>
 </nav>
-<div
-    class="banner"
-    style="background-image:url(<?= Url::to('@images/banner.jpg'); ?>)"
->
-    <a class="banner-logo" href="<?= Yii::$app->homeUrl; ?>">
+            --> 
+
+
+            <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <div class="container">
+    <a class="navbar-brand js-scroll-trigger" href="#" style="width: 70%;">
+          <img src="images/logo.png" alt="" style="height: 25%; width: 25%;">
+        </a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fa fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+          <?php if (Yii::$app->user->isGuest) { ?>
+            <a class="nav-link js-scroll-trigger" href="/site/login">Log In</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="/register">Sign Up</a>
+          </li>
+          <?php } else { ?>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="/profile">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="/site/logout">Logout</a>
+          </li>
+          <?php } ?>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="/artist">Artists</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="/venue">Venues</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+<div id="center-heading" class="masthead" style="background-image:url(<?= Url::to('@images/banner.jpg'); ?>); background-color: $off-white;">
+    <div class="container">
+      <div class="intro-text">
+        <div class="intro-lead-in">Welcome to Limelight!</div>
+        <div class="intro-heading">Rate Venues & Artists Live</div>
+        <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="/register">Get Started</a>
+      </div>
+    </div>
+   <!-- <a class="banner-logo" href="<?= Yii::$app->homeUrl; ?>">
         <?= Html::img('@images/logo.png', ['class' => 'img-fluid']); ?>
-    </a>
+    </a> -->
+          </div>
+    </div> 
 </div>
-<div class="home-nav bg-white">
+
+
+<!-- <div class="home-nav bg-white">
     <h4 class="home-nav-item m-0">
         <a href="/artist" class="text-dark">
             Artists
@@ -106,11 +157,14 @@ if (is_file($file)) {
         </a>
     </h4>
 </div>
-
+          -->
+                    
 <div class="container my-4">
     <?= Alert::widget() ?>
     <?= $content ?>
 </div>
+
+
 <!-- 
 
 <footer class="footer">

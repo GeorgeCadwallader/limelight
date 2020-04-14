@@ -24,5 +24,6 @@ import '../../vendor/tinymce/tinymce/themes/silver/theme.js';
 
 import './components/compare';
 import './components/review';
+import './components/navbar';
 
 import '../scss/main.scss';
