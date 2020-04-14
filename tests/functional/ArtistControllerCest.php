@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 use app\models\Artist;
 use app\models\ReviewArtist;
+use app\models\ReviewTone;
 
 /**
  * @category  Project
@@ -50,10 +51,12 @@ class ArtistControllerCest
     {
         $I->amLoggedInAs(13);
 
+        $reviewContent = 'I did not enjoy my experience seeing this band at all. The vocals were awful and there was barely any energy.';
+
         $I->amOnRoute('/artist/view', ['artist_id' => 2]);
         $I->submitForm('#create-review', [
             'ReviewArtist' => [
-                'content' => 'georgemember3 test artist review',
+                'content' => $reviewContent,
                 'overall_rating' => '1.5',
                 'energy' => '2',
                 'vocals' => '3.5',
@@ -68,13 +71,19 @@ class ArtistControllerCest
                 ->one();
 
         $I->assertNotNull($review);
-        $I->assertEquals('georgemember3 test artist review', $review->content);
+        $I->assertEquals($reviewContent, $review->content);
         $I->assertEquals('1.5', $review->overall_rating);
         $I->assertEquals('2', $review->energy);
         $I->assertEquals('3.5', $review->vocals);
         $I->assertEquals('0.5', $review->sound);
         $I->assertEquals('4.5', $review->stage_presence);
         $I->assertEquals('5', $review->song_aesthetic);
+
+        $reviewTone = ReviewTone::find()
+            ->where(['fk' => $review->review_artist_id])
+            ->andWhere(['type' => ReviewTone::TYPE_ARTIST]);
+
+        $I->assertTrue($reviewTone->exists());
     }
 
     /**

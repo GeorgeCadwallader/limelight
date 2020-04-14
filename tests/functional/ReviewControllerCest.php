@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 use app\models\Artist;
 use app\models\ReviewArtist;
+use app\models\ReviewTone;
 use app\models\ReviewVenue;
 use app\models\User;
 use app\models\UserVote;
@@ -40,19 +41,27 @@ class ReviewControllerCest
 
         $I->amLoggedInAs(7);
 
+        $reviewContent = 'I did not enjoy my experience seeing this band at all. The vocals were awful and there was barely any energy.';
+
         $I->amOnRoute('/artist/view', ['artist_id' => $artist->artist_id]);
         $I->submitForm('#edit-review', [
             'ReviewArtistFilterSearch' => [
-                'content' => 'Arctic Monkeys review CHANGED',
+                'content' => $reviewContent,
                 'overall_rating' => 2
             ]
         ]);
 
         $review->refresh();
 
-        $I->assertEquals('Arctic Monkeys review CHANGED', $review->content);
+        $I->assertEquals($reviewContent, $review->content);
         $I->assertEquals(2, $review->overall_rating);
         $I->assertEquals(1, (int)$query->count());
+
+        $reviewTone = ReviewTone::find()
+            ->where(['fk' => $review->review_artist_id])
+            ->andWhere(['type' => ReviewTone::TYPE_ARTIST]);
+
+        $I->assertTrue($reviewTone->exists());
     }
 
     /**
@@ -77,19 +86,27 @@ class ReviewControllerCest
 
         $I->amLoggedInAs(7);
 
+        $reviewContent = 'I did not enjoy my experience being at this venue all. The price was awful and there was barely any space.';
+
         $I->amOnRoute('/venue/view', ['venue_id' => $venue->venue_id]);
         $I->submitForm('#edit-review', [
             'ReviewVenueFilterSearch' => [
-                'content' => 'Wembley Arena Review CHANGED',
+                'content' => $reviewContent,
                 'overall_rating' => 2
             ]
         ]);
 
         $review->refresh();
 
-        $I->assertEquals('Wembley Arena Review CHANGED', $review->content);
+        $I->assertEquals($reviewContent, $review->content);
         $I->assertEquals(2, $review->overall_rating);
         $I->assertEquals(1, (int)$query->count());
+
+        $reviewTone = ReviewTone::find()
+            ->where(['fk' => $review->review_venue_id])
+            ->andWhere(['type' => ReviewTone::TYPE_VENUE]);
+
+        $I->assertTrue($reviewTone->exists());
     }
 
     /**

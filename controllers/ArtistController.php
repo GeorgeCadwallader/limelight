@@ -3,11 +3,13 @@
 namespace app\controllers;
 
 use app\auth\Item;
+use app\components\ToneAnalyzer;
 use app\models\Artist;
 use app\models\ArtistData;
 use app\models\Genre;
 use app\models\OwnerRequest;
 use app\models\ReviewArtist;
+use app\models\ReviewTone;
 use app\models\search\ArtistFilterSearch;
 use app\models\search\ArtistSearch;
 use app\models\search\ReviewArtistFilterSearch;
@@ -218,6 +220,10 @@ class ArtistController extends \app\core\WebController
             $newReview->link('artist', $artist);
     
             if ($newReview->save() && $newReview->validate()){
+                if ($newReview->content !== null) {
+                    ToneAnalyzer::sendReview($newReview, ReviewTone::TYPE_ARTIST);
+                }
+                
                 Yii::$app->session->addFlash('success', 'Your review has successfully been created');
                 return $this->redirect(['/artist/view', 'artist_id' => $artist->artist_id]);
             }

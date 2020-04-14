@@ -3,8 +3,10 @@
 namespace app\controllers;
 
 use app\auth\Item;
+use app\components\ToneAnalyzer;
 use app\models\Artist;
 use app\models\ReviewArtist;
+use app\models\ReviewTone;
 use app\models\ReviewVenue;
 use app\models\UserVote;
 
@@ -67,6 +69,8 @@ class ReviewController extends \app\core\WebController
     {
         $review = ReviewArtist::findOne($review_id);
 
+        $reviewContentOld = $review->content;
+
         $model = ['ReviewArtist' => $this->request->post()['ReviewArtistFilterSearch']];
 
         if ($review === null) {
@@ -76,6 +80,10 @@ class ReviewController extends \app\core\WebController
         $review->load($model);
 
         if ($review->save() && $review->validate()) {
+            if ($review->content !== null && strip_tags($review->content) !== strip_tags($reviewContentOld)) {
+                ToneAnalyzer::sendReview($review, ReviewTone::TYPE_ARTIST);
+            }
+
             Yii::$app->session->setFlash('success', 'Review successfully edited');
             return $this->redirect(['/artist/view', 'artist_id' => $review->artist_id]);
         }
@@ -93,6 +101,8 @@ class ReviewController extends \app\core\WebController
     {
         $review = ReviewVenue::findOne($review_id);
 
+        $reviewContentOld = $review->content;
+
         if ($review === null) {
             throw new BadRequestHttpException('Invalid review');
         }
@@ -102,6 +112,10 @@ class ReviewController extends \app\core\WebController
             $review->load($model);
 
             if ($review->save() && $review->validate()) {
+                if ($review->content !== null && strip_tags($review->content) !== strip_tags($reviewContentOld)) {
+                    ToneAnalyzer::sendReview($review, ReviewTone::TYPE_VENUE);
+                }
+
                 Yii::$app->session->setFlash('success', 'Review successfully edited');
                 return $this->redirect(['/venue/view', 'venue_id' => $review->venue_id]);
             }
