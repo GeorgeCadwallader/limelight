@@ -91,7 +91,7 @@ if (is_file($file)) {
 <!-- HEADER (MAY BE MOVED TO GUEST INDEX) -->
 
 
-<div id="center-heading" class="masthead" style="background-image:url(<?= Url::to('@images/banner.jpg'); ?>); background-color: $off-white;">
+<div id="center-heading" class="masthead" style="background-image:url(<?= Url::to('@images/banner.jpg'); ?>);">
     <div class="container">
       <div class="intro-text">
       <?php if (Yii::$app->user->isGuest) { ?>
@@ -101,13 +101,9 @@ if (is_file($file)) {
       </div>
     </div>
     <?php } ?>
-   <!-- <a class="banner-logo" href="<?= Yii::$app->homeUrl; ?>">
-        <?= Html::img('@images/logo.png', ['class' => 'img-fluid']); ?>
-    </a> -->
           </div>
     </div> 
 </div>
--->
 
 
 <!-- PAGE CONTENT -->
