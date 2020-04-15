@@ -16,6 +16,14 @@
     }
 }
 
+::selection {
+    background: $primary;
+}
+
+::-moz-selection {
+    background: $primary;
+}
+
 
 #banner.h3 {
  margin-top: 50%
