@@ -49,42 +49,42 @@ if (is_file($file)) {
 
 <!-- NAV BAR -->
 
-            <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-    <div class="container">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+  <div class="container">
     <a class="navbar-brand js-scroll-trigger" href="/" style="width: 70%;">
-          <img src="images/logo.png" alt="" style="height: 25%; width: 25%;">
-        </a>
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        Menu
-        <i class="fa fa-bars"></i>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
+      <img src="/images/logo.png" alt="<?= Yii::$app->name; ?>" style="height: 25%; width: 25%;">
+    </a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
           <?php if (Yii::$app->user->isGuest) { ?>
             <a class="nav-link js-scroll-trigger" href="/site/login">Log In</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="/register">Sign Up</a>
-          </li>
-          <?php } else { ?>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="/profile">Profile</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="/site/logout">Logout</a>
-          </li>
-          <?php } ?>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="/artist">Artists</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="/venue">Venues</a>
-          </li>
-        </ul>
-      </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="/register">Sign Up</a>
+        </li>
+        <?php } else { ?>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="/profile">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="/site/logout">Logout</a>
+        </li>
+        <?php } ?>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="/artist">Artists</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="/venue">Venues</a>
+        </li>
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>
 
 
 
@@ -117,32 +117,30 @@ if (is_file($file)) {
 
 
 <footer id="llfooter" class="py-4 text-white-50">
-    <div class="container text-center">
-      <small >Copyright &copy; <?= Yii::$app->name; ?> <?= date('Y') ?> 
-    <br></br>
+  <div class="container text-center">
+    <small >Copyright &copy; <?= Yii::$app->name; ?> <?= date('Y') ?> 
+      <br></br>
     </small>
-
-      <div class="social-icons align-content-center">
-
-        <a class="social-icon social-icon--twitter" href="https://www.facebook.com/Studiogenix" style="text-decoration: none;">
-            <i class="fa fa-twitter"></i>
-      <div class="tooltip">Twitter</div>
-  </a>
-        <a class="social-icon social-icon--instagram" href="https://www.facebook.com/Studiogenix" style="text-decoration: none;">
-            <i class="fa fa-instagram"></i>
-       <div class="tooltip">Instagram</div>
-  </a>
-        <a class="social-icon social-icon--linkedin" href="https://www.linkedin.com/company/42078791" style="text-decoration: none;">
-            <i class="fa fa-linkedin"></i>
+    <div class="social-icons align-content-center">
+      <a class="social-icon social-icon--twitter" href="https://www.facebook.com/Studiogenix" style="text-decoration: none;">
+        <i class="fa fa-twitter"></i>
+        <div class="tooltip">Twitter</div>
+      </a>
+      <a class="social-icon social-icon--instagram" href="https://www.facebook.com/Studiogenix" style="text-decoration: none;">
+        <i class="fa fa-instagram"></i>
+        <div class="tooltip">Instagram</div>
+      </a>
+      <a class="social-icon social-icon--linkedin" href="https://www.linkedin.com/company/42078791" style="text-decoration: none;">
+        <i class="fa fa-linkedin"></i>
         <div class="tooltip">LinkedIn</div>
-  </a>
-        <a class="social-icon social-icon--facebook" href="https://www.facebook.com/Studiogenix" style="text-decoration: none;">
-            <i class="fa fa-facebook"></i>
+      </a>
+      <a class="social-icon social-icon--facebook" href="https://www.facebook.com/Studiogenix" style="text-decoration: none;">
+        <i class="fa fa-facebook"></i>
         <div class="tooltip">Facebook</div>
-  </a>
-</div>
+      </a>
     </div>
-  </footer>
+  </div>
+</footer>
 
 <?php $this->endBody() ?>
 </body>
