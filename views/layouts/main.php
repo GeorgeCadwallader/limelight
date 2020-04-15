@@ -45,47 +45,9 @@ if (is_file($file)) {
 <?php $this->beginBody() ?>
 
 
-<!-- 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary m-0">
-    <button
-        class="navbar-toggler navbar-toggler-right collapsed"
-        type="button"
-        data-toggle="collapse"
-        data-target="#mainNavbar"
-        aria-controls="mainNavbar"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-    >
-        <span class="icon-bar top-bar"></span>
-        <span class="icon-bar middle-bar"></span>
-        <span class="icon-bar bottom-bar"></span>	
-    </button>
-    <div class="collapse navbar-collapse" id="mainNavbar">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="/">Home</a>
-            </li>
-            // <?php if (Yii::$app->user->isGuest) { ?>
-                <li class="nav-item">
-                    <a href="/site/login" class="nav-link">Log in</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/register" class="nav-link">Sign up</a>
-                </li>
-            // <?php } else { ?>
-                <li class="nav-item">
-                    <a href="/profile" class="nav-link">Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/site/logout" class="nav-link">Log out</a>
-                </li>
-            //<?php } ?>
-        </ul>
-    </div>
-</nav>
-            --> 
 
 
+<!-- NAV BAR -->
             <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
     <div class="container">
     <a class="navbar-brand js-scroll-trigger" href="#" style="width: 70%;">
@@ -124,58 +86,42 @@ if (is_file($file)) {
   </nav>
 
 
+
+<!-- HEADER (MAY BE MOVED TO GUEST INDEX) -->
+
+
 <div id="center-heading" class="masthead" style="background-image:url(<?= Url::to('@images/banner.jpg'); ?>); background-color: $off-white;">
     <div class="container">
       <div class="intro-text">
-        <div class="intro-lead-in">Welcome to Limelight!</div>
+      <?php if (Yii::$app->user->isGuest) { ?>
+        <div class="intro-lead-in">Welcome to <?= Yii::$app->name; ?>!</div>
         <div class="intro-heading">Rate Venues & Artists Live</div>
-        <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="/register">Get Started</a>
+        <a class="btn btn-primary btn-lg btn-xl rounded text-uppercase js-scroll-trigger" href="/register">Get Started</a>
       </div>
     </div>
+    <?php } ?>
    <!-- <a class="banner-logo" href="<?= Yii::$app->homeUrl; ?>">
         <?= Html::img('@images/logo.png', ['class' => 'img-fluid']); ?>
     </a> -->
           </div>
     </div> 
 </div>
+-->
 
 
-<!-- <div class="home-nav bg-white">
-    <h4 class="home-nav-item m-0">
-        <a href="/artist" class="text-dark">
-            Artists
-        </a>
-    </h4>
-    <h4 class="home-nav-item m-0">
-        <a href="/event" class="text-dark">
-            Events
-        </a>
-    </h4>
-    <h4 class="home-nav-item m-0">
-        <a href="/venue" class="text-dark">
-            Venues
-        </a>
-    </h4>
-</div>
-          -->
-                    
+<!-- PAGE CONTENT -->
+
 <div class="container my-4">
     <?= Alert::widget() ?>
     <?= $content ?>
 </div>
 
+<!-- FOOTER -->
 
-<!-- 
 
-<footer class="footer">
-    <<div class="container-fluid">
-        <p class="pull-left">&copy; Limelight</p>
-    </div>
-
-    -->
 <footer id="llfooter" class="py-4 text-white-50">
     <div class="container text-center">
-      <small >Copyright &copy; Limelight <?= date('Y') ?> 
+      <small >Copyright &copy; <?= Yii::$app->name; ?> <?= date('Y') ?> 
     <br></br>
     </small>
 
