@@ -60,13 +60,13 @@ class SiteControllerCest
         $I->amLoggedInAsAdmin();
 
         $I->amOnRoute('/');
-        $I->see('Log out');
+        $I->see('Logout');
 
         $csrf = $I->createAndSetCsrfCookie('CSRF');
         $I->sendAjaxPostRequest('/site/logout', [$csrf[0] => $csrf[1]]);
 
         $I->amOnRoute('/');
-        $I->see('Log in');
+        $I->see('Log In');
     }
 
     /**
@@ -92,7 +92,7 @@ class SiteControllerCest
             'UserActivationForm[password_repeat]' => 'password',
         ]);
 
-        $I->see('Log out');
+        $I->see('Logout');
 
         $user->refresh();
 
