@@ -48,9 +48,10 @@ if (is_file($file)) {
 
 
 <!-- NAV BAR -->
+
             <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
     <div class="container">
-    <a class="navbar-brand js-scroll-trigger" href="#" style="width: 70%;">
+    <a class="navbar-brand js-scroll-trigger" href="/" style="width: 70%;">
           <img src="images/logo.png" alt="" style="height: 25%; width: 25%;">
         </a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
