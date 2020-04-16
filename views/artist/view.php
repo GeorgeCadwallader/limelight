@@ -41,56 +41,49 @@ $this->title = $artist->name.' | '.Yii::$app->name;
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-12">
-        <?= Breadcrumbs::widget([
-            'links' => [
-                [
-                    'label' => 'Artists',
-                    'url' => Url::to('/artist')
-                ],
-                [
-                    'label' => 'View Artist: '.$artist->name
-                ]
+    <?= Breadcrumbs::widget([
+        'links' => [
+            [
+                'label' => 'Artists',
+                'url' => Url::to('/artist')
+            ],
+            [
+                'label' => 'View Artist: '.$artist->name
             ]
-        ]); ?>
-    </div>
-</div>
-<div class="row bg-white p-3">
-    <div class="col-sm-4">
-        <?= Html::img($artistImg, ['class' => 'img-fluid']); ?>
-        <h1 class="my-2"><?= $artist->name; ?></h1>
-        <?= StarRating::widget([
-            'name' => 'review-artist-'.$artist->artist_id,
-            'value' => ArtistHelper::averageRating($artist, ReviewArtist::REVIEW_ARTIST_OVERALL),
-            'pluginOptions' => Yii::$app->params['reviewArtistDisplay']
-        ]); ?>
-        <?= $this->render('criteria', compact('artist')); ?>
-    </div>
-    <div class="col-sm-8">
-        <ul class="list-group">
-            <h4>Genres</h4>
-            <?php foreach ($artist->genre as $genre) { ?>
-                <li class="list-group-item">
-                    <?= Html::a($genre->name, ['/genre/view', 'genre_id' => $genre->genre_id]); ?>
-                </li>
-            <?php } ?>
-        </ul>
-        <p><?= ($artist->data->description) ?? Html::encode($artist->data->description); ?></p>
-    </div>
-</div>
-<div class="row my-4">
-    <?= ListView::widget([
-            'dataProvider' => $reviewDataProvider,
-            'itemView' => 'artist-review-single',
-            'options' => ['class' => 'list-view row'],
-            'summaryOptions' => ['class' => 'summary w-100 px-3'],
-            'itemOptions' => ['class' => 'col-sm-12 my-4'],
-            'layout' => "{sorter}\n{summary}\n{items}\n{pager}",
         ]
-    ); ?>
+    ]); ?>
 </div>
 <div class="row">
-    <?php if (Yii::$app->user->can(Item::ROLE_MEMBER) && !$hasReviewed) { ?>
-        <?= $this->render('artist-create-review', compact('newReview')); ?>
-    <?php } ?>
+    <div class="col-md-4">
+        <div style="position: sticky; top: 100px;">
+            <?= Html::img($artistImg, ['class' => 'img-fluid mb-3']); ?>
+            <h1 class="my-2"><?= $artist->name; ?></h1>
+            <?php foreach ($artist->genre as $genre) { ?>
+                <?= Html::a($genre->name, ['/genre/view', 'genre_id' => $genre->genre_id], ['class' => 'btn btn-primary']); ?>
+            <?php } ?>
+            <p class="my-3">
+                <?= ($artist->data->description) ?? Html::encode($artist->data->description); ?>
+            </p>
+            <?= StarRating::widget([
+                'name' => 'review-artist-'.$artist->artist_id,
+                'value' => ArtistHelper::averageRating($artist, ReviewArtist::REVIEW_ARTIST_OVERALL),
+                'pluginOptions' => Yii::$app->params['reviewArtistDisplay']
+            ]); ?>
+            <?= $this->render('./partials/criteria', compact('artist')); ?>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <?= ListView::widget([
+                'dataProvider' => $reviewDataProvider,
+                'itemView' => 'artist-review-single',
+                'options' => ['class' => 'list-view row'],
+                'summaryOptions' => ['class' => 'summary w-100 px-3'],
+                'itemOptions' => ['class' => 'col-sm-12 my-4'],
+                'layout' => "{sorter}\n{summary}\n{items}\n{pager}",
+            ]
+        ); ?>
+        <?php if (Yii::$app->user->can(Item::ROLE_MEMBER) && !$hasReviewed) { ?>
+            <?= $this->render('artist-create-review', compact('newReview')); ?>
+        <?php } ?>
+    </div>
 </div>
