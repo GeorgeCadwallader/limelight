@@ -3,9 +3,12 @@
 namespace app\controllers;
 
 use app\auth\Item;
+use app\components\ToneAnalyzer;
 use app\models\Genre;
 use app\models\OwnerRequest;
+use app\models\ReviewTone;
 use app\models\ReviewVenue;
+use app\models\search\ReviewVenueFilterSearch;
 use app\models\search\VenueFilterSearch;
 use app\models\search\VenueSearch;
 use app\models\Venue;
@@ -206,6 +209,9 @@ class VenueController extends \app\core\WebController
             throw new BadRequestHttpException('Invalid venue');
         }
 
+        $reviewFilterModel = new ReviewVenueFilterSearch;
+        $reviewDataProvider = $reviewFilterModel->search($this->request->queryParams);
+
         $newReview = new ReviewVenue([
             'status' => ReviewVenue::STATUS_ACTIVE,
         ]);
@@ -215,12 +221,16 @@ class VenueController extends \app\core\WebController
             $newReview->link('venue', $venue);
     
             if ($newReview->save() && $newReview->validate()){
+                if ($newReview->content !== null) {
+                    ToneAnalyzer::sendReview($newReview, ReviewTone::TYPE_VENUE);
+                }
+
                 Yii::$app->session->addFlash('success', 'Your review has successfully been created');
                 return $this->redirect(['/venue/view', 'venue_id' => $venue->venue_id]);
             }
         }
 
-        return $this->createResponse('view', compact('venue', 'newReview'));
+        return $this->createResponse('view', compact('venue', 'newReview', 'reviewDataProvider'));
     }
 
 }

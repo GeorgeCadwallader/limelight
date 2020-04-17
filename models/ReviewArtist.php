@@ -85,7 +85,7 @@ class ReviewArtist extends \yii\db\ActiveRecord
                 ],
                 'integer'
             ],
-            [['content'], 'string', 'max' => 255],
+            [['content'], 'string', 'max' => 2500],
             ['status', 'in', 'range' => array_keys(self::$statuses)],
             ['artist_id', 'exist', 'targetRelation' => 'artist'],
         ];
@@ -161,6 +161,16 @@ class ReviewArtist extends \yii\db\ActiveRecord
     public function getArtist(): ActiveQueryInterface
     {
         return $this->hasOne(Artist::class, ['artist_id' => 'artist_id']);
+    }
+
+    /**
+     * Get the user votes for this review
+     * 
+     * @return ActiveQueryInterface
+     */
+    public function getUserVote(): ActiveQueryInterface
+    {
+        return $this->hasMany(UserVote::class, ['review_artist_id' => 'review_artist_id']);
     }
 
 }

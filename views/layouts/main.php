@@ -44,108 +44,103 @@ if (is_file($file)) {
 <body>
 <?php $this->beginBody() ?>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary m-0">
-    <button
-        class="navbar-toggler navbar-toggler-right collapsed"
-        type="button"
-        data-toggle="collapse"
-        data-target="#mainNavbar"
-        aria-controls="mainNavbar"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-    >
-        <span class="icon-bar top-bar"></span>
-        <span class="icon-bar middle-bar"></span>
-        <span class="icon-bar bottom-bar"></span>	
-    </button>
-    <div class="collapse navbar-collapse" id="mainNavbar">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="/">Home</a>
-            </li>
-            <?php if (Yii::$app->user->isGuest) { ?>
-                <li class="nav-item">
-                    <a href="/site/login" class="nav-link">Log in</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/register" class="nav-link">Sign up</a>
-                </li>
-            <?php } else { ?>
-                <li class="nav-item">
-                    <a href="/profile" class="nav-link">Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/site/logout" class="nav-link">Log out</a>
-                </li>
-            <?php } ?>
-        </ul>
-    </div>
-</nav>
-<div
-    class="banner"
-    style="background-image:url(<?= Url::to('@images/banner.jpg'); ?>)"
->
-    <a class="banner-logo" href="<?= Yii::$app->homeUrl; ?>">
-        <?= Html::img('@images/logo.png', ['class' => 'img-fluid']); ?>
+
+
+
+<!-- NAV BAR -->
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand js-scroll-trigger" href="/" style="width: 70%;">
+      <img src="/images/logo.png" alt="<?= Yii::$app->name; ?>" style="height: 25%; width: 25%;">
     </a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <?php if (Yii::$app->user->isGuest) { ?>
+            <a class="nav-link js-scroll-trigger" href="/site/login">Log In</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="/register">Sign Up</a>
+        </li>
+        <?php } else { ?>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="/profile">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="/site/logout">Logout</a>
+        </li>
+        <?php } ?>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="/artist">Artists</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="/venue">Venues</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+<!-- HEADER (MAY BE MOVED TO GUEST INDEX) -->
+
+
+<div id="center-heading" class="masthead" style="background-image:url(<?= Url::to('@images/banner.jpg'); ?>);">
+    <div class="container">
+      <div class="intro-text">
+      <?php if (Yii::$app->user->isGuest) { ?>
+        <div class="intro-lead-in">Welcome to <?= Yii::$app->name; ?>!</div>
+        <div class="intro-heading">Rate Venues & Artists Live</div>
+        <a class="btn btn-primary btn-lg btn-xl rounded text-uppercase js-scroll-trigger" href="/register">Get Started</a>
+      </div>
+    </div>
+    <?php } ?>
+          </div>
+    </div> 
 </div>
-<div class="home-nav bg-white">
-    <h4 class="home-nav-item m-0">
-        <a href="/artist" class="text-dark">
-            Artists
-        </a>
-    </h4>
-    <h4 class="home-nav-item m-0">
-        <a href="#" class="text-dark">
-            Events
-        </a>
-    </h4>
-    <h4 class="home-nav-item m-0">
-        <a href="/venue" class="text-dark">
-            Venues
-        </a>
-    </h4>
-</div>
+
+
+<!-- PAGE CONTENT -->
 
 <div class="container my-4">
     <?= Alert::widget() ?>
     <?= $content ?>
 </div>
-<!-- 
 
-<footer class="footer">
-    <<div class="container-fluid">
-        <p class="pull-left">&copy; Limelight</p>
-    </div>
+<!-- FOOTER -->
 
-    -->
+
 <footer id="llfooter" class="py-4 text-white-50">
-    <div class="container text-center">
-      <small >Copyright &copy; Limelight <?= date('Y') ?> 
-    <br></br>
+  <div class="container text-center">
+    <small >Copyright &copy; <?= Yii::$app->name; ?> <?= date('Y') ?> 
+      <br></br>
     </small>
-
-      <div class="social-icons align-content-center">
-
-        <a class="social-icon social-icon--twitter" href="https://www.facebook.com/Studiogenix" style="text-decoration: none;">
-            <i class="fa fa-twitter"></i>
-      <div class="tooltip">Twitter</div>
-  </a>
-        <a class="social-icon social-icon--instagram" href="https://www.facebook.com/Studiogenix" style="text-decoration: none;">
-            <i class="fa fa-instagram"></i>
-       <div class="tooltip">Instagram</div>
-  </a>
-        <a class="social-icon social-icon--linkedin" href="https://www.linkedin.com/company/42078791" style="text-decoration: none;">
-            <i class="fa fa-linkedin"></i>
+    <div class="social-icons align-content-center">
+      <a class="social-icon social-icon--twitter" href="https://www.facebook.com/Studiogenix" style="text-decoration: none;">
+        <i class="fa fa-twitter"></i>
+        <div class="tooltip">Twitter</div>
+      </a>
+      <a class="social-icon social-icon--instagram" href="https://www.facebook.com/Studiogenix" style="text-decoration: none;">
+        <i class="fa fa-instagram"></i>
+        <div class="tooltip">Instagram</div>
+      </a>
+      <a class="social-icon social-icon--linkedin" href="https://www.linkedin.com/company/42078791" style="text-decoration: none;">
+        <i class="fa fa-linkedin"></i>
         <div class="tooltip">LinkedIn</div>
-  </a>
-        <a class="social-icon social-icon--facebook" href="https://www.facebook.com/Studiogenix" style="text-decoration: none;">
-            <i class="fa fa-facebook"></i>
+      </a>
+      <a class="social-icon social-icon--facebook" href="https://www.facebook.com/Studiogenix" style="text-decoration: none;">
+        <i class="fa fa-facebook"></i>
         <div class="tooltip">Facebook</div>
-  </a>
-</div>
+      </a>
     </div>
-  </footer>
+  </div>
+</footer>
 
 <?php $this->endBody() ?>
 </body>

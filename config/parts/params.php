@@ -45,5 +45,15 @@ return [
         'readonly' => true,
         'showClear' => false,
         'showCaption' => false,
+    ],
+
+    'richtextOptions' => [
+        'options' => [
+            'rows' => 6,
+        ],
+        'clientOptions' => [
+            'toolbar' => "undo redo | bold italic",
+            'paste_data_images' => false
+        ]
     ]
 ];

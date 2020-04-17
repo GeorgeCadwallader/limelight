@@ -15,11 +15,15 @@ import '../../vendor/kartik-v/bootstrap-star-rating/css/star-rating.css';
 
 import '../../vendor/bower-asset/select2/dist/js/select2.full.js';
 
+import '../../vendor/tinymce/tinymce/tinymce.js';
+import '../../vendor/tinymce/tinymce/themes/silver/theme.js';
+
 /**
  * Custom
  */
 
 import './components/compare';
 import './components/review';
+import './components/navbar';
 
 import '../scss/main.scss';

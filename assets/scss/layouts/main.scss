@@ -16,6 +16,19 @@
     }
 }
 
+::selection {
+    background: $primary;
+}
+
+::-moz-selection {
+    background: $primary;
+}
+
+
+#banner.h3 {
+ margin-top: 50%
+}
+
 .home-nav {
     display: flex;
     flex-direction: row;
@@ -40,3 +53,104 @@
     border-top-right-radius: $border-radius;
     border-bottom-right-radius: $border-radius;
 }
+
+#mainNav {
+    background-color: $off-white;
+  }
+  
+  #mainNav .navbar-toggler {
+    font-weight: 900;
+    font-size: 12px;
+    right: 0;
+    padding: 13px;
+    color: $primary;
+    border: 0;
+    background-color: $off-white;
+  }
+  
+  #mainNav .navbar-brand.active, #mainNav .navbar-brand:active, #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
+    color: $off-white;
+  }
+  
+  #mainNav .navbar-nav .nav-item .nav-link {
+    font-family: $font-family-sans-serif;
+    font-weight: 900;
+    font-size: 1.4em;
+    padding: 0.75em 0;
+    letter-spacing: 1px;
+    color: $primary;
+  }
+  
+  #mainNav .navbar-nav .nav-item .nav-link.active, #mainNav .navbar-nav .nav-item .nav-link:hover {
+    color: $dark-green;
+  }
+  
+  @media (min-width: 992px) {
+    #mainNav {
+      padding-top: 25px;
+      padding-bottom: 25px;
+      transition: padding-top 0.3s, padding-bottom 0.3s;
+      border: none;
+      background-color: transparent;
+    }
+    #mainNav .navbar-brand {
+      transition: all 0.3s;
+      width: 50% !important;
+    }
+    #mainNav .navbar-nav .nav-item .nav-link {
+      padding: 1.3em 1em !important;
+    }
+    #mainNav.navbar-shrink {
+      padding-top: 0;
+      padding-bottom: 0;
+      background-color: $off-white;
+    }
+    #mainNav.navbar-shrink .navbar-brand {
+      width: 303px !important;
+    }
+  }
+
+  #center-heading {
+    display:flex;
+     align-items: center;
+    justify-content: center;
+  }
+
+  
+  #center-heading.masthead .intro-text {
+    padding-top: 150px;
+    padding-bottom: 100px;
+  }
+  
+  #center-heading.masthead .intro-text .intro-lead-in {
+    font-size: 22px;
+    font-style: italic;
+    line-height: 22px;
+    margin-bottom: 25px;
+  }
+  
+  #center-heading.masthead .intro-text .intro-heading {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 50px;
+    margin-bottom: 25px;
+  }
+  
+  @media (min-width: 768px) {
+    #center-heading.masthead .intro-text {
+      padding-top: 300px;
+      padding-bottom: 200px;
+    }
+    #center-heading.masthead .intro-text .intro-lead-in {
+      font-size: 40px;
+      font-style: italic;
+      line-height: 40px;
+      margin-bottom: 25px;
+    }
+    #center-heading.masthead .intro-text .intro-heading {
+      font-size: 75px;
+      font-weight: 700;
+      line-height: 75px;
+      margin-bottom: 50px;
+    }
+  }

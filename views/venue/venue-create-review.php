@@ -8,6 +8,8 @@ use kartik\rating\StarRating;
 
 use yii\bootstrap4\ActiveForm;
 
+use dosamigos\tinymce\TinyMce;
+
 ?>
 
 <div class="card card-body">
@@ -29,7 +31,9 @@ use yii\bootstrap4\ActiveForm;
     <?php $form = ActiveForm::begin([
         'id' => 'create-review',
     ]); ?>
-        <?= $form->field($newReview, 'content')->textarea(['rows' => 5]); ?>
+        <?= $form->field($newReview, 'content')->widget(TinyMce::class, 
+            Yii::$app->params['richtextOptions']
+        ); ?>
         <?= $form->field($newReview, 'overall_rating')->widget(StarRating::class,
             Yii::$app->params['reviewVenueNew']
         ); ?>

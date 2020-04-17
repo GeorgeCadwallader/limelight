@@ -6,9 +6,12 @@ use app\helpers\UserDataHelper;
 use app\models\UserVote;
 
 use kartik\rating\StarRating;
+use yii\helpers\StringHelper;
 
 /** @var $this yii\web\View */
 /** @var $review app\models\ReviewArtist */
+
+$review = $model;
 
 $date = Yii::$app->formatter->asDate($review->created_at, 'php:d/m/Y');
 
@@ -21,84 +24,95 @@ $hasUpvoted = UserVote::find()
     ]);
 
 $hasDownvoted = UserVote::find()
-->where([
-    'AND',
-    ['review_artist_id' => $review->review_artist_id],
-    ['created_by' => Yii::$app->user->id],
-    ['type' => UserVote::TYPE_DOWNVOTE]
-]);
+    ->where([
+        'AND',
+        ['review_artist_id' => $review->review_artist_id],
+        ['created_by' => Yii::$app->user->id],
+        ['type' => UserVote::TYPE_DOWNVOTE]
+    ]);
+
+$favouriteGenre = $review->creator->genre;
 
 ?>
 
-<div class="col-sm-12 review-single-container">
+<div class="col-md-12 review-single-container py-3">
     <div class="row <?= 'review-view-container-'.$review->review_artist_id; ?>">
-        <div class="col-sm-3">
-            <?= Html::img(UserDataHelper::imageUrl($review->creator->userData), ['class' => 'img-fluid']); ?>
-            <h4>
-                <?= Html::a(
-                    $review->creator->username,
-                    [
-                        '/profile/view',
-                        'user_id' => $review->created_by
-                    ]
-                ); ?>
-            </h4>
-            <?= BadgeHelper::displayBadges($review->creator); ?>
-            <?= StarRating::widget([
-                'name' => 'review-'.$review->artist->artist_id.'-'.$review->creator->user_id,
-                'value' => $review->overall_rating,
-                'pluginOptions' => [
-                    'filledStar' => '<i class="fa fa-star"></i>',
-                    'emptyStar' => '<i class="fa fa-star"></i>',
-                    'readonly' => true,
-                    'showClear' => false,
-                    'showCaption' => false,
-                ],
-            ]); ?>
-        </div>
-        <div class="col-sm-9">
-            <?php if ($review->creator->user_id === Yii::$app->user->id) { ?>
-                <div class="text-right">
-                    <?= Html::a(
-                        'Edit Review'.Html::icon('pencil', ['class' => 'pl-3']),
-                        '#edit',
-                        [
-                            'class' => 'review-edit-btn btn btn-primary',
-                            'data-review-id' => $review->review_artist_id
-                        ]
-                    ); ?>
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-12 text-right mb-3">
+                    <?php if ($review->creator->user_id === Yii::$app->user->id) { ?>
+                        <?= Html::a(
+                            'Edit Review'.Html::icon('pencil', ['class' => 'pl-3']),
+                            '#edit',
+                            [
+                                'class' => 'review-edit-btn btn btn-primary',
+                                'data-review-id' => $review->review_artist_id
+                            ]
+                        ); ?>
+                    <?php } ?>
                 </div>
-            <?php } ?>
-            <h5>
-                <?= $date; ?>
-            </h5>
-            <p class="my-3">
-                <?= ($review->content) ? Html::encode($review->content) : ''; ?>
-            </p>
-            <p>
-                <?= $review->upvotes.' member(s) found this helpful'; ?>
-            </p>
-            <p>
-                Was this review helpful?
-                <?= Html::a(
-                    'Yes',
-                    [
-                        '/review/upvote',
-                        'review_id' => $review->review_artist_id,
-                        'isArtist' => true
-                    ],
-                    ['class' => ($hasUpvoted->exists()) ? 'btn btn-primary mx-2 disabled' : 'btn btn-primary mx-2']
-                ); ?>
-                <?= Html::a(
-                    'No',
-                    [
-                        '/review/downvote',
-                        'review_id' => $review->review_artist_id,
-                        'isArtist' => true
-                    ],
-                    ['class' => ($hasDownvoted->exists()) ? 'btn btn-primary mx-2 disabled' : 'btn btn-primary mx-2']
-                ); ?>
-            </p>
+            </div>
+            <div class="row">
+                <div class="col-sm-9">
+                    <h3><?= Html::a($review->creator->username, ['/profile/view', 'user_id' => $review->creator->user_id]); ?></h3>
+                    <?= BadgeHelper::displayBadges($review->creator); ?>
+                </div>
+                <div class="col-sm-3">
+                    <strong>
+                        <?= $date; ?>
+                    </strong>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <?= StarRating::widget([
+                        'name' => 'review-'.$review->artist->artist_id.'-'.$review->creator->user_id,
+                        'value' => $review->overall_rating,
+                        'pluginOptions' => Yii::$app->params['reviewArtistDisplay'],
+                    ]); ?>
+                    <?= Html::img(UserDataHelper::imageUrl($review->creator->userData), ['class' => 'img-fluid my-3']); ?>
+                    <?php if (!empty($favouriteGenre)) { ?>
+                        <p class="mt-3">Favourite Genre</p>
+                        <?= Html::a(
+                            $favouriteGenre[0]->name,
+                            [
+                                '/genre/view',
+                                'genre_id' => $favouriteGenre[0]->genre_id
+                            ],
+                            ['class' => 'btn btn-primary']
+                        ); ?>
+                    <?php } ?>
+                </div>
+                <div class="col-sm-9 px-md-4">
+                    <?php if (StringHelper::countWords($review->content) > 50) { ?>
+                        <?= Html::readMore($review->content, $review->review_artist_id); ?>
+                    <?php } else { ?>
+                        <?= Html::tag('p', $review->content, ['class' => 'my-4']); ?>
+                    <?php } ?>
+                    <?= Html::tag('p', $review->upvotes.' member(s) found this helpful', ['class' => 'my-4']); ?>
+                    <p>
+                        Did you find this review helpful?
+                        <?= Html::a(
+                            'Yes',
+                            [
+                                '/review/upvote',
+                                'review_id' => $review->review_artist_id,
+                                'isArtist' => true
+                            ],
+                            ['class' => ($hasUpvoted->exists()) ? 'btn btn-primary mx-2 disabled' : 'btn btn-primary mx-2']
+                        ); ?>
+                        <?= Html::a(
+                            'No',
+                            [
+                                '/review/downvote',
+                                'review_id' => $review->review_artist_id,
+                                'isArtist' => true
+                            ],
+                            ['class' => ($hasDownvoted->exists()) ? 'btn btn-primary mx-2 disabled' : 'btn btn-primary mx-2']
+                        ); ?>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
     <?php if ($review->creator->user_id === Yii::$app->user->id) { ?>
