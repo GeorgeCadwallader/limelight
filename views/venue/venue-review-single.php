@@ -6,6 +6,7 @@ use app\helpers\UserDataHelper;
 use app\models\UserVote;
 
 use kartik\rating\StarRating;
+use yii\helpers\StringHelper;
 
 /** @var $this yii\web\View */
 /** @var $review app\models\ReviewVenue */
@@ -63,7 +64,7 @@ $favouriteGenre = $review->creator->genre;
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <?= StarRating::widget([
                         'name' => 'review-'.$review->venue->venue_id.'-'.$review->creator->user_id,
                         'value' => $review->overall_rating,
@@ -82,8 +83,12 @@ $favouriteGenre = $review->creator->genre;
                         ); ?>
                     <?php } ?>
                 </div>
-                <div class="col-sm-8">
-                    <?= Html::tag('p', $review->content, ['class' => 'my-3']); ?>
+                <div class="col-sm-9 px-md-4">
+                    <?php if (StringHelper::countWords($review->content) > 50) { ?>
+                        <?= Html::readMore($review->content, $review->review_venue_id); ?>
+                    <?php } else { ?>
+                        <?= Html::tag('p', $review->content, ['class' => 'my-4']); ?>
+                    <?php } ?>
                     <?= Html::tag('p', $review->upvotes.' member(s) found this helpful', ['class' => 'my-4']); ?>
                     <p>
                         Did you find this review helpful?

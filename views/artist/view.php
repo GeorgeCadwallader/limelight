@@ -23,7 +23,7 @@ $hasReviewed = ReviewArtist::find()
     ->andWhere(['created_by' => Yii::$app->user->id])
     ->exists();
 
-$artistImg = ($artist->data->profile_path) ? Yii::$app->request->baseUrl.'/images/artist/'.$artist->data->profile_path : '/images/venue-placeholder.png';
+$artistImg = ArtistHelper::imageUrl($artist);
 
 $this->title = $artist->name.' | '.Yii::$app->name;
 

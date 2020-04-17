@@ -23,7 +23,7 @@ $hasReviewed = ReviewVenue::find()
     ->andWhere(['created_by' => Yii::$app->user->id])
     ->exists();
 
-$venueImg = ($venue->data->profile_path) ? Yii::$app->request->baseUrl.'/images/venue/'.$venue->data->profile_path : '/images/venue-placeholder.png';
+$venueImg = VenueHelper::imageUrl($venue);
 
 $this->title = $venue->name.' | '.Yii::$app->name;
 
