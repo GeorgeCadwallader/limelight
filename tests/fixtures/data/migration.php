@@ -73,4 +73,8 @@ return [
         'version' => 'm200410_174409_create_review_tone_table',
         'apply_time' => '1586542364',
     ],
+    [
+        'version' => 'm200420_140045_create_member_request_table',
+        'apply_time' => '1587394922',
+    ],
 ];
