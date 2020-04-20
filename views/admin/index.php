@@ -133,4 +133,21 @@ $this->title = Yii::$app->name.' | Admin panel';
             ); ?>
         </div>
     </div>
+    <div class="col-sm-6 card">
+        <div class="card-body">
+            <h2 class="card-title">View member requests</h2>
+            <hr class="my-2">
+            <p class="card-text">
+                View and manage member requests on <?= Yii::$app->name; ?>.
+                <br><br>
+                This displays all current requests by members to add artists and venues to <?= Yii::$app->name; ?>
+                that do not currently exist on the site.
+            </p>
+            <?= Html::a(
+                'View Member Requests',
+                '/admin/member-requests',
+                ['class' => 'btn btn-primary']
+            ); ?>
+        </div>
+    </div>
 </div>
