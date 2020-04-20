@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\auth\Item;
 use app\components\ToneAnalyzer;
 use app\models\Genre;
+use app\models\MemberRequest;
 use app\models\OwnerRequest;
 use app\models\ReviewTone;
 use app\models\ReviewVenue;
@@ -80,7 +81,9 @@ class VenueController extends \app\core\WebController
         $venueFilterModel = new VenueFilterSearch;
         $venueDataProvider = $venueFilterModel->search($this->request->queryParams);
 
-        return $this->createResponse('index', compact('venueDataProvider'));
+        $memberRequest = new MemberRequest;
+
+        return $this->createResponse('index', compact('venueDataProvider', 'memberRequest'));
     }
 
     /**
