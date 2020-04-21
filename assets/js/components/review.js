@@ -12,19 +12,26 @@ $('.review-edit-btn').click(function() {
     reviewView.show('slow');
 });
 
-$('.read-more').click(function() {
-    let moreText = $('.more-text[data-id=' + $(this).data('id') + ']');
-    let dots = $('.more-text-dots[data-id=' + $(this).data('id') + ']');
+$(document).ready(function() {
+    $('.review-text-content').each(function(i, element) {
+        let height = $(element).css('height').replace('px', '');
+        let readBtn = $(element).siblings('.read-more-btn');
+        
+        if (height > '100') {
+            readBtn.css('display', 'none');
+        }
+    });
+});
 
-    console.log();
+$('.read-more-btn').click(function() {
+    let text = $(this).siblings('.review-text-content');
+    let maxHeight = $(text).css('max-height');
 
-    if ($(moreText).is(':visible')) {
-        $(this).text('Read More ...');
-        $(dots).show();
-        $(moreText).hide();
-    } else {
+    if (maxHeight === '100px') {
         $(this).text('Read Less ...');
-        $(dots).hide();
-        $(moreText).show();
+        $(text).css('max-height', '100%');
+    } else {
+        $(this).text('Read More ...');
+        $(text).css('max-height', '100px');
     }
 });
