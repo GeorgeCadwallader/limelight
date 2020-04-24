@@ -1,6 +1,7 @@
 <?php
 
 use app\helpers\Html;
+use app\models\County;
 use app\models\Genre;
 use app\models\Venue;
 
@@ -16,6 +17,8 @@ use yii\helpers\Url;
 /** @var $venueData app\models\VenueData */
 
 $genres = ArrayHelper::map(Genre::find()->all(), 'genre_id', 'name');
+
+$counties = ArrayHelper::map(County::find()->all(), 'county_id', 'name');
 
 ?>
 
@@ -85,6 +88,13 @@ $genres = ArrayHelper::map(Genre::find()->all(), 'genre_id', 'name');
                             'multiple' => true,
                         ]
                     )->label('Choose your genres'); ?>
+                </div>
+                <div class="col-sm-12">
+                    <?= $form->field($venueData, 'county_id')->widget(Select2Widget::className(), [
+                            'placeholder' => 'Select location ...',
+                            'items' => $counties
+                        ]
+                    )->label('Choose your location'); ?>
                 </div>
                 <div class="col-sm-12 my-3">
                     <?= Html::submitButton('Save', ['class' => 'btn btn-primary']); ?>

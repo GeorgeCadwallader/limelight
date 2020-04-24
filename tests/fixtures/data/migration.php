@@ -77,4 +77,8 @@ return [
         'version' => 'm200420_140045_create_member_request_table',
         'apply_time' => '1587394922',
     ],
+    [
+        'version' => 'm200424_141247_add_column_to_venue_data_table',
+        'apply_time' => '1587738377',
+    ],
 ];
