@@ -77,7 +77,8 @@ class MemberRequest extends \yii\db\ActiveRecord
                 'integer'
             ],
             ['status', 'in', 'range' => array_keys(self::$statuses)],
-            ['type', 'in', 'range' => array_keys(self::$types)]
+            ['type', 'in', 'range' => array_keys(self::$types)],
+            [['request_name'], 'required'],
         ];
     }
 
