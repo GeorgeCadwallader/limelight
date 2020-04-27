@@ -67,7 +67,7 @@ use dosamigos\tinymce\TinyMce;
             ); ?>
         </div>
         <div class="my-4 text-right">
-            <?= Html::submitButton('Save Review', ['class' => 'btn btn-primary']); ?>
+            <?= Html::submitButton('Create Review', ['class' => 'btn btn-primary']); ?>
         </div>
     <?php ActiveForm::end(); ?>
 </div>
