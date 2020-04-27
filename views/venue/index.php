@@ -39,7 +39,7 @@ $venues = Venue::find()->where(['status' => Venue::STATUS_ACTIVE])->all();
                 <h5 class="font-weight-bold">
                     Don't see the venue you want to review?
                 </h5>
-                <p>Fill in the form below to request an venue page to be created</p>
+                <p>Fill in the form below to request a venue page to be created</p>
                 <?php $form = ActiveForm::begin(
                     [
                         'id' => 'member-request-create',
