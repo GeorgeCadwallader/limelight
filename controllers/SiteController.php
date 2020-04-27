@@ -69,12 +69,13 @@ class SiteController extends \app\core\WebController
 
         $roles = Yii::$app->authManager->getRolesByUser(Yii::$app->user->id);
 
+        
         if (array_key_exists(Item::ROLE_ADMIN, $roles)) {
             return $this->redirect(Url::toRoute('/admin'));
         } elseif (array_key_exists(Item::ROLE_ARTIST_OWNER, $roles) && Yii::$app->user->identity->artist !== null) {
             $owner = Yii::$app->user->identity;
             return $this->render('partials/artist-owner-index', compact('owner'));
-        } elseif (array_key_exists(Item::ROLE_VENUE_OWNER, $roles) && Yii::$app->user->identity->artist !== null) {
+        } elseif (array_key_exists(Item::ROLE_VENUE_OWNER, $roles) && Yii::$app->user->identity->venue !== null) {
             $owner = Yii::$app->user->identity;
             return $this->render('partials/venue-owner-index', compact('owner'));
         } else {
