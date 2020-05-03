@@ -15,11 +15,6 @@
       }
     });
   
-    // Closes responsive menu when a scroll trigger link is clicked
-    $('.js-scroll-trigger').click(function() {
-      $('.navbar-collapse').collapse('hide');
-    });
-  
     // Activate scrollspy to add active class to navbar items on scroll
     $('body').scrollspy({
       target: '#mainNav',
@@ -40,4 +35,16 @@
     $(window).scroll(navbarCollapse);
   
   })(jQuery); // End of use strict
+
+$('.nav-link-dropdown').on('click', function() {
+  let dropdown = $(this).siblings('.navbar-link-dropdown-content');
+  if ($(this).attr('aria-expanded') === true) {
+    dropdown.addClass('swing-in-top-fwd-reverse');
+    dropdown.removeClass('swing-in-top-fwd');
+    return;
+  }
+
+  dropdown.removeClass('swing-in-top-fwd-reverse');
+  dropdown.addClass('swing-in-top-fwd');
+});
   

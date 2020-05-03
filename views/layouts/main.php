@@ -5,6 +5,7 @@
 
 use app\widgets\Alert;
 use app\helpers\Html;
+use app\helpers\UserDataHelper;
 use yii\helpers\Url;
 
 $file = Yii::getAlias('@webroot/assets/asset-manifest-required.json');
@@ -60,27 +61,41 @@ if (is_file($file)) {
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <?php if (Yii::$app->user->isGuest) { ?>
-            <a class="nav-link js-scroll-trigger" href="/site/login">Log In</a>
+        <li class="nav-item navbar-profile dropdown">
+          <a href="#" class="nav-link nav-link-dropdown dropdown-toggle" id="toolsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Tools
+          </a>
+          <div class="dropdown-menu navbar-link-dropdown-content py-3" aria-labelledby="toolsDropdown">
+            <a class="dropdown-item nav-link navbar-profile-link" href="/event">Events</a>
+            <a class="dropdown-item nav-link navbar-profile-link" href="/compare">Comparison Feature</a>
+          </div>
         </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="/register">Sign Up</a>
-        </li>
-        <?php } else { ?>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="/profile">Profile</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="/site/logout">Logout</a>
-        </li>
-        <?php } ?>
         <li class="nav-item">
           <a class="nav-link js-scroll-trigger" href="/artist">Artists</a>
         </li>
         <li class="nav-item">
           <a class="nav-link js-scroll-trigger" href="/venue">Venues</a>
         </li>
+        <?php if (!Yii::$app->user->isGuest) { ?>
+          <li class="nav-item navbar-profile dropdown">
+            <a href="#" class="nav-link nav-link-dropdown" id="profileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <div class="navbar-profile-image" style="background-image: url(<?= UserDataHelper::imageUrl(Yii::$app->user->identity->userData); ?>)" title="<?= Yii::$app->user->identity->username; ?>"></div>
+            </a>
+            <div class="dropdown-menu navbar-link-dropdown-content navbar-profile-dropdown py-3" aria-labelledby="profileDropdown">
+              <a class="dropdown-item nav-link navbar-profile-link" href="/profile">Profile</a>
+              <a class="dropdown-item nav-link navbar-profile-link" href="<?= Url::to(['/profile/edit', 'user_id' => Yii::$app->user->id]); ?>">Edit Profile</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item nav-link navbar-profile-link" href="/site/logout">Logout</a>
+            </div>
+          </li>
+        <?php } else { ?>
+          <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/site/login">Log In</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="/register">Sign Up</a>
+          </li>
+        <?php } ?>
       </ul>
     </div>
   </div>
