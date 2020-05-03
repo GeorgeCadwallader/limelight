@@ -39,12 +39,10 @@
 $('.nav-link-dropdown').on('click', function() {
   let dropdown = $(this).siblings('.navbar-link-dropdown-content');
   if ($(this).attr('aria-expanded') === true) {
-    dropdown.addClass('swing-in-top-fwd-reverse');
     dropdown.removeClass('swing-in-top-fwd');
     return;
   }
 
-  dropdown.removeClass('swing-in-top-fwd-reverse');
   dropdown.addClass('swing-in-top-fwd');
 });
   

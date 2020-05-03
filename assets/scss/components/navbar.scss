@@ -51,12 +51,15 @@
     &-link {
         font-size: 14px !important;
         padding: 0 !important;
+        
+
+        &:hover, &:active {
+            background-color: transparent !important;
+        }
     }
 
     #profileDropdown {
         &[aria-expanded="true"] {
-            background-color: $body-bg;
-            
             .navbar-profile {
                 &-image {
                     border: solid 2px $primary;
@@ -77,11 +80,6 @@
 .swing-in-top-fwd {
 	-webkit-animation: swing-in-top-fwd 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
 	animation: swing-in-top-fwd 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
-}
-
-.swing-in-top-fwd-reverse {
-	-webkit-animation: swing-in-top-fwd 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) reverse both;
-    animation: swing-in-top-fwd 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) reverse both;
 }
 
 @-webkit-keyframes swing-in-top-fwd {
@@ -116,37 +114,4 @@
     opacity: 1;
 }
 }
-
-@-webkit-keyframes swing-in-top-fwd-reverse {
-    0% {
-      -webkit-transform: rotateX(-100deg);
-              transform: rotateX(-100deg);
-      -webkit-transform-origin: top;
-              transform-origin: top;
-      opacity: 0;
-    }
-    100% {
-      -webkit-transform: rotateX(0deg);
-              transform: rotateX(0deg);
-      -webkit-transform-origin: top;
-              transform-origin: top;
-      opacity: 1;
-    }
-  }
-  @keyframes swing-in-top-fwd-reverse {
-    0% {
-      -webkit-transform: rotateX(-100deg);
-              transform: rotateX(-100deg);
-      -webkit-transform-origin: top;
-              transform-origin: top;
-      opacity: 0;
-    }
-    100% {
-      -webkit-transform: rotateX(0deg);
-              transform: rotateX(0deg);
-      -webkit-transform-origin: top;
-              transform-origin: top;
-      opacity: 1;
-    }
-  }
   
