@@ -61,6 +61,12 @@ if (is_file($file)) {
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="/artist">Artists</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="/venue">Venues</a>
+        </li>
         <li class="nav-item navbar-profile dropdown">
           <a href="#" class="nav-link nav-link-dropdown dropdown-toggle" id="toolsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Tools
@@ -69,12 +75,6 @@ if (is_file($file)) {
             <a class="dropdown-item nav-link navbar-profile-link" href="/event">Events</a>
             <a class="dropdown-item nav-link navbar-profile-link" href="/compare">Comparison Feature</a>
           </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="/artist">Artists</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="/venue">Venues</a>
         </li>
         <?php if (!Yii::$app->user->isGuest) { ?>
           <li class="nav-item navbar-profile dropdown">
@@ -111,7 +111,7 @@ if (is_file($file)) {
       <div class="intro-text">
       <?php if (Yii::$app->user->isGuest) { ?>
         <div class="intro-lead-in">Welcome to <?= Yii::$app->name; ?>!</div>
-        <div class="intro-heading">Rate Venues & Artists Live</div>
+        <div class="intro-heading">Rate Venues & Artists separately</div>
         <a class="btn btn-primary btn-lg btn-xl rounded text-uppercase js-scroll-trigger" href="/register">Get Started</a>
       </div>
     </div>
@@ -137,11 +137,11 @@ if (is_file($file)) {
       <br></br>
     </small>
     <div class="social-icons align-content-center">
-      <a class="social-icon social-icon--twitter" href="https://www.facebook.com/Studiogenix" style="text-decoration: none;">
+      <a class="social-icon social-icon--twitter" href="https://twitter.com/RealStudioGenix" style="text-decoration: none;">
         <i class="fa fa-twitter"></i>
         <div class="tooltip">Twitter</div>
       </a>
-      <a class="social-icon social-icon--instagram" href="https://www.facebook.com/Studiogenix" style="text-decoration: none;">
+      <a class="social-icon social-icon--instagram" href="https://www.instagram.com/limelight_official_/" style="text-decoration: none;">
         <i class="fa fa-instagram"></i>
         <div class="tooltip">Instagram</div>
       </a>
@@ -154,6 +154,14 @@ if (is_file($file)) {
         <div class="tooltip">Facebook</div>
       </a>
     </div>
+    <br>
+    <small>
+      <a href="/faq" class="text-white mr-2">FAQ</a>
+      <span class="text-white">-</span>
+      <a href="/site/privacy-policy" class="text-white mx-2">Privacy Policy</a>
+      <span class="text-white">-</span>
+      <a href="/site/contact-us" class="text-white ml-2">Contact Us</a>
+    </small>
   </div>
 </footer>
 

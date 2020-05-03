@@ -87,6 +87,22 @@ class SiteController extends \app\core\WebController
     }
 
     /**
+     * Render the contact page
+     */
+    public function actionContactUs(): Response
+    {
+        return $this->createResponse('contact');
+    }
+
+    /**
+     * Render the privacy policy page
+     */
+    public function actionPrivacyPolicy(): Response
+    {
+        return $this->createResponse('privacy-policy');
+    }
+
+    /**
      * Login action.
      *
      * @return Response|string
