@@ -12,6 +12,7 @@ use app\models\Region;
 use app\models\search\ArtistSearch;
 use app\models\search\CountySearch;
 use app\models\search\GenreSearch;
+use app\models\search\MemberRequestSearch;
 use app\models\search\RegionSearch;
 use app\models\search\RequestSearch;
 use app\models\search\VenueSearch;
@@ -491,6 +492,26 @@ class AdminController extends \app\core\WebController
         }
 
         return $this->createResponse('edit-genre', compact('genre', 'edit'));
+    }
+
+    /**
+     * Action for accessing the main hub for viewing and manaing
+     * member requests
+     * 
+     * @return Response
+     */
+    public function actionMemberRequests(): Response
+    {
+        $memberRequestFilterModel = new MemberRequestSearch;
+        $memberRequestDataProvider = $memberRequestFilterModel->search($this->request->queryParams);
+
+        return $this->createResponse(
+            'member-request',
+            compact(
+                'memberRequestFilterModel',
+                'memberRequestDataProvider'
+            )
+        );
     }
 
 }

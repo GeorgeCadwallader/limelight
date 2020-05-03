@@ -5,6 +5,7 @@
 
 use app\widgets\Alert;
 use app\helpers\Html;
+use app\helpers\UserDataHelper;
 use yii\helpers\Url;
 
 $file = Yii::getAlias('@webroot/assets/asset-manifest-required.json');
@@ -61,26 +62,40 @@ if (is_file($file)) {
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <?php if (Yii::$app->user->isGuest) { ?>
-            <a class="nav-link js-scroll-trigger" href="/site/login">Log In</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="/register">Sign Up</a>
-        </li>
-        <?php } else { ?>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="/profile">Profile</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="/site/logout">Logout</a>
-        </li>
-        <?php } ?>
-        <li class="nav-item">
           <a class="nav-link js-scroll-trigger" href="/artist">Artists</a>
         </li>
         <li class="nav-item">
           <a class="nav-link js-scroll-trigger" href="/venue">Venues</a>
         </li>
+        <li class="nav-item navbar-profile dropdown">
+          <a href="#" class="nav-link nav-link-dropdown dropdown-toggle" id="toolsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Tools
+          </a>
+          <div class="dropdown-menu navbar-link-dropdown-content py-3" aria-labelledby="toolsDropdown">
+            <a class="dropdown-item nav-link navbar-profile-link" href="/event">Events</a>
+            <a class="dropdown-item nav-link navbar-profile-link" href="/compare">Comparison Feature</a>
+          </div>
+        </li>
+        <?php if (!Yii::$app->user->isGuest) { ?>
+          <li class="nav-item navbar-profile dropdown">
+            <a href="#" class="nav-link nav-link-dropdown" id="profileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <div class="navbar-profile-image" style="background-image: url(<?= UserDataHelper::imageUrl(Yii::$app->user->identity->userData); ?>)" title="<?= Yii::$app->user->identity->username; ?>"></div>
+            </a>
+            <div class="dropdown-menu navbar-link-dropdown-content navbar-profile-dropdown py-3" aria-labelledby="profileDropdown">
+              <a class="dropdown-item nav-link navbar-profile-link" href="/profile">Profile</a>
+              <a class="dropdown-item nav-link navbar-profile-link" href="<?= Url::to(['/profile/edit', 'user_id' => Yii::$app->user->id]); ?>">Edit Profile</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item nav-link navbar-profile-link" href="/site/logout">Logout</a>
+            </div>
+          </li>
+        <?php } else { ?>
+          <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/site/login">Log In</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="/register">Sign Up</a>
+          </li>
+        <?php } ?>
       </ul>
     </div>
   </div>
@@ -96,7 +111,7 @@ if (is_file($file)) {
       <div class="intro-text">
       <?php if (Yii::$app->user->isGuest) { ?>
         <div class="intro-lead-in">Welcome to <?= Yii::$app->name; ?>!</div>
-        <div class="intro-heading">Rate Venues & Artists Live</div>
+        <div class="intro-heading">Rate Venues & Artists separately</div>
         <a class="btn btn-primary btn-lg btn-xl rounded text-uppercase js-scroll-trigger" href="/register">Get Started</a>
       </div>
     </div>
@@ -122,11 +137,11 @@ if (is_file($file)) {
       <br></br>
     </small>
     <div class="social-icons align-content-center">
-      <a class="social-icon social-icon--twitter" href="https://www.facebook.com/Studiogenix" style="text-decoration: none;">
+      <a class="social-icon social-icon--twitter" href="https://twitter.com/RealStudioGenix" style="text-decoration: none;">
         <i class="fa fa-twitter"></i>
         <div class="tooltip">Twitter</div>
       </a>
-      <a class="social-icon social-icon--instagram" href="https://www.facebook.com/Studiogenix" style="text-decoration: none;">
+      <a class="social-icon social-icon--instagram" href="https://www.instagram.com/limelight_official_/" style="text-decoration: none;">
         <i class="fa fa-instagram"></i>
         <div class="tooltip">Instagram</div>
       </a>
@@ -139,6 +154,14 @@ if (is_file($file)) {
         <div class="tooltip">Facebook</div>
       </a>
     </div>
+    <br>
+    <small>
+      <a href="/faq" class="text-white mr-2">FAQ</a>
+      <span class="text-white">-</span>
+      <a href="/site/privacy-policy" class="text-white mx-2">Privacy Policy</a>
+      <span class="text-white">-</span>
+      <a href="/site/contact-us" class="text-white ml-2">Contact Us</a>
+    </small>
   </div>
 </footer>
 

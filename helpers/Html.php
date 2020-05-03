@@ -100,30 +100,4 @@ class Html extends \yii\helpers\Html
         return parent::a($text, $url, $options);
     }
 
-    /**
-     * Attatches a read more button to a review content if it is longer than 50 words
-     */
-    public static function readMore(string $text, int $id): string
-    {
-        $words = explode(' ', $text);
-
-        $content = '';
-
-        foreach ($words as $i => $word) {
-            // if (strstr($word, PHP_EOL)) {
-            //     $content .= '<br>';
-            // }
-            
-            $content .= ' '.$word;
-
-            if ($i === 49) {
-                $content .= "<span class='more-text-dots' data-id='{$id}'>...</span><div data-id='{$id}' class='more-text'>";
-            }
-        }
-
-        $content .= "</div><button data-id='{$id}' class=' my-3 read-more btn btn-sm btn-primary d-block'>Read More ...</button>";
-
-        return $content;
-    }
-
 }

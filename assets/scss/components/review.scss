@@ -36,3 +36,9 @@
 .more-text {
     display: none;
 }
+
+.review-text-content {
+    max-height: 100px;
+    overflow: hidden;
+    transition: max-height .25s ease-in-out;
+}

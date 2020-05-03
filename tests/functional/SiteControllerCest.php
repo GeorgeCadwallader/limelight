@@ -25,7 +25,7 @@ class SiteControllerCest
     {
         $I->amOnRoute('/site/index');
         $I->seeResponseCodeIsSuccessful();
-        $I->see('Rate Venues & Artists Live');
+        $I->see('Get Started');
 
         $I->amLoggedInAsAdmin();
         $I->amOnRoute('/site/index');

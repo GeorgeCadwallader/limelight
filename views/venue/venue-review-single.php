@@ -6,7 +6,6 @@ use app\helpers\UserDataHelper;
 use app\models\UserVote;
 
 use kartik\rating\StarRating;
-use yii\helpers\StringHelper;
 
 /** @var $this yii\web\View */
 /** @var $review app\models\ReviewVenue */
@@ -84,11 +83,8 @@ $favouriteGenre = $review->creator->genre;
                     <?php } ?>
                 </div>
                 <div class="col-sm-9 px-md-4">
-                    <?php if (StringHelper::countWords($review->content) > 50) { ?>
-                        <?= Html::readMore($review->content, $review->review_venue_id); ?>
-                    <?php } else { ?>
-                        <?= Html::tag('p', $review->content, ['class' => 'my-4']); ?>
-                    <?php } ?>
+                    <?= Html::tag('div', $review->content, ['class' => 'my-4 review-text-content']); ?>
+                    <?= Html::button('Read More ...', ['class' => 'btn btn-sm btn-primary read-more-btn']); ?>
                     <?= Html::tag('p', $review->upvotes.' member(s) found this helpful', ['class' => 'my-4']); ?>
                     <p>
                         Did you find this review helpful?

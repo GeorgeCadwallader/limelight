@@ -37,3 +37,81 @@
 .navbar-toggler.collapsed .bottom-bar {
     transform: rotate(0);
 }
+
+.navbar-profile {
+    &-image {
+        height: 40px;
+        width: 40px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border-radius: $border-radius;
+    }
+
+    &-link {
+        font-size: 14px !important;
+        padding: 0 !important;
+        
+
+        &:hover, &:active {
+            background-color: transparent !important;
+        }
+    }
+
+    #profileDropdown {
+        &[aria-expanded="true"] {
+            .navbar-profile {
+                &-image {
+                    border: solid 2px $primary;
+                }
+            }
+        }
+    }
+
+    .dropdown-menu {
+        background-color: $body-bg;
+        border-color: transparent;
+        left: -100px;
+        top: 75px;
+        box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.2);
+    }
+}
+
+.swing-in-top-fwd {
+	-webkit-animation: swing-in-top-fwd 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
+	animation: swing-in-top-fwd 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
+}
+
+@-webkit-keyframes swing-in-top-fwd {
+    0% {
+      -webkit-transform: rotateX(-100deg);
+              transform: rotateX(-100deg);
+      -webkit-transform-origin: top;
+              transform-origin: top;
+      opacity: 0;
+    }
+    100% {
+      -webkit-transform: rotateX(0deg);
+              transform: rotateX(0deg);
+      -webkit-transform-origin: top;
+              transform-origin: top;
+      opacity: 1;
+    }
+}
+@keyframes swing-in-top-fwd {
+0% {
+    -webkit-transform: rotateX(-100deg);
+            transform: rotateX(-100deg);
+    -webkit-transform-origin: top;
+            transform-origin: top;
+    opacity: 0;
+}
+100% {
+    -webkit-transform: rotateX(0deg);
+            transform: rotateX(0deg);
+    -webkit-transform-origin: top;
+            transform-origin: top;
+    opacity: 1;
+}
+}
+  

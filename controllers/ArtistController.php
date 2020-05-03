@@ -7,6 +7,7 @@ use app\components\ToneAnalyzer;
 use app\models\Artist;
 use app\models\ArtistData;
 use app\models\Genre;
+use app\models\MemberRequest;
 use app\models\OwnerRequest;
 use app\models\ReviewArtist;
 use app\models\ReviewTone;
@@ -79,7 +80,9 @@ class ArtistController extends \app\core\WebController
         $artistFilterModel = new ArtistFilterSearch;
         $artistDataProvider = $artistFilterModel->search($this->request->queryParams);
 
-        return $this->createResponse('index', compact('artistFilterModel', 'artistDataProvider'));
+        $memberRequest = new MemberRequest;
+
+        return $this->createResponse('index', compact('artistFilterModel', 'artistDataProvider', 'memberRequest'));
     }
 
     /**

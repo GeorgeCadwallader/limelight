@@ -14,6 +14,7 @@ use yii\db\ActiveQueryInterface;
  * @property integer $venue_id
  * @property string $profile_path
  * @property string $description
+ * @property integer $county_id
  * @property Moment $created_at
  * @property Moment $updated_at
  * @property Moment $created_by
@@ -42,7 +43,7 @@ class VenueData extends \yii\db\ActiveRecord
     {
         return [
             [['description'], 'string', 'max' => 255],
-            [['venue_id'], 'integer'],
+            [['venue_id', 'county_id'], 'integer'],
             [
                 ['imageFile'],
                 'file',
@@ -51,6 +52,7 @@ class VenueData extends \yii\db\ActiveRecord
                 'maxSize' => 1024 * 1024 * 2, //2mb
                 'extensions' => 'png, jpg'
             ],
+            ['county_id', 'exist', 'targetRelation' => 'County'],
         ];
     }
 
@@ -99,6 +101,16 @@ class VenueData extends \yii\db\ActiveRecord
     public function getVenue(): ActiveQueryInterface
     {
         return $this->hasOne(Venue::class, ['venue_id' => 'venue_id']);
+    }
+
+    /**
+     * Gets the County associated with this VenueData
+     * 
+     * @return ActiveQueryInterface
+     */
+    public function getCounty(): ActiveQueryInterface
+    {
+        return $this->hasOne(County::class, ['county_id' => 'county_id']);
     }
 
 }
