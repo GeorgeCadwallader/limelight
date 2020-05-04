@@ -8,6 +8,7 @@ import '../../vendor/yiisoft/yii2/assets/yii.js';
 import '../../vendor/yiisoft/yii2/assets/yii.activeForm.js';
 import '../../vendor/yiisoft/yii2/assets/yii.validation.js';
 import '../../vendor/yiisoft/yii2/assets/yii.gridView.js';
+import '../../vendor/bower-asset/yii2-pjax/jquery.pjax.js';
 
 import '../../vendor/bower-asset/bootstrap-datepicker/js/bootstrap-datepicker.js';
 import '../../vendor/kartik-v/bootstrap-star-rating/js/star-rating.js';
@@ -26,5 +27,6 @@ import './components/compare';
 import './components/review';
 import './components/navbar';
 import './components/admin';
+import './layouts/main';
 
 import '../scss/main.scss';
