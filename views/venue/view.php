@@ -15,6 +15,7 @@ use kartik\rating\StarRating;
 use yii\bootstrap4\Breadcrumbs;
 use yii\helpers\Url;
 use yii\widgets\ListView;
+use yii\widgets\Pjax;
 
 $reviews = ReviewVenue::find()->where(['venue_id' => $venue->venue_id])->all();
 
@@ -73,15 +74,17 @@ $this->title = $venue->name.' | '.Yii::$app->name;
         </div>
     </div>
     <div class="col-md-8">
-        <?= ListView::widget([
-                'dataProvider' => $reviewDataProvider,
-                'itemView' => 'venue-review-single',
-                'options' => ['class' => 'list-view row'],
-                'summaryOptions' => ['class' => 'summary w-100 px-3'],
-                'itemOptions' => ['class' => 'col-sm-12 my-4'],
-                'layout' => "{sorter}\n{summary}\n{items}\n{pager}",
-            ]
-        ); ?>
+        <?php Pjax::begin(['id'=>'venueSingle', 'enablePushState' => true, 'timeout' => 5000]); ?>
+            <?= ListView::widget([
+                    'dataProvider' => $reviewDataProvider,
+                    'itemView' => 'venue-review-single',
+                    'options' => ['class' => 'list-view row pjax-refresh-item'],
+                    'summaryOptions' => ['class' => 'summary w-100 px-3'],
+                    'itemOptions' => ['class' => 'col-sm-12 my-4'],
+                    'layout' => "{sorter}\n{summary}\n{items}\n{pager}",
+                ]
+            ); ?>
+        <?php Pjax::end(); ?>
         <?php if (Yii::$app->user->can(Item::ROLE_MEMBER) && !$hasReviewed) { ?>
             <?= $this->render('venue-create-review', compact('newReview')); ?>
         <?php } ?>
