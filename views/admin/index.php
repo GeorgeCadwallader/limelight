@@ -28,7 +28,7 @@ $this->title = Yii::$app->name.' | Admin panel';
         <h1>Admin panel</h1>
     </div>
 </div>
-<div class="row my-4">
+<div class="row my-4 pb-5">
     <div class="col-md-6">
         <ul class="nav nav-tabs" id="adminPanel" role="tablist">
             <li class="nav-item">
@@ -63,7 +63,12 @@ $this->title = Yii::$app->name.' | Admin panel';
             </li>
             <li class="nav-item">
                 <a class="nav-link admin-link" id="member-tab" data-toggle="tab" href="#member" role="tab" aria-controls="member" aria-selected="false">
-                    <img src="./images/A6.png" alt="View Member Requests" class="img-fluid">
+                    <img src="./images/A7.png" alt="View Member Requests" class="img-fluid">
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link admin-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">
+                    <img src="./images/A8.png" alt="Contact Messages" class="img-fluid">
                 </a>
             </li>
         </ul>
@@ -200,6 +205,26 @@ $this->title = Yii::$app->name.' | Admin panel';
                         <?= Html::a(
                             'View Member Requests',
                             '/admin/member-requests',
+                            ['class' => 'btn btn-primary']
+                        ); ?>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">View contact messages</h2>
+                        <hr class="my-2">
+                        <p class="card-text">
+                            View and manage contact messages on <?= Yii::$app->name; ?>.
+                            <br><br>
+                            This displays all contact messages sent to <?= Yii::$app->name; ?> through
+                            the contact us page. From here you can send messages back to the email provided,
+                            and change the status of contact messages.
+                        </p>
+                        <?= Html::a(
+                            'View Contact Messages',
+                            '/admin/contact',
                             ['class' => 'btn btn-primary']
                         ); ?>
                     </div>
