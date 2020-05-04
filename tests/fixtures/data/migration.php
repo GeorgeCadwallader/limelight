@@ -81,4 +81,8 @@ return [
         'version' => 'm200424_141247_add_column_to_venue_data_table',
         'apply_time' => '1587738377',
     ],
+    [
+        'version' => 'm200504_120304_create_contact_table',
+        'apply_time' => '1588599608',
+    ],
 ];

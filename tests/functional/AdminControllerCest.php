@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 use app\auth\Item;
 use app\models\Artist;
+use app\models\Contact;
+use app\models\ContactReply;
 use app\models\County;
 use app\models\Genre;
 use app\models\OwnerRequest;
@@ -389,6 +391,73 @@ class AdminControllerCest
 
         $I->assertNotNull($genre);
         $I->assertEquals('RockTEST', $genre->name);
+    }
+
+    /**
+     * Test that you can set the status of a contact message through the admin panel
+     * 
+     * @param \FunctionalTester $I
+     *
+     * @return void
+     */
+    public function testSetContactMessageStatus(\FunctionalTester $I): void
+    {
+        $I->amLoggedInAsAdmin();
+
+        $I->amOnRoute('/admin/set-contact-status', ['contact_id' => 999, 'status' => 1]);
+        $I->seeResponseCodeIsClientError();
+        
+        $I->amOnRoute('/admin/set-contact-status', ['contact_id' => 1, 'status' => 999]);
+        $I->seeResponseCodeIsClientError();
+
+        $contact = Contact::findOne(1);
+        $I->assertEquals(Contact::STATUS_UNREAD, $contact->status);
+
+        $I->amOnRoute('/admin/set-contact-status', ['contact_id' => 1, 'status' => 1]);
+
+        $contact->refresh();
+        $I->assertEquals(Contact::STATUS_UNREAD, $contact->status);
+
+        $I->amOnRoute('/admin/set-contact-status', ['contact_id' => 1, 'status' => 2]);
+
+        $contact->refresh();
+        $I->assertEquals(Contact::STATUS_RESOLVED, $contact->status);
+
+        $I->amOnRoute('/admin/set-contact-status', ['contact_id' => 1, 'status' => 3]);
+
+        $contact->refresh();
+        $I->assertEquals(Contact::STATUS_DEACTIVATED, $contact->status);
+    }
+
+    /**
+     * Test that you can reply to a contact message through the admin panel
+     * 
+     * @param \FunctionalTester $I
+     *
+     * @return void
+     */
+    public function testContactReply(\FunctionalTester $I): void
+    {
+        $contactMessage = Contact::findOne(1);
+        $I->assertEquals(Contact::STATUS_UNREAD, $contactMessage->status);
+
+        $I->amLoggedInAsAdmin();
+        $I->amOnRoute('/admin/reply-contact-message', ['contact_id' => $contactMessage->contact_id]);
+
+        $I->submitForm('#contact-reply-form', [
+            'ContactReply' => [
+                'message' => 'This a reply to Jeff Bloggs'
+            ]
+        ]);
+
+        $contactMessage->refresh();
+        $contactReply = ContactReply::find()->where(['contact_id' => $contactMessage->contact_id])->one();
+        $email = $I->grabLastSentEmail();
+
+        $I->assertEquals(Contact::STATUS_RESOLVED, $contactMessage->status);
+
+        $I->assertNotNull($contactReply);
+        $I->assertEquals($contactMessage->email, array_key_first($email->getTo()));
     }
 
 }
