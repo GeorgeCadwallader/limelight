@@ -3,6 +3,7 @@
 use app\helpers\Html;
 use app\models\Artist;
 use app\models\OwnerRequest;
+use app\models\User;
 use app\models\Venue;
 use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap\Dropdown;
@@ -58,6 +59,19 @@ use yii\helpers\Url;
                             ->one();
 
                         return $venue->name;
+                    }
+                ],
+                [
+                    'attribute' => 'created_by',
+                    'label' => 'User',
+                    'value' => function ($model) {
+                        $user = User::findOne($model->created_by);
+
+                        if ($user === null) {
+                            return '(none)';
+                        }
+
+                        return $user->username;
                     }
                 ],
                 [

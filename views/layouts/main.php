@@ -3,6 +3,7 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use app\auth\Item;
 use app\widgets\Alert;
 use app\helpers\Html;
 use app\helpers\UserDataHelper;
@@ -84,6 +85,23 @@ if (is_file($file)) {
             <div class="dropdown-menu navbar-link-dropdown-content navbar-profile-dropdown py-3" aria-labelledby="profileDropdown">
               <a class="dropdown-item nav-link navbar-profile-link" href="/profile">Profile</a>
               <a class="dropdown-item nav-link navbar-profile-link" href="<?= Url::to(['/profile/edit', 'user_id' => Yii::$app->user->id]); ?>">Edit Profile</a>
+              <?php if (Yii::$app->user->can(Item::ROLE_ARTIST_OWNER) && Yii::$app->user->identity->artist !== null) { ?>
+                <div class="dropdown-divider"></div>
+                <a
+                  href="<?= Url::to(['/artist/edit', 'artist_id' => Yii::$app->user->identity->artist->artist_id]); ?>"
+                  class="dropdown-item nav-link navbar-profile-link"
+                >
+                  Edit your Artist
+                </a>
+              <?php } ?>
+              <?php if (Yii::$app->user->can(Item::ROLE_VENUE_OWNER) && Yii::$app->user->identity->venue !== null) { ?>
+                <a
+                  href="<?= Url::to(['/venue/edit', 'venue_id' => Yii::$app->user->identity->venue->venue_id]); ?>"
+                  class="dropdown-item nav-link navbar-profile-link"
+                >
+                  Edit your Venue
+                </a>
+              <?php } ?>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item nav-link navbar-profile-link" href="/site/logout">Logout</a>
             </div>
