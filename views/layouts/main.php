@@ -102,7 +102,6 @@ if (is_file($file)) {
                   Edit your Venue
                 </a>
               <?php } ?>
-              <div class="dropdown-divider"></div>
               <a class="dropdown-item nav-link navbar-profile-link" href="/site/logout">Logout</a>
             </div>
           </li>
@@ -123,20 +122,20 @@ if (is_file($file)) {
 
 <!-- HEADER (MAY BE MOVED TO GUEST INDEX) -->
 
-
-<div id="center-heading" class="masthead" style="background-image:url(<?= Url::to('@images/banner.jpg'); ?>);">
-    <div class="container">
-      <div class="intro-text">
-      <?php if (Yii::$app->user->isGuest) { ?>
-        <div class="intro-lead-in">Welcome to <?= Yii::$app->name; ?>!</div>
-        <div class="intro-heading">Rate Venues & Artists separately</div>
-        <a class="btn btn-primary btn-lg btn-xl rounded text-uppercase js-scroll-trigger" href="/register">Get Started</a>
+<?php if (Yii::$app->user->isGuest) { ?>
+  <div id="center-heading" class="masthead" style="background-image:url(<?= Url::to('@images/banner.jpg'); ?>);">
+      <div class="container">
+        <div class="intro-text">
+          <div class="intro-lead-in">Welcome to <?= Yii::$app->name; ?>!</div>
+          <div class="intro-heading">Rate Venues & Artists separately</div>
+          <a class="btn btn-primary btn-lg btn-xl rounded text-uppercase js-scroll-trigger" href="/register">Get Started</a>
+        </div>
       </div>
-    </div>
-    <?php } ?>
-          </div>
-    </div> 
-</div>
+  </div>
+<?php } else { ?>
+  <div id="center-heading" class="masthead" style="height: 160px; background-position:center;background-image:url(<?= Url::to('@images/banner.jpg'); ?>);">
+  </div>
+<?php } ?>
 
 
 <!-- PAGE CONTENT -->

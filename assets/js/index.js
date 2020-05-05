@@ -28,5 +28,6 @@ import './components/review';
 import './components/navbar';
 import './components/admin';
 import './layouts/main';
+import './layouts/homepage';
 
 import '../scss/main.scss';
