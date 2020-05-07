@@ -16,14 +16,9 @@
     }
 }
 
-::selection {
-    background: $primary;
+.text-dark-green {
+  color: $dark-green !important;
 }
-
-::-moz-selection {
-    background: $primary;
-}
-
 
 #banner.h3 {
  margin-top: 50%

@@ -29,15 +29,15 @@
     display: none;
 }
 
-.review-single-container {
-    box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.2);
+.review-single-container, .profile-container {
+    box-shadow: $box-shadow;
 }
 
 .more-text {
     display: none;
 }
 
-.review-text-content {
+.review-text-content, .profile-bio {
     max-height: 100px;
     overflow: hidden;
     transition: max-height .25s ease-in-out;
