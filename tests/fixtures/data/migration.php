@@ -85,4 +85,8 @@ return [
         'version' => 'm200504_120304_create_contact_table',
         'apply_time' => '1588599608',
     ],
+    [
+        'version' => 'm200507_142917_add_bio_column_to_user_data_table',
+        'apply_time' => '1588861894',
+    ],
 ];
