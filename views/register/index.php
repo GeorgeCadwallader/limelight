@@ -3,6 +3,7 @@
 use app\helpers\Html;
 use app\models\User;
 use app\widgets\Alert;
+use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap\ActiveForm;
 
 /** @var $this yii\web\View */
@@ -18,6 +19,16 @@ $userCount = User::find()
 $userCount = ceil($userCount / 5) * 5;
     
 ?>
+
+<div class="row">
+    <?= Breadcrumbs::widget([
+        'links' => [
+            [
+                'label' => 'Register'
+            ]
+        ]
+    ]); ?>
+</div>
 
 <div class="row my-4">
     <div class="col-sm-12">
@@ -79,6 +90,7 @@ $userCount = ceil($userCount / 5) * 5;
                         <li>Leave reviews on your favourite Artists and Venues separetely</li>
                         <li>Gain tailored suggestions of Artists and Venues from our custom algorithms</li>
                         <li>Share your thoughts and opinions with other like-minded users</li>
+                        <li>Gain access to unique badges/flair when completing certain tasks</li>
                     </ul>
                 </p>
                 <h5 class="font-weight-bold">
