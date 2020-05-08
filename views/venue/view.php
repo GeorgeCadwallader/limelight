@@ -65,6 +65,19 @@ $this->title = $venue->name.' | '.Yii::$app->name;
             <p class="my-3">
                 <?= ($venue->data->description) ?? Html::encode($venue->data->description); ?>
             </p>
+            <div class="dropdown show my-3">
+                <button
+                    id="social-share"
+                    data-toggle="dropdown"
+                    class="btn btn-primary"
+                    aria-expanded="false"
+                >
+                    <?= Html::icon('share-alt'); ?>
+                </button>
+                <div class="dropdown-menu p-3" aria-labelledby="social-share">
+                    <?= VenueHelper::getShareButtons($venue); ?>
+                </div>
+            </div>
             <?= StarRating::widget([
                 'name' => 'review-venue-'.$venue->venue_id,
                 'value' => VenueHelper::averageRating($venue, ReviewVenue::REVIEW_VENUE_OVERALL),

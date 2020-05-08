@@ -59,12 +59,27 @@ $this->title = $artist->name.' | '.Yii::$app->name;
         <div style="position: sticky; top: 100px;">
             <?= Html::img($artistImg, ['class' => 'img-fluid mb-3']); ?>
             <h1 class="my-2"><?= $artist->name; ?></h1>
-            <?php foreach ($artist->genre as $genre) { ?>
-                <?= Html::a($genre->name, ['/genre/view', 'genre_id' => $genre->genre_id], ['class' => 'btn btn-primary']); ?>
-            <?php } ?>
+            <div class="my-3">
+                <?php foreach ($artist->genre as $genre) { ?>
+                    <?= Html::a($genre->name, ['/genre/view', 'genre_id' => $genre->genre_id], ['class' => 'btn btn-primary']); ?>
+                <?php } ?>
+            </div>
             <p class="my-3">
                 <?= ($artist->data->description) ?? Html::encode($artist->data->description); ?>
             </p>
+            <div class="dropdown show my-3">
+                <button
+                    id="social-share"
+                    data-toggle="dropdown"
+                    class="btn btn-primary"
+                    aria-expanded="false"
+                >
+                    <?= Html::icon('share-alt'); ?>
+                </button>
+                <div class="dropdown-menu p-3" aria-labelledby="social-share">
+                    <?= ArtistHelper::getShareButtons($artist); ?>
+                </div>
+            </div>
             <?= StarRating::widget([
                 'name' => 'review-artist-'.$artist->artist_id,
                 'value' => ArtistHelper::averageRating($artist, ReviewArtist::REVIEW_ARTIST_OVERALL),
