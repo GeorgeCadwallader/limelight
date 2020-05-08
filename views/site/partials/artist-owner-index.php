@@ -8,7 +8,7 @@ use app\helpers\Html;
 use app\models\Artist;
 use app\models\ReviewVenue;
 use app\models\Venue;
-
+use app\widgets\YouTubeWidget;
 use yii\helpers\ArrayHelper;
 
 $isManager = Artist::find()->where(['managed_by' => $owner->user_id])->exists();
@@ -59,6 +59,32 @@ if ($isManager) {
             </div>
         </div>
     </div>
+</div>
+<div class="row my-100 limelight-box-shadow rounded py-4">
+  <div class="col-md-6 col-lg-7 mb-sm-3">
+    <?= YouTubeWidget::widget([
+      'embedCode' => 'PRpxc6zUmwc',
+      'playerParameters' => [
+        'autoplay' => 1,
+        'volume' => 0
+      ],
+      'iframeOptions' => [
+        'width' => '100%',
+        'height' => '400',
+        'style' => ['border' => 'none']
+      ]
+    ]); ?>
+  </div>
+  <div class="col-md-6 col-lg-5">
+    <div class="alert alert-primary" role="alert">
+      <strong>Check out our brand new release trailer!</strong>
+    </div>
+    <h4 class="text-primary font-weight-bold">A Fair System for All</h4>
+    <p class="text-black-50 mb-0">Here at <?= Yii::$app->name; ?> we discovered that Artists and Venues were rated solely on Events, we think this is an unfair way to review an individual artist or an individual venue </p>
+    <br><br>
+    <h4 class="text-primary font-weight-bold">High Quality Reviews</h4>
+    <p class="text-black-50 mb-0">Our Upvote/Downvote system means that well constructed reviews are pushed to the top</p>
+  </div>
 </div>
 <?php if ($isManager) { ?>
     <?php if (!empty($discoverVenues)) { ?>
