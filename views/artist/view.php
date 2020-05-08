@@ -58,7 +58,8 @@ $this->title = $artist->name.' | '.Yii::$app->name;
     <div class="col-md-4">
         <div style="position: sticky; top: 100px;">
             <?= Html::img($artistImg, ['class' => 'img-fluid mb-3']); ?>
-            <h1 class="my-2"><?= $artist->name; ?></h1>
+            <h1 class="my-2 d-inline-block"><?= $artist->name; ?></h1>
+            <?= ArtistHelper::verifiedArtistOwner($artist); ?>
             <div class="my-3">
                 <?php foreach ($artist->genre as $genre) { ?>
                     <?= Html::a($genre->name, ['/genre/view', 'genre_id' => $genre->genre_id], ['class' => 'btn btn-primary']); ?>

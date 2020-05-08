@@ -194,4 +194,26 @@ class VenueHelper
         return $twitter.$facebook.$linkedIn.$email.$whatsApp;
     }
 
+    /**
+     * Get the verify tick if venue page is owned
+     * 
+     * @param Venue $venue
+     * 
+     * @return string
+     */
+    public static function verifiedVenueOwner(Venue $venue): string
+    {
+        if ($venue->managed_by === null) {
+            return '';
+        }
+
+        return Html::a(
+            Html::icon('check').Html::tag('div', 'This venue is managed by a real owner!', ['class' => 'tooltip']),
+            '#',
+            [
+                'class' => 'verify-icon',
+            ]
+        );
+    }
+
 }

@@ -196,4 +196,26 @@ class ArtistHelper
         return $twitter.$facebook.$linkedIn.$email.$whatsApp;
     }
 
+    /**
+     * Get the verify tick if artist page is owned
+     * 
+     * @param Artist $artist
+     * 
+     * @return string
+     */
+    public static function verifiedArtistOwner(Artist $artist): string
+    {
+        if ($artist->managed_by === null) {
+            return '';
+        }
+
+        return Html::a(
+            Html::icon('check').Html::tag('div', 'This artist is managed by a real owner!', ['class' => 'tooltip']),
+            '#',
+            [
+                'class' => 'verify-icon',
+            ]
+        );
+    }
+
 }

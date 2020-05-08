@@ -58,7 +58,8 @@ $this->title = $venue->name.' | '.Yii::$app->name;
     <div class="col-md-4">
         <div style="position: sticky; top: 100px;">
             <?= Html::img($venueImg, ['class' => 'img-fluid mb-3']); ?>
-            <h1 class="my-2"><?= $venue->name; ?></h1>
+            <h1 class="my-2 d-inline-block"><?= $venue->name; ?></h1>
+            <?= VenueHelper::verifiedVenueOwner($venue); ?>
             <?php foreach ($venue->genre as $genre) { ?>
                 <?= Html::a($genre->name, ['/genre/view', 'genre_id' => $genre->genre_id], ['class' => 'btn btn-primary']); ?>
             <?php } ?>
