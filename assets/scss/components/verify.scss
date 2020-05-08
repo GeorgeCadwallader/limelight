@@ -1,0 +1,38 @@
+
+.verify-icon {
+    margin: 0 0.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    padding: 7px;
+    vertical-align: super;
+    text-decoration: none;
+    transition: all 0.15s ease;
+    background: $primary;
+    color: $white;
+  
+    &:hover {
+        color: $white;
+    
+        .tooltip {
+            visibility: visible;
+            opacity: 1;
+            transform: translate(-50%, -120%);
+        }
+    }
+
+    i {
+        font-size: 15px;
+    }
+
+    .tooltip {
+        width: 150px;
+        padding: 18px;
+        background: $primary;
+        color: $white;
+  
+        &:after {
+            border-top-color: $primary;
+        }
+    }
+}
