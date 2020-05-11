@@ -79,7 +79,8 @@ $discoverVenueQuery = Venue::find()
       'embedCode' => 'PRpxc6zUmwc',
       'playerParameters' => [
         'autoplay' => 1,
-        'volume' => 0
+        'volume' => 0,
+        'mute' => 1
       ],
       'iframeOptions' => [
         'width' => '100%',

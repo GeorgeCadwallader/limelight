@@ -1,0 +1,27 @@
+.tonality-report {
+    &-header {
+        color: $white;
+
+        &:first-child {
+            background-color: $dark-green;
+        }
+
+        &:nth-child(2) {
+            background-color: $primary;
+        }
+    }
+
+    &-tone-content {
+        color: $dark-green;
+        border: 1px solid black;
+    }
+
+    &-count-content {
+        color: $primary;
+        border: 2px solid black;
+
+        .tone-count {
+            font-size: 16px;
+        }
+    }
+}
