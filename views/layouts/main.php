@@ -72,9 +72,9 @@ if (is_file($file)) {
           <a href="#" class="nav-link nav-link-dropdown dropdown-toggle" id="toolsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Tools
           </a>
-          <div class="dropdown-menu navbar-link-dropdown-content py-3" aria-labelledby="toolsDropdown">
-            <a class="dropdown-item nav-link navbar-profile-link" href="/event">Events</a>
-            <a class="dropdown-item nav-link navbar-profile-link" href="/compare">Comparison Feature</a>
+          <div class="dropdown-menu navbar-link-dropdown-content py-3 px-3 px-lg-0" aria-labelledby="toolsDropdown">
+            <a class="dropdown-item nav-link navbar-profile-link my-3 my-lg-0" href="/event">Events</a>
+            <a class="dropdown-item nav-link navbar-profile-link my-3 my-lg-0" href="/compare">Comparison Feature</a>
           </div>
         </li>
         <?php if (!Yii::$app->user->isGuest) { ?>
@@ -82,9 +82,9 @@ if (is_file($file)) {
             <a href="#" class="nav-link nav-link-dropdown" id="profileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="navbar-profile-image" style="background-image: url(<?= UserDataHelper::imageUrl(Yii::$app->user->identity->userData); ?>)" title="<?= Yii::$app->user->identity->username; ?>"></div>
             </a>
-            <div class="dropdown-menu navbar-link-dropdown-content navbar-profile-dropdown py-3" aria-labelledby="profileDropdown">
-              <a class="dropdown-item nav-link navbar-profile-link" href="/profile">Profile</a>
-              <a class="dropdown-item nav-link navbar-profile-link" href="<?= Url::to(['/profile/edit', 'user_id' => Yii::$app->user->id]); ?>">Edit Profile</a>
+            <div class="dropdown-menu navbar-link-dropdown-content navbar-profile-dropdown py-3 px-3 px-lg-0" aria-labelledby="profileDropdown">
+              <a class="dropdown-item nav-link navbar-profile-link my-2 my-lg-0" href="/profile">Profile</a>
+              <a class="dropdown-item nav-link navbar-profile-link my-2 my-lg-0" href="<?= Url::to(['/profile/edit', 'user_id' => Yii::$app->user->id]); ?>">Edit Profile</a>
               <?php if (Yii::$app->user->can(Item::ROLE_ARTIST_OWNER) && Yii::$app->user->identity->artist !== null) { ?>
                 <div class="dropdown-divider"></div>
                 <a
