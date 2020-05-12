@@ -77,6 +77,7 @@ class ProfileControllerCest
             'UserData' => [
                 'first_name' => 'GeorgeTEST',
                 'last_name' => 'Cadwallader',
+                'bio' => 'GeorgeTEST Bio',
                 'date_of_birth' => '1980-12-25',
                 'telephone' => '012345678',
                 'county_id' => '250',
@@ -92,6 +93,8 @@ class ProfileControllerCest
         $userData->refresh();
 
         $I->assertEquals('GeorgeTEST', $userData->first_name);
+        $I->assertEquals('Cadwallader', $userData->last_name);
+        $I->assertEquals('GeorgeTEST Bio', $userData->bio);
         $I->assertEquals('1980-12-25', $userData->date_of_birth);
         $I->assertEquals('250', $userData->county_id);
     }

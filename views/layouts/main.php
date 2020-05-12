@@ -3,6 +3,7 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use app\auth\Item;
 use app\widgets\Alert;
 use app\helpers\Html;
 use app\helpers\UserDataHelper;
@@ -71,9 +72,9 @@ if (is_file($file)) {
           <a href="#" class="nav-link nav-link-dropdown dropdown-toggle" id="toolsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Tools
           </a>
-          <div class="dropdown-menu navbar-link-dropdown-content py-3" aria-labelledby="toolsDropdown">
-            <a class="dropdown-item nav-link navbar-profile-link" href="/event">Events</a>
-            <a class="dropdown-item nav-link navbar-profile-link" href="/compare">Comparison Feature</a>
+          <div class="dropdown-menu navbar-link-dropdown-content py-3 px-3 px-lg-0" aria-labelledby="toolsDropdown">
+            <a class="dropdown-item nav-link navbar-profile-link my-3 my-lg-0" href="/event">Events</a>
+            <a class="dropdown-item nav-link navbar-profile-link my-3 my-lg-0" href="/compare">Comparison Feature</a>
           </div>
         </li>
         <?php if (!Yii::$app->user->isGuest) { ?>
@@ -81,10 +82,26 @@ if (is_file($file)) {
             <a href="#" class="nav-link nav-link-dropdown" id="profileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="navbar-profile-image" style="background-image: url(<?= UserDataHelper::imageUrl(Yii::$app->user->identity->userData); ?>)" title="<?= Yii::$app->user->identity->username; ?>"></div>
             </a>
-            <div class="dropdown-menu navbar-link-dropdown-content navbar-profile-dropdown py-3" aria-labelledby="profileDropdown">
-              <a class="dropdown-item nav-link navbar-profile-link" href="/profile">Profile</a>
-              <a class="dropdown-item nav-link navbar-profile-link" href="<?= Url::to(['/profile/edit', 'user_id' => Yii::$app->user->id]); ?>">Edit Profile</a>
-              <div class="dropdown-divider"></div>
+            <div class="dropdown-menu navbar-link-dropdown-content navbar-profile-dropdown py-3 px-3 px-lg-0" aria-labelledby="profileDropdown">
+              <a class="dropdown-item nav-link navbar-profile-link my-2 my-lg-0" href="/profile">Profile</a>
+              <a class="dropdown-item nav-link navbar-profile-link my-2 my-lg-0" href="<?= Url::to(['/profile/edit', 'user_id' => Yii::$app->user->id]); ?>">Edit Profile</a>
+              <?php if (Yii::$app->user->can(Item::ROLE_ARTIST_OWNER) && Yii::$app->user->identity->artist !== null) { ?>
+                <div class="dropdown-divider"></div>
+                <a
+                  href="<?= Url::to(['/artist/edit', 'artist_id' => Yii::$app->user->identity->artist->artist_id]); ?>"
+                  class="dropdown-item nav-link navbar-profile-link"
+                >
+                  Edit your Artist
+                </a>
+              <?php } ?>
+              <?php if (Yii::$app->user->can(Item::ROLE_VENUE_OWNER) && Yii::$app->user->identity->venue !== null) { ?>
+                <a
+                  href="<?= Url::to(['/venue/edit', 'venue_id' => Yii::$app->user->identity->venue->venue_id]); ?>"
+                  class="dropdown-item nav-link navbar-profile-link"
+                >
+                  Edit your Venue
+                </a>
+              <?php } ?>
               <a class="dropdown-item nav-link navbar-profile-link" href="/site/logout">Logout</a>
             </div>
           </li>
@@ -105,20 +122,20 @@ if (is_file($file)) {
 
 <!-- HEADER (MAY BE MOVED TO GUEST INDEX) -->
 
-
-<div id="center-heading" class="masthead" style="background-image:url(<?= Url::to('@images/banner.jpg'); ?>);">
-    <div class="container">
-      <div class="intro-text">
-      <?php if (Yii::$app->user->isGuest) { ?>
-        <div class="intro-lead-in">Welcome to <?= Yii::$app->name; ?>!</div>
-        <div class="intro-heading">Rate Venues & Artists separately</div>
-        <a class="btn btn-primary btn-lg btn-xl rounded text-uppercase js-scroll-trigger" href="/register">Get Started</a>
+<?php if (Yii::$app->user->isGuest) { ?>
+  <div id="center-heading" class="masthead" style="background-image:url(<?= Url::to('@images/banner.jpg'); ?>);">
+      <div class="container">
+        <div class="intro-text">
+          <div class="intro-lead-in">Welcome to <?= Yii::$app->name; ?>!</div>
+          <div class="intro-heading">Rate Venues & Artists separately</div>
+          <a class="btn btn-primary btn-lg btn-xl rounded text-uppercase js-scroll-trigger" href="/register">Get Started</a>
+        </div>
       </div>
-    </div>
-    <?php } ?>
-          </div>
-    </div> 
-</div>
+  </div>
+<?php } else { ?>
+  <div id="center-heading" class="masthead" style="height: 160px; background-position:center;background-image:url(<?= Url::to('@images/banner.jpg'); ?>);">
+  </div>
+<?php } ?>
 
 
 <!-- PAGE CONTENT -->

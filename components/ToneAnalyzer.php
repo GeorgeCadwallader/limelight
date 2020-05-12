@@ -4,7 +4,10 @@ declare(strict_types = 1);
 
 namespace app\components;
 
+use app\models\Artist;
+use app\models\ReviewArtist;
 use app\models\ReviewTone;
+use app\models\Venue;
 use yii\httpclient\Client;
 
 /**
@@ -70,6 +73,46 @@ class ToneAnalyzer extends \yii\base\BaseObject
 
             $reviewTone->save();
         }
+    }
+
+    /**
+     * Generates a report for an event by getting the tonality of Artist and Venue
+     * reviews
+     * 
+     * @param Artist $artist
+     * @param Venue $venue
+     * 
+     * @return array
+     */
+    public static function generateEventReport(Artist $artist, Venue $venue): array
+    {
+        $reviews = array_merge($artist->reviews, $venue->reviews);
+
+        $tonalities = [];
+
+        foreach ($reviews as $review) {
+            $query = ReviewTone::find();
+
+            if ($review instanceof \app\models\ReviewArtist) {
+                $query
+                    ->where(['fk' => $review->review_artist_id])
+                    ->andWhere(['type' => ReviewTone::TYPE_ARTIST])
+                    ->select('tone');
+            } elseif ($review instanceof \app\models\ReviewVenue) {
+                $query
+                    ->where(['fk' => $review->review_venue_id])
+                    ->andWhere(['type' => ReviewTone::TYPE_VENUE])
+                    ->select('tone');
+            }
+            
+            if ($query->exists()) {
+                foreach ($query->all() as $item) {
+                    $tonalities[] = $item->tone;
+                }
+            }
+        }
+
+        return array_count_values($tonalities);
     }
 
 }

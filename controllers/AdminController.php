@@ -5,11 +5,14 @@ namespace app\controllers;
 use app\auth\Item;
 use app\models\Artist;
 use app\models\ArtistData;
+use app\models\Contact;
+use app\models\ContactReply;
 use app\models\County;
 use app\models\Genre;
 use app\models\OwnerRequest;
 use app\models\Region;
 use app\models\search\ArtistSearch;
+use app\models\search\ContactSearch;
 use app\models\search\CountySearch;
 use app\models\search\GenreSearch;
 use app\models\search\MemberRequestSearch;
@@ -512,6 +515,92 @@ class AdminController extends \app\core\WebController
                 'memberRequestDataProvider'
             )
         );
+    }
+
+    /**
+     * Admin contact message panel
+     * 
+     * @return Response
+     */
+    public function actionContact(): Response
+    {
+        $contactFilterModel = new ContactSearch;
+        $contactDataProvider = $contactFilterModel->search($this->request->queryParams);
+
+        return $this->createResponse(
+            'contact',
+            compact(
+                'contactFilterModel',
+                'contactDataProvider'
+            )
+        );
+    }
+
+    /**
+     * Set status of contact message
+     * 
+     * @param int $contact_id
+     * @param int $status
+     * 
+     * @return Response
+     */
+    public function actionSetContactStatus(int $contact_id, int $status): Response
+    {
+        $contactMessage = Contact::findOne($contact_id);
+
+        if ($contactMessage === null) {
+            throw new BadRequestHttpException('Invalid Member Request');
+        }
+
+        $contactMessage->status = $status;
+
+        if ($contactMessage->save()) {
+            Yii::$app->session->addFlash('Contact Message successfully updated');
+            return $this->redirect('/admin/contact');
+        }
+
+        throw new BadRequestHttpException('Unable to update the status of the contact message');
+    }
+
+    /**
+     * Controller for replying to a contact message through admin panel
+     * 
+     * @param int $contact_id
+     * 
+     * @return Response
+     */
+    public function actionReplyContactMessage(int $contact_id): Response
+    {
+        $contactMessage = Contact::findOne($contact_id);
+
+        if ($contactMessage === null) {
+            throw new BadRequestHttpException('Invalid Contact Message');
+        }
+
+        $contactReply = new ContactReply([
+            'contact_id' => $contact_id
+        ]);
+
+        if ($this->request->isPost) {
+            $contactReply->load($this->request->post());
+            $contactMessage->status = Contact::STATUS_RESOLVED;
+
+            if ($contactReply->save() && $contactMessage->save()) {
+                $name = $contactMessage->first_name.' '.$contactMessage->last_name;
+
+                Yii::$app->mailer->compose()
+                    ->setFrom(Yii::$app->params['senderEmail'])
+                    ->setTo([$contactMessage->email => $name])
+                    ->setSubject(Yii::$app->name.' | Support Reply')
+                    ->setHtmlBody($contactReply->message)
+                    ->send();
+
+                Yii::$app->session->addFlash('success', 'Reply successfully sent');
+                return $this->redirect('/admin/contact');
+            }
+        }
+
+        return $this->createResponse('contact-reply', compact('contactReply', 'contactMessage'));
     }
 
 }

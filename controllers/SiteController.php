@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\auth\Item;
 use app\models\Artist;
+use app\models\Contact;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Response;
@@ -91,7 +92,20 @@ class SiteController extends \app\core\WebController
      */
     public function actionContactUs(): Response
     {
-        return $this->createResponse('contact');
+        $contactForm = new Contact([
+            'status' => Contact::STATUS_UNREAD
+        ]);
+
+        if ($this->request->isPost) {
+            $contactForm->load($this->request->post());
+
+            if ($contactForm->save()) {
+                Yii::$app->session->addFlash('success', 'Thank you for messaging us, we will get back to you as soon as we can');
+                return $this->goHome();
+            }
+        }
+
+        return $this->createResponse('contact', compact('contactForm'));
     }
 
     /**

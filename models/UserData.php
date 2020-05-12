@@ -17,6 +17,7 @@ use yii\web\UploadedFile;
  * @property integer $user_id
  * @property string $first_name
  * @property string $last_name
+ * @property string $bio
  * @property Moment $date_of_birth
  * @property string $telephone
  * @property integer $county_id
@@ -56,6 +57,7 @@ class UserData extends \yii\db\ActiveRecord
                 'string',
                 'max' => 255,
             ],
+            [['bio'], 'string', 'max' => 2500],
             [['telephone'], 'string', 'max' => 15],
             [
                 ['imageFile'],

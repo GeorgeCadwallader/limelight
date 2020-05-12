@@ -9,7 +9,7 @@ use app\models\Genre;
 
 use conquer\select2\Select2Widget;
 use dosamigos\datepicker\DatePicker;
-
+use dosamigos\tinymce\TinyMce;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
 
@@ -47,6 +47,13 @@ $genres = ArrayHelper::map(Genre::find()->all(), 'genre_id', 'name');
             </div>
             <div class="col-sm-6">
                 <?= $form->field($userData, 'last_name')->textInput(); ?>
+            </div>
+        </div>
+        <div class="row my-4">
+            <div class="col-sm-12">
+                <?= $form->field($userData, 'bio')->widget(TinyMce::class, 
+                    Yii::$app->params['richtextOptions']
+                ); ?>
             </div>
         </div>
         <div class="row">

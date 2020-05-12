@@ -15,6 +15,7 @@ use kartik\rating\StarRating;
 use yii\bootstrap4\Breadcrumbs;
 use yii\helpers\Url;
 use yii\widgets\ListView;
+use yii\widgets\Pjax;
 
 $reviews = ReviewVenue::find()->where(['venue_id' => $venue->venue_id])->all();
 
@@ -57,13 +58,27 @@ $this->title = $venue->name.' | '.Yii::$app->name;
     <div class="col-md-4">
         <div style="position: sticky; top: 100px;">
             <?= Html::img($venueImg, ['class' => 'img-fluid mb-3']); ?>
-            <h1 class="my-2"><?= $venue->name; ?></h1>
+            <h1 class="my-2 d-inline-block"><?= $venue->name; ?></h1>
+            <?= VenueHelper::verifiedVenueOwner($venue); ?>
             <?php foreach ($venue->genre as $genre) { ?>
                 <?= Html::a($genre->name, ['/genre/view', 'genre_id' => $genre->genre_id], ['class' => 'btn btn-primary']); ?>
             <?php } ?>
             <p class="my-3">
                 <?= ($venue->data->description) ?? Html::encode($venue->data->description); ?>
             </p>
+            <div class="dropdown show my-3">
+                <button
+                    id="social-share"
+                    data-toggle="dropdown"
+                    class="btn btn-primary"
+                    aria-expanded="false"
+                >
+                    <?= Html::icon('share-alt'); ?>
+                </button>
+                <div class="dropdown-menu p-3" aria-labelledby="social-share">
+                    <?= VenueHelper::getShareButtons($venue); ?>
+                </div>
+            </div>
             <?= StarRating::widget([
                 'name' => 'review-venue-'.$venue->venue_id,
                 'value' => VenueHelper::averageRating($venue, ReviewVenue::REVIEW_VENUE_OVERALL),
@@ -73,15 +88,17 @@ $this->title = $venue->name.' | '.Yii::$app->name;
         </div>
     </div>
     <div class="col-md-8">
-        <?= ListView::widget([
-                'dataProvider' => $reviewDataProvider,
-                'itemView' => 'venue-review-single',
-                'options' => ['class' => 'list-view row'],
-                'summaryOptions' => ['class' => 'summary w-100 px-3'],
-                'itemOptions' => ['class' => 'col-sm-12 my-4'],
-                'layout' => "{sorter}\n{summary}\n{items}\n{pager}",
-            ]
-        ); ?>
+        <?php Pjax::begin(['id'=>'venueSingle', 'enablePushState' => true, 'timeout' => 5000]); ?>
+            <?= ListView::widget([
+                    'dataProvider' => $reviewDataProvider,
+                    'itemView' => 'venue-review-single',
+                    'options' => ['class' => 'list-view row pjax-refresh-item'],
+                    'summaryOptions' => ['class' => 'summary w-100 px-3'],
+                    'itemOptions' => ['class' => 'col-sm-12 my-4'],
+                    'layout' => "{sorter}\n{summary}\n{items}\n{pager}",
+                ]
+            ); ?>
+        <?php Pjax::end(); ?>
         <?php if (Yii::$app->user->can(Item::ROLE_MEMBER) && !$hasReviewed) { ?>
             <?= $this->render('venue-create-review', compact('newReview')); ?>
         <?php } ?>

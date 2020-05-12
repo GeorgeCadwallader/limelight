@@ -122,4 +122,98 @@ class VenueHelper
         return 'bg-warning';
     }
 
+    /**
+     * Get the social buttons for an Venue
+     * 
+     * @param Venue $venue
+     * 
+     * @return string
+     */
+    public static function getShareButtons(Venue $venue): string
+    {
+        $appName = Yii::$app->name;
+        $venueHashtag = str_replace(' ', '', $venue->name);
+        $venueUrl = Yii::$app->urlManager->createAbsoluteUrl(
+            [
+                '/venue/view',
+                'venue_id' => $venue->venue_id
+            ]
+        );
+
+        $twitter = Html::button(
+            Html::icon('twitter'),
+            [
+                'class' => 'btn btn-primary mr-2 mb-2',
+                'data-sharer' => 'twitter',
+                'data-title' => 'Check out '.$venue->name.' on '.$appName.'!',
+                'data-url' => $venueUrl,
+                'data-hashtags' => "{$venueHashtag}, {$appName}"
+            ]
+        );
+
+        $facebook = Html::button(
+            Html::icon('facebook'),
+            [
+                'class' => 'btn btn-primary mr-2 mb-2',
+                'data-sharer' => 'facebook',
+                'data-url' => $venueUrl,
+                'data-hashtags' => "{$venueHashtag}, {$appName}"
+            ]
+        );
+
+        $linkedIn = Html::button(
+            Html::icon('linkedin'),
+            [
+                'class' => 'btn btn-primary mr-2 mb-2',
+                'data-sharer' => 'linkedin',
+                'data-url' => $venueUrl
+            ]
+        );
+
+        $email = Html::button(
+            Html::icon('envelope'),
+            [
+                'class' => 'btn btn-primary mr-2 mb-2',
+                'data-sharer' => 'email',
+                'data-url' => $venueUrl,
+                'data-title' => 'Check out '.$venue->name.' on '.$appName.'!',
+                'data-subject' => $venue->name.' on '.$appName
+            ]
+        );
+
+        $whatsApp = Html::button(
+            Html::icon('whatsapp'),
+            [
+                'class' => 'btn btn-primary mb-2',
+                'data-sharer' => 'whatsapp',
+                'data-title' => 'Check out '.$venue->name.' on '.$appName.'!',
+                'data-url' => $venueUrl
+            ]
+        );
+
+        return $twitter.$facebook.$linkedIn.$email.$whatsApp;
+    }
+
+    /**
+     * Get the verify tick if venue page is owned
+     * 
+     * @param Venue $venue
+     * 
+     * @return string
+     */
+    public static function verifiedVenueOwner(Venue $venue): string
+    {
+        if ($venue->managed_by === null) {
+            return '';
+        }
+
+        return Html::a(
+            Html::icon('check').Html::tag('div', 'This venue is managed by a real owner!', ['class' => 'tooltip']),
+            '#',
+            [
+                'class' => 'verify-icon',
+            ]
+        );
+    }
+
 }

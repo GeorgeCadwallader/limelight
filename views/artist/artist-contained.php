@@ -18,6 +18,7 @@ $url = ArtistHelper::imageUrl($artist);
 <a
     href="<?= Url::to(['/artist/view', 'artist_id' => $artist->artist_id]); ?>"
     class="contained-link"
+    data-pjax="0"
 >
     <div
         class="contained-image"

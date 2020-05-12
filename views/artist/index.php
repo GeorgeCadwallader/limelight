@@ -11,6 +11,7 @@ use app\models\MemberRequest;
 use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Breadcrumbs;
 use yii\widgets\ListView;
+use yii\widgets\Pjax;
 
 $artists = Artist::find()->where(['status' => Artist::STATUS_ACTIVE])->all();
 
@@ -60,12 +61,14 @@ $artists = Artist::find()->where(['status' => Artist::STATUS_ACTIVE])->all();
         </div>
     </div>
 <?php } ?>
-<?= ListView::widget([
-        'dataProvider' => $artistDataProvider,
-        'itemView' => 'artist-contained',
-        'options' => ['class' => 'list-view row'],
-        'summaryOptions' => ['class' => 'summary w-100 px-3'],
-        'itemOptions' => ['class' => 'col-lg-4 my-4'],
-        'layout' => "{sorter}\n{summary}\n{items}\n{pager}",
-    ]);
-?>
+<?php Pjax::begin(['id'=>'artistList', 'enablePushState' => true, 'timeout' => 8000]); ?>
+    <?= ListView::widget([
+            'dataProvider' => $artistDataProvider,
+            'itemView' => 'artist-contained',
+            'options' => ['class' => 'list-view row pjax-refresh-item'],
+            'summaryOptions' => ['class' => 'summary w-100 px-3'],
+            'itemOptions' => ['class' => 'col-lg-4 my-4'],
+            'layout' => "{sorter}\n{summary}\n{items}\n{pager}",
+        ]);
+    ?>
+<?php Pjax::end(); ?>

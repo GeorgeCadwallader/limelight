@@ -18,6 +18,7 @@ $url = VenueHelper::imageUrl($venue);
 <a
     href="<?= Url::to(['/venue/view', 'venue_id' => $venue->venue_id]); ?>"
     class="contained-link"
+    data-pjax="0"
 >
     <div
         class="contained-image"

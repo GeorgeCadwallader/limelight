@@ -35,6 +35,20 @@ $events = Event::find()->all();
         <?php } ?>
     </div>
 </div>
+<div class="row my-4">
+    <div class="alert alert-primary" role="alert">
+        <?= Yii::$app->name; ?> events page is a place where members can create 'fantasy' events that they would like
+        to see happen in real life.
+        <br><br>
+        To create an event you select one artist and one venue from <?= Yii::$app->name; ?>
+        and a page will be automatically created for it. If you create an event that already exists this will boost the
+        existing one, moving it up in the event ranking.
+        <br><br>
+        From here you can get informational insights into how we think this event would go. An event page will showcase
+        the latest reviews of both artist and venue. Generate a tonality report of all the reviews that have been made
+        for both, analysing the text content.
+    </div>
+</div>
 <?= ListView::widget([
         'dataProvider' => $eventDataProvider,
         'itemView' => 'event-contained',

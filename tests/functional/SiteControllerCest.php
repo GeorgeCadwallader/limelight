@@ -2,6 +2,7 @@
 
 declare(strict_types = 1);
 
+use app\models\Contact;
 use app\models\User;
 
 /**
@@ -191,6 +192,34 @@ class SiteControllerCest
         $I->assertEquals('emailchange@test.com', $user->email);
         $I->assertNull($user->password_reset_token);
         $I->assertNull($user->email_new);
+    }
+
+    /**
+     * Tests that you can send a contact message on limelight
+     *
+     * @param \FunctionalTester $I
+     *
+     * @return void
+     */
+    public function testSendContactMessage(\FunctionalTester $I): void
+    {
+        $I->amOnRoute('/site/contact-us');
+
+        $I->submitForm('#contact-form', [
+            'Contact' => [
+                'first_name' => 'John',
+                'last_name' => 'Smith',
+                'email' => 'johnsmith@email.com',
+                'message' => 'This is a message from John Smith',
+            ]
+        ]);
+
+        $contactMessage = Contact::find()->where(['message' => 'This is a message from John Smith'])->one();
+
+        $I->assertNotNull($contactMessage);
+        $I->assertEquals('John', $contactMessage->first_name);
+        $I->assertEquals('Smith', $contactMessage->last_name);
+        $I->assertEquals('johnsmith@email.com', $contactMessage->email);
     }
 
 }

@@ -11,6 +11,7 @@ use app\models\Venue;
 use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Breadcrumbs;
 use yii\widgets\ListView;
+use yii\widgets\Pjax;
 
 $venues = Venue::find()->where(['status' => Venue::STATUS_ACTIVE])->all();
 
@@ -57,12 +58,14 @@ $venues = Venue::find()->where(['status' => Venue::STATUS_ACTIVE])->all();
         </div>
     </div>
 <?php } ?>
-<?= ListView::widget([
-        'dataProvider' => $venueDataProvider,
-        'itemView' => 'venue-contained',
-        'options' => ['class' => 'list-view row'],
-        'summaryOptions' => ['class' => 'summary w-100 px-3'],
-        'itemOptions' => ['class' => 'col-lg-4 my-4'],
-        'layout' => "{sorter}\n{summary}\n{items}\n{pager}",
-    ]);
-?>
+<?php Pjax::begin(['id'=>'venueList', 'enablePushState' => true, 'timeout' => 5000]); ?>
+    <?= ListView::widget([
+            'dataProvider' => $venueDataProvider,
+            'itemView' => 'venue-contained',
+            'options' => ['class' => 'list-view row pjax-refresh-item'],
+            'summaryOptions' => ['class' => 'summary w-100 px-3'],
+            'itemOptions' => ['class' => 'col-lg-4 my-4'],
+            'layout' => "{sorter}\n{summary}\n{items}\n{pager}",
+        ]);
+    ?>
+<?php Pjax::end(); ?>

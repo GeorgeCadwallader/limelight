@@ -45,7 +45,8 @@ $favouriteGenre = $review->creator->genre;
                             '#edit',
                             [
                                 'class' => 'review-edit-btn btn btn-primary',
-                                'data-review-id' => $review->review_artist_id
+                                'data-review-id' => $review->review_artist_id,
+                                'data-pjax' => '0'
                             ]
                         ); ?>
                     <?php } ?>
@@ -53,7 +54,7 @@ $favouriteGenre = $review->creator->genre;
             </div>
             <div class="row">
                 <div class="col-sm-9">
-                    <h3><?= Html::a($review->creator->username, ['/profile/view', 'user_id' => $review->creator->user_id]); ?></h3>
+                    <h3><?= Html::a($review->creator->username, ['/profile/view', 'user_id' => $review->creator->user_id], ['data-pjax' => '0']); ?></h3>
                     <?= BadgeHelper::displayBadges($review->creator); ?>
                 </div>
                 <div class="col-sm-3">
@@ -78,7 +79,7 @@ $favouriteGenre = $review->creator->genre;
                                 '/genre/view',
                                 'genre_id' => $favouriteGenre[0]->genre_id
                             ],
-                            ['class' => 'btn btn-primary']
+                            ['class' => 'btn btn-primary', 'data-pjax' => '0']
                         ); ?>
                     <?php } ?>
                 </div>
@@ -95,7 +96,7 @@ $favouriteGenre = $review->creator->genre;
                                 'review_id' => $review->review_artist_id,
                                 'isArtist' => true
                             ],
-                            ['class' => ($hasUpvoted->exists()) ? 'btn btn-primary mx-2 disabled' : 'btn btn-primary mx-2']
+                            ['class' => ($hasUpvoted->exists()) ? 'btn btn-primary mx-2 disabled' : 'btn btn-primary mx-2', 'data-pjax' => '0']
                         ); ?>
                         <?= Html::a(
                             'No',
@@ -104,7 +105,7 @@ $favouriteGenre = $review->creator->genre;
                                 'review_id' => $review->review_artist_id,
                                 'isArtist' => true
                             ],
-                            ['class' => ($hasDownvoted->exists()) ? 'btn btn-primary mx-2 disabled' : 'btn btn-primary mx-2']
+                            ['class' => ($hasDownvoted->exists()) ? 'btn btn-primary mx-2 disabled' : 'btn btn-primary mx-2', 'data-pjax' => '0']
                         ); ?>
                     </p>
                 </div>

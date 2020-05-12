@@ -10,6 +10,7 @@ use app\models\ReviewArtist;
 
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 
 /**
  * Artist helper class
@@ -121,6 +122,100 @@ class ArtistHelper
         }
 
         return 'bg-warning';
+    }
+
+    /**
+     * Get the social buttons for an Artist
+     * 
+     * @param Artist $artist
+     * 
+     * @return string
+     */
+    public static function getShareButtons(Artist $artist): string
+    {
+        $appName = Yii::$app->name;
+        $artistHashtag = str_replace(' ', '', $artist->name);
+        $artistUrl = Yii::$app->urlManager->createAbsoluteUrl(
+            [
+                '/artist/view',
+                'artist_id' => $artist->artist_id
+            ]
+        );
+
+        $twitter = Html::button(
+            Html::icon('twitter'),
+            [
+                'class' => 'btn btn-primary mr-2 mb-2',
+                'data-sharer' => 'twitter',
+                'data-title' => 'Check out '.$artist->name.' on '.$appName.'!',
+                'data-url' => $artistUrl,
+                'data-hashtags' => "{$artistHashtag}, {$appName}"
+            ]
+        );
+
+        $facebook = Html::button(
+            Html::icon('facebook'),
+            [
+                'class' => 'btn btn-primary mr-2 mb-2',
+                'data-sharer' => 'facebook',
+                'data-url' => $artistUrl,
+                'data-hashtags' => "{$artistHashtag}, {$appName}"
+            ]
+        );
+
+        $linkedIn = Html::button(
+            Html::icon('linkedin'),
+            [
+                'class' => 'btn btn-primary mr-2 mb-2',
+                'data-sharer' => 'linkedin',
+                'data-url' => $artistUrl
+            ]
+        );
+
+        $email = Html::button(
+            Html::icon('envelope'),
+            [
+                'class' => 'btn btn-primary mr-2 mb-2',
+                'data-sharer' => 'email',
+                'data-url' => $artistUrl,
+                'data-title' => 'Check out '.$artist->name.' on '.$appName.'!',
+                'data-subject' => $artist->name.' on '.$appName
+            ]
+        );
+
+        $whatsApp = Html::button(
+            Html::icon('whatsapp'),
+            [
+                'class' => 'btn btn-primary mb-2',
+                'data-sharer' => 'whatsapp',
+                'data-title' => 'Check out '.$artist->name.' on '.$appName.'!',
+                'data-url' => $artistUrl
+            ]
+        );
+
+        return $twitter.$facebook.$linkedIn.$email.$whatsApp;
+    }
+
+    /**
+     * Get the verify tick if artist page is owned
+     * 
+     * @param Artist $artist
+     * 
+     * @return string
+     */
+    public static function verifiedArtistOwner(Artist $artist): string
+    {
+        if ($artist->managed_by === null) {
+            return '';
+        }
+
+        return Html::a(
+            Html::icon('check').Html::tag('div', 'This artist is managed by a real owner!', ['class' => 'tooltip']),
+            '#',
+            [
+                'class' => 'verify-icon',
+            ]
+        );
     }
 
 }
