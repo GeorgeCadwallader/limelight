@@ -15,9 +15,6 @@ use yii\widgets\Pjax;
 
 $artists = Artist::find()->where(['status' => Artist::STATUS_ACTIVE])->all();
 
-// dump($memberRequest);
-// die;
-
 ?>
 
 <div class="row">

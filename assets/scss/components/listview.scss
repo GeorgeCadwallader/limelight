@@ -4,17 +4,12 @@
         padding: 0;
 
         li {
-            padding: 10px;
             margin: 10px;
             display: inline-block;
-            background-color: $primary;
             
             a {
-                color: $white;
-
-                &:hover {
-                    text-decoration: none;
-                }
+                padding: 10px;
+                @extend .btn, .btn-primary;
             }
 
             a.desc::after {
