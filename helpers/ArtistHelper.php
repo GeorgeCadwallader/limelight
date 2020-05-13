@@ -209,9 +209,9 @@ class ArtistHelper
             return '';
         }
 
-        return Html::a(
+        return Html::tag(
+            'span',
             Html::icon('check').Html::tag('div', 'This artist is managed by a real owner!', ['class' => 'tooltip']),
-            '#',
             [
                 'class' => 'verify-icon btn btn-primary btn-sm',
             ]
