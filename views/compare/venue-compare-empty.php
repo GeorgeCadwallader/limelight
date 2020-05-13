@@ -24,7 +24,7 @@ $venues = ArrayHelper::map(Venue::find()->where(['status' => Venue::STATUS_ACTIV
         ]); ?>
     </div>
 </div>
-<div class="jumbotron">
+<div class="jumbotron limelight-box-shadow rounded my-5">
     <h1 class="display-4">Compare Venues</h1>
     <p class="lead">Compare venues and get predicted feedback informing you of their qualities</p>
     <hr class="my-4">

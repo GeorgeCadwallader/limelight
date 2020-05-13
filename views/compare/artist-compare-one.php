@@ -30,7 +30,7 @@ $filteredArtists = ArrayHelper::map($query->andWhere(['!=', 'artist_id', $artist
         ]); ?>
     </div>
 </div>
-<div class="jumbotron">
+<div class="jumbotron limelight-box-shadow rounded my-5">
     <h1 class="display-4">Compare Artists</h1>
     <p class="lead">Compare artists and get predicted feedback informing you of their qualities</p>
     <hr class="my-4">

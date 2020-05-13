@@ -11,6 +11,20 @@ use yii\helpers\Inflector;
 /** @var $artistOne app\models\Artist */
 /** @var $artistTwo app\models\Artist */
 
+$artistOneReviews = ReviewArtist::find()
+    ->where(['artist_id' => $artistOne->artist_id])
+    ->andWhere(['status' => ReviewArtist::STATUS_ACTIVE])
+    ->orderBy(['created_at' => SORT_DESC])
+    ->limit(4)
+    ->all();
+
+$artistTwoReviews = ReviewArtist::find()
+    ->where(['artist_id' => $artistTwo->artist_id])
+    ->andWhere(['status' => ReviewArtist::STATUS_ACTIVE])
+    ->orderBy(['created_at' => SORT_DESC])
+    ->limit(4)
+    ->all();
+
 ?>
 
 <table class="table table-responsive-md my-5">
@@ -131,3 +145,17 @@ use yii\helpers\Inflector;
         </tr>
     </tbody>
 </table>
+<div class="row my-5">
+    <div class="col-lg-6">
+        <h3>Latest <?= $artistOne->name; ?> reviews</h3>
+        <?php foreach ($artistOneReviews as $model) {
+            echo $this->render('../event/partials/review-artist-view', compact('model'));
+        } ?>
+    </div>
+    <div class="col-lg-6">
+        <h3>Latest <?= $artistTwo->name; ?> reviews</h3>
+        <?php foreach ($artistTwoReviews as $model) {
+            echo $this->render('../event/partials/review-artist-view', compact('model'));
+        } ?>
+    </div>
+</div>

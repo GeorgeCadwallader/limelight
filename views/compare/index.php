@@ -18,7 +18,7 @@ $this->title = Yii::$app->name.' | Compare artist and venues';
         ]); ?>
     </div>
 </div>
-<div class="jumbotron">
+<div class="jumbotron limelight-box-shadow rounded my-5">
     <h1 class="display-4">Compare Hub</h1>
     <p class="lead">Compare artists or venues based on our information</p>
     <hr class="my-4">
@@ -31,10 +31,10 @@ $this->title = Yii::$app->name.' | Compare artist and venues';
         Let's get started, would you like to compare artists or venues?
     </p>
     <div class="lead row my-5">
-        <div class="col-sm-6 text-center">
+        <div class="col-sm-6 text-center mb-4">
             <?= Html::a('Artists', '/compare/artist', ['class' => 'btn btn-primary btn-lg']); ?>
         </div>
-        <div class="col-sm-6 text-center">
+        <div class="col-sm-6 text-center mb-4">
             <?= Html::a('Venues', '/compare/venue', ['class' => 'btn btn-primary btn-lg']); ?>       
         </div>
     </div>

@@ -35,17 +35,37 @@ use yii\helpers\Url;
     </div>
 </div>
 <div class="row mt-5">
-    <div class="col-sm-4">
-        <?= Html::img(ArtistHelper::imageUrl($artistOne), ['class' => 'img-fluid']); ?>
-        <h2 class="text-center my-3"><?= $artistOne->name; ?></h2>
-        <?= Html::a('Compare this artist with someone different', ['/compare/artist', 'artist_id_one' => $artistOne->artist_id], ['class' => 'btn btn-primary']); ?>
+    <div class="col-md-4">
+        <div
+            class="compare-image"
+            style="background-image:url('<?= ArtistHelper::imageUrl($artistOne); ?>')"
+        >
+        </div>
+        <div class="mt-3">
+            <h2 class="text-center my-3 d-inline"><?= $artistOne->name; ?></h2>
+            <?= Html::a(
+                Html::icon('plus').Html::tag('div', 'Compare this Artist with someone new', ['class' => 'tooltip']),
+                ['/compare/artist', 'artist_id_one' => $artistOne->artist_id],
+                ['class' => 'btn btn-primary limelight-tooltip ml-3']
+            ); ?>
+        </div>
     </div>
-    <div class="col-sm-4">
+    <div class="col-md-4">
     </div>
-    <div class="col-sm-4">
-        <?= Html::img(ArtistHelper::imageUrl($artistTwo), ['class' => 'img-fluid']); ?>
-        <h2 class="text-center my-3"><?= $artistTwo->name; ?></h2>
-        <?= Html::a('Compare this artist with someone different', ['/compare/artist', 'artist_id_one' => $artistTwo->artist_id], ['class' => 'btn btn-primary']); ?>
+    <div class="col-md-4">
+        <div
+            class="compare-image"
+            style="background-image:url('<?= ArtistHelper::imageUrl($artistTwo); ?>')"
+        >
+        </div>
+        <div class="mt-3">
+            <h2 class="text-center my-3 d-inline"><?= $artistTwo->name; ?></h2>
+            <?= Html::a(
+                Html::icon('plus').Html::tag('div', 'Compare this Artist with someone new', ['class' => 'tooltip']),
+                ['/compare/artist', 'artist_id_one' => $artistTwo->artist_id],
+                ['class' => 'btn btn-primary limelight-tooltip ml-3']
+            ); ?>
+        </div>
     </div>
 </div>
 <?= $this->render('artist-compare-results', compact('artistOne', 'artistTwo')); ?>
