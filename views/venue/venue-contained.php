@@ -26,7 +26,10 @@ $url = VenueHelper::imageUrl($venue);
     >
         <div class="contained-content">
             <div class="contained-content-inner p-3">
-                <h3><?= $venue->name; ?></h3>
+                <div>
+                    <h3 class="d-inline-block"><?= $venue->name; ?></h3>
+                    <?= VenueHelper::verifiedVenueOwner($venue); ?>
+                </div>
                 <?= StarRating::widget([
                     'name' => 'contained-venue-'.$venue->venue_id,
                     'value' => VenueHelper::averageRating($venue, ReviewVenue::REVIEW_VENUE_OVERALL),
