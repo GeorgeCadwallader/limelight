@@ -26,7 +26,10 @@ $url = ArtistHelper::imageUrl($artist);
     >
         <div class="contained-content">
             <div class="contained-content-inner p-3">
-                <h3><?= $artist->name; ?></h3>
+                <div>
+                    <h3 class="d-inline-block"><?= $artist->name; ?></h3>
+                    <?= ArtistHelper::verifiedArtistOwner($artist); ?>
+                </div>
                 <?= StarRating::widget([
                     'name' => 'contained-artist-'.$artist->artist_id,
                     'value' => ArtistHelper::averageRating($artist, ReviewArtist::REVIEW_ARTIST_OVERALL),

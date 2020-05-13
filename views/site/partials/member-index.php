@@ -60,8 +60,8 @@ $discoverVenueQuery = Venue::find()
         <?php } ?>
     </div>
 <?php } ?>
-<div class="row">
-    <div class="jumbotron jumbotron-fluid">
+<div class="row mt-4">
+    <div class="jumbotron jumbotron-fluid limelight-box-shadow rounded">
         <h2 class="display-4">Learn more about the process behind <?= Yii::$app->name; ?></h2>
         <p class="lead">
             Explore our FAQ page to find out why we do the things that we do and how

@@ -94,10 +94,10 @@ class ArtistHelper
         }
 
         if ($artistOneRating < $artistTwoRating) {
-            return 'bg-danger';
+            return 'bg-light';
         }
 
-        return 'bg-warning';
+        return 'bg-dark-green';
     }
 
     /**
@@ -118,10 +118,10 @@ class ArtistHelper
         }
 
         if ($artistOneRating > $artistTwoRating) {
-            return 'bg-danger';
+            return 'bg-light';
         }
 
-        return 'bg-warning';
+        return 'bg-dark-green';
     }
 
     /**
@@ -209,11 +209,11 @@ class ArtistHelper
             return '';
         }
 
-        return Html::a(
+        return Html::tag(
+            'span',
             Html::icon('check').Html::tag('div', 'This artist is managed by a real owner!', ['class' => 'tooltip']),
-            '#',
             [
-                'class' => 'verify-icon',
+                'class' => 'verify-icon btn btn-primary btn-sm',
             ]
         );
     }

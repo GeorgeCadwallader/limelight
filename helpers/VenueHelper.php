@@ -92,10 +92,10 @@ class VenueHelper
         }
 
         if ($venueOneRating < $venueTwoRating) {
-            return 'bg-danger';
+            return 'bg-light';
         }
 
-        return 'bg-warning';
+        return 'bg-dark-green';
     }
 
     /**
@@ -116,10 +116,10 @@ class VenueHelper
         }
 
         if ($venueOneRating > $venueTwoRating) {
-            return 'bg-danger';
+            return 'bg-light';
         }
 
-        return 'bg-warning';
+        return 'bg-dark-green';
     }
 
     /**
@@ -207,11 +207,11 @@ class VenueHelper
             return '';
         }
 
-        return Html::a(
+        return Html::tag(
+            'span',
             Html::icon('check').Html::tag('div', 'This venue is managed by a real owner!', ['class' => 'tooltip']),
-            '#',
             [
-                'class' => 'verify-icon',
+                'class' => 'verify-icon btn btn-primary btn-sm',
             ]
         );
     }
