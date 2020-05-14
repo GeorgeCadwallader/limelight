@@ -10,6 +10,8 @@ use app\models\Event;
 use yii\bootstrap4\Breadcrumbs;
 use yii\widgets\ListView;
 
+$this->title = 'Create and promote fantasy music events | '.Yii::$app->name;
+
 $events = Event::find()->all();
 
 ?>
