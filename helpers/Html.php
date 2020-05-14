@@ -100,4 +100,22 @@ class Html extends \yii\helpers\Html
         return parent::a($text, $url, $options);
     }
 
+    /**
+     * Returns a tooltip with information icon
+     * 
+     * @param $message The text to be inside the tooltip
+     * 
+     * @return string
+     */
+    public static function infoHint(string $message): string
+    {
+        return self::tag(
+            'span',
+            self::icon('info', ['class' => 'p-1']).self::tag('span', $message, ['class' => 'tooltip']),
+            [
+                'class' => 'limelight-tooltip btn btn-primary btn-sm',
+            ]
+        );
+    }
+
 }
