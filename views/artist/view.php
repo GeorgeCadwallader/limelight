@@ -4,6 +4,7 @@
 /** @var $artist app\models\Artist */
 /** @var $newReview app\models\ReviewArtist */
 /** @var $reviewDataProvider app\models\search\ReviewArtist */
+/** @var $reviewReport app\models\ReviewReport */
 
 use app\auth\Item;
 use app\helpers\ArtistHelper;
@@ -98,6 +99,7 @@ $this->title = $artist->name.' | '.Yii::$app->name;
                     'summaryOptions' => ['class' => 'summary w-100 px-3'],
                     'itemOptions' => ['class' => 'col-sm-12 my-4'],
                     'layout' => "{sorter}\n{summary}\n{items}\n{pager}",
+                    'viewParams' => compact('reviewReport')
                 ]
             ); ?>
         <?php Pjax::end(); ?>

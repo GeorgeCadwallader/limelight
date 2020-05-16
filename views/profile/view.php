@@ -1,6 +1,7 @@
 <?php
 
 /** @var $user app\models\User */
+/** @var $reviewReport app\models\ReviewReport */
 
 use app\helpers\BadgeHelper;
 use app\helpers\Html;
@@ -84,11 +85,11 @@ $reviews = array_merge($artistReviews, $venueReviews);
             <?php foreach ($reviews as $model) {
                 if (isset($model->artist_id)) { ?>
                     <div class="my-4">
-                        <?= $this->render('../artist/artist-review-single', compact('model')); ?>
+                        <?= $this->render('../artist/artist-review-single', compact('model', 'reviewReport')); ?>
                     </div>
                 <?php } else { ?>
                     <div class="my-4">
-                        <?= $this->render('../venue/venue-review-single', compact('model')); ?>
+                        <?= $this->render('../venue/venue-review-single', compact('model', 'reviewReport')); ?>
                     </div>
                 <?php }
             } ?>

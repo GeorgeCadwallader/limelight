@@ -10,6 +10,7 @@ use app\models\Genre;
 use app\models\MemberRequest;
 use app\models\OwnerRequest;
 use app\models\ReviewArtist;
+use app\models\ReviewReport;
 use app\models\ReviewTone;
 use app\models\search\ArtistFilterSearch;
 use app\models\search\ArtistSearch;
@@ -218,6 +219,8 @@ class ArtistController extends \app\core\WebController
             'status' => ReviewArtist::STATUS_ACTIVE,
         ]);
 
+        $reviewReport = new ReviewReport;
+
         if ($this->request->isPost) {
             $newReview->load($this->request->post());
             $newReview->link('artist', $artist);
@@ -232,7 +235,7 @@ class ArtistController extends \app\core\WebController
             }
         }
 
-        return $this->createResponse('view', compact('artist', 'newReview', 'reviewDataProvider'));
+        return $this->createResponse('view', compact('artist', 'newReview', 'reviewDataProvider', 'reviewReport'));
     }
 
 }

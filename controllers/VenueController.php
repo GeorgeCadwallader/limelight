@@ -7,6 +7,7 @@ use app\components\ToneAnalyzer;
 use app\models\Genre;
 use app\models\MemberRequest;
 use app\models\OwnerRequest;
+use app\models\ReviewReport;
 use app\models\ReviewTone;
 use app\models\ReviewVenue;
 use app\models\search\ReviewVenueFilterSearch;
@@ -219,6 +220,8 @@ class VenueController extends \app\core\WebController
             'status' => ReviewVenue::STATUS_ACTIVE,
         ]);
 
+        $reviewReport = new ReviewReport;
+
         if ($this->request->isPost) {
             $newReview->load($this->request->post());
             $newReview->link('venue', $venue);
@@ -233,7 +236,7 @@ class VenueController extends \app\core\WebController
             }
         }
 
-        return $this->createResponse('view', compact('venue', 'newReview', 'reviewDataProvider'));
+        return $this->createResponse('view', compact('venue', 'newReview', 'reviewDataProvider', 'reviewReport'));
     }
 
 }
