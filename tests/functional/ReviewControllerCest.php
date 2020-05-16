@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 use app\models\Artist;
 use app\models\ReviewArtist;
+use app\models\ReviewReport;
 use app\models\ReviewTone;
 use app\models\ReviewVenue;
 use app\models\User;
@@ -247,6 +248,68 @@ class ReviewControllerCest
         $I->assertEquals(1, (int)$userVote->count());
         $I->assertEquals(1, $review->downvotes);
         $I->assertEquals(0, $review->upvotes);
+    }
+
+    /**
+     * Tests that you can report an artist review
+     *
+     * @param \FunctionalTester $I
+     *
+     * @return void
+     */
+    public function testActionReportArtistReview(\FunctionalTester $I): void
+    {
+        $I->amLoggedInAsMember();
+        
+        $review = ReviewArtist::findOne(3);
+
+        $I->amOnRoute('/artist/view', ['artist_id' => 3]);
+        $I->submitForm("#review-report-artist-{$review->review_artist_id}", [
+            'ReviewReport' => [
+                'context' => '1'
+            ]
+        ]);
+
+        $report = ReviewReport::find()
+            ->orderBy(['created_at' => SORT_DESC])
+            ->one();
+
+        $I->assertNotNull($report);
+        $I->assertEquals(ReviewReport::CONTEXT_OFFENSIVE, $report->context);
+        $I->assertEquals(ReviewReport::STATUS_ACTIVE, $report->status);
+        $I->assertEquals(ReviewReport::TYPE_ARTIST, $report->type);
+        $I->assertEquals($review->review_artist_id, $report->fk);
+    }
+
+    /**
+     * Tests that you can report a venue review
+     *
+     * @param \FunctionalTester $I
+     *
+     * @return void
+     */
+    public function testActionReportVenueReview(\FunctionalTester $I): void
+    {
+        $I->amLoggedInAsMember();
+        
+        $review = ReviewVenue::findOne(2);
+
+        $I->amOnRoute('/venue/view', ['venue_id' => 1]);
+        $I->submitForm("#review-report-venue-{$review->review_venue_id}", [
+            'ReviewReport' => [
+                'context' => '1'
+            ]
+        ]);
+
+        $report = ReviewReport::find()
+            ->orderBy(['created_at' => SORT_DESC])
+            ->one();
+
+        $I->assertNotNull($report);
+        $I->assertEquals(ReviewReport::CONTEXT_OFFENSIVE, $report->context);
+        $I->assertEquals(ReviewReport::STATUS_ACTIVE, $report->status);
+        $I->assertEquals(ReviewReport::TYPE_VENUE, $report->type);
+        $I->assertEquals($review->review_venue_id, $report->fk);
     }
 
 }
