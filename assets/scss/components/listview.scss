@@ -1,4 +1,12 @@
-.list-view {
+.list-view, .grid-view {
+    .dropdown-menu {
+        padding: 12px;
+
+        li {
+            margin-bottom: 5px;
+        }
+    }
+
     .sorter {
         list-style-type: none;
         padding: 0;

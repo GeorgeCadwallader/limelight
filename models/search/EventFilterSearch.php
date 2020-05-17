@@ -54,6 +54,9 @@ class EventFilterSearch extends \app\models\Event
         $dataProvider = new ActiveDataProvider(
             [
                 'query' => $query,
+                'pagination' => [
+                    'pageSize' => 10,
+                ],
                 'sort' => [
                     'attributes' => [
                         'creations' => ['label' => 'Hot'],

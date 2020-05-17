@@ -57,6 +57,9 @@ class ReviewArtistFilterSearch extends \app\models\ReviewArtist
         $dataProvider = new ActiveDataProvider(
             [
                 'query' => $query,
+                'pagination' => [
+                    'pageSize' => 10,
+                ],
                 'sort' => [
                     'attributes' => [
                         'created_at' => ['label' => 'Created'],

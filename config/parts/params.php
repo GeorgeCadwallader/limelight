@@ -55,5 +55,12 @@ return [
             'toolbar' => "undo redo | bold italic",
             'paste_data_images' => false
         ]
+    ],
+
+    'paginationConfig' => [
+        'options' => ['class' => 'btn-group p-3 pagination'],
+        'linkContainerOptions' => ['class' => 'btn btn-primary px-3'],
+        'prevPageLabel' => '<i class="fa fa-chevron-left"></i>',
+        'nextPageLabel' => '<i class="fa fa-chevron-right"></i>',
     ]
 ];

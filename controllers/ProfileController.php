@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\auth\Item;
 use app\models\Genre;
+use app\models\ReviewReport;
 use app\models\User;
 use app\models\UserData;
 use app\models\UserGenre;
@@ -152,7 +153,9 @@ class ProfileController extends \app\core\WebController
             return $this->redirect('/profile');
         }
 
-        return $this->createResponse('view', compact('user'));
+        $reviewReport = new ReviewReport;
+
+        return $this->createResponse('view', compact('user', 'reviewReport'));
     }
 
 }

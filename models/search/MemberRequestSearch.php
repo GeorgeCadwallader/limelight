@@ -54,6 +54,9 @@ class MemberRequestSearch extends \app\models\MemberRequest
         $dataProvider = new ActiveDataProvider(
             [
                 'query' => $query,
+                'pagination' => [
+                    'pageSize' => 20,
+                ],
                 'sort' => [
                     'defaultOrder' => [
                         'request_count' => SORT_DESC,

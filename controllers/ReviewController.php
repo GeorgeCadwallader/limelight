@@ -6,6 +6,7 @@ use app\auth\Item;
 use app\components\ToneAnalyzer;
 use app\models\Artist;
 use app\models\ReviewArtist;
+use app\models\ReviewReport;
 use app\models\ReviewTone;
 use app\models\ReviewVenue;
 use app\models\UserVote;
@@ -34,7 +35,9 @@ class ReviewController extends \app\core\WebController
                             'downvote',
                             'create-artist',
                             'edit-artist',
-                            'edit-venue'
+                            'edit-venue',
+                            'report-artist-review',
+                            'report-venue-review'
                         ],
                         'roles' => [Item::ROLE_MEMBER],
                     ]
@@ -121,6 +124,62 @@ class ReviewController extends \app\core\WebController
             }
 
             throw new BadRequestHttpException('Unable to update your review');
+        }
+    }
+
+    /**
+     * Action for submitting a report for an artist review
+     * 
+     * @param int $review_artist_id
+     * 
+     * @return Reponse
+     */
+    public function actionReportArtistReview(int $review_artist_id): Response
+    {
+        $review = ReviewArtist::findOne($review_artist_id);
+
+        if ($review === null) {
+            throw new BadRequestHttpException('Invalid Artist Review');
+        }
+
+        $report = new ReviewReport([
+            'fk' => $review->review_artist_id,
+            'type' => ReviewReport::TYPE_ARTIST,
+            'status' => ReviewReport::STATUS_ACTIVE
+        ]);
+        $report->load($this->request->post());
+
+        if ($report->save()) {
+            Yii::$app->session->addFlash('success', 'Your report has successfully been made');
+            return $this->redirect(['/artist/view', 'artist_id' => $review->artist->artist_id]);
+        }
+    }
+
+    /**
+     * Action for submitting a report for an venue review
+     * 
+     * @param int $review_venue_id
+     * 
+     * @return Reponse
+     */
+    public function actionReportVenueReview(int $review_venue_id): Response
+    {
+        $review = ReviewVenue::findOne($review_venue_id);
+
+        if ($review === null) {
+            throw new BadRequestHttpException('Invalid Venue Review');
+        }
+
+        $report = new ReviewReport([
+            'fk' => $review->review_venue_id,
+            'type' => ReviewReport::TYPE_VENUE,
+            'status' => ReviewReport::STATUS_ACTIVE
+        ]);
+        $report->load($this->request->post());
+
+        if ($report->save()) {
+            Yii::$app->session->addFlash('success', 'Your report has successfully been made');
+            return $this->redirect(['/venue/view', 'venue_id' => $review->venue->venue_id]);
         }
     }
 

@@ -71,6 +71,11 @@ $this->title = Yii::$app->name.' | Admin panel';
                     <img src="./images/A8.png" alt="Contact Messages" class="img-fluid">
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link admin-link" id="report-tab" data-toggle="tab" href="#report" role="tab" aria-controls="report" aria-selected="false">
+                    <img src="./images/A9.png" alt="View Site Reports" class="img-fluid">
+                </a>
+            </li>
         </ul>
     </div>
     <div class="col-md-6">
@@ -225,6 +230,30 @@ $this->title = Yii::$app->name.' | Admin panel';
                         <?= Html::a(
                             'View Contact Messages',
                             '/admin/contact',
+                            ['class' => 'btn btn-primary']
+                        ); ?>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="report" role="tabpanel" aria-labelledby="report-tab">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">View review reports</h2>
+                        <hr class="my-2">
+                        <p class="card-text">
+                            Manage review reports on <?= Yii::$app->name; ?>
+                            <br><br>
+                            This displays a table of all reports that have been made by users on the site.
+                            From here you are able to manage and control the reviews that have been reported by
+                            doing different tasks such as:
+                            <ul>
+                                <li>Change review statuses</li>
+                                <li>View tonality reports on the review</li>
+                            </ul>
+                        </p>
+                        <?= Html::a(
+                            'Manage review reports',
+                            '/admin/reports',
                             ['class' => 'btn btn-primary']
                         ); ?>
                     </div>

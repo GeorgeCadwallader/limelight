@@ -1,11 +1,12 @@
 <?php
 
 /** @var $this yii\web\View */
-/** @var $memberRequestFilterModel app\models\search\MemberRequestSearch */
-/** @var $memberRequestDataProvider yii\data\ActiveDataProvider */
+/** @var $reportFilterModel app\models\search\ReportSearch */
+/** @var $reportDataProvider yii\data\ActiveDataProvider */
 
 use app\helpers\Html;
-use app\models\MemberRequest;
+use app\models\ReviewReport;
+use app\models\ReviewTone;
 use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap\Dropdown;
 use yii\grid\ActionColumn;
@@ -13,6 +14,7 @@ use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
+$this->title = 'Manage Review Reports | '.Yii::$app->name;
 
 ?>
 
@@ -24,43 +26,52 @@ use yii\helpers\Url;
                     'label' => 'Admin Dashboard',
                     'url' => Url::to('/admin'),
                 ],
-                [
-                    'label' => 'Member Requests'
-                ]
+                ['label' => 'Manage Review Reports']
             ]
         ]); ?>
     </div>
 </div>
 <div class="row my-4">
     <div class="col-sm-12">
-        <h1>Member Requests</h1>
+        <h1>Review Reports</h1>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-12">
         <?= GridView::widget([
             'pager' => Yii::$app->params['paginationConfig'],
-            'dataProvider' => $memberRequestDataProvider,
-            'filterModel' => $memberRequestFilterModel,
+            'dataProvider' => $reportDataProvider,
+            'filterModel' => $reportFilterModel,
             'columns' => [
-                ['attribute' => 'member_request_id'],
-                ['attribute' => 'request_name'],
                 [
                     'attribute' => 'type',
-                    'filter' => MemberRequest::$types,
+                    'filter' => ReviewReport::$types,
                     'filterInputOptions' => [
                         'class' => 'form-control',
                         'prompt' => 'Filter by type...'
                     ],
                     'value' => function ($model) {
-                        return MemberRequest::$types[$model->type];
+                        $type = ArrayHelper::getValue($model::$types, $model->type);
+                        return $type;
                     }
                 ],
-                ['attribute' => 'request_count'],
+                [
+                    'attribute' => 'context',
+                    'label' => 'Context',
+                    'filter' => ReviewReport::$contexts,
+                    'filterInputOptions' => [
+                        'class' => 'form-control',
+                        'prompt' => 'Filter by context...'
+                    ],
+                    'value' => function ($model) {
+                        $context = ArrayHelper::getValue($model::$contexts, $model->context);
+                        return $context;
+                    }
+                ],
                 [
                     'attribute' => 'status',
                     'format' => 'raw',
-                    'filter' => MemberRequest::$statuses,
+                    'filter' => ReviewReport::$statuses,
                     'filterInputOptions' => [
                         'class' => 'form-control',
                         'prompt' => 'Filter by status...'
@@ -68,19 +79,11 @@ use yii\helpers\Url;
                     'value' => function ($model) {
                         $status = ArrayHelper::getValue($model::$statuses, $model->status);
 
-                        if ($model->status === $model::STATUS_ACTIVE) {
+                        if ($model->status === $model::STATUS_RESOLVED) {
                             return Html::tag(
                                 'span',
                                 $status,
                                 ['class' => 'text-info font-weight-bold']
-                            );
-                        }
-
-                        if ($model->status === $model::STATUS_DEACTIVATED) {
-                            return Html::tag(
-                                'span',
-                                $status,
-                                ['class' => 'text-warning font-weight-bold']
                             );
                         }
 
@@ -99,26 +102,26 @@ use yii\helpers\Url;
                         'menu' => function ($url, $model, $index): string {
                             $items = [
                                 [
-                                    'label' => 'Set status: Deactivated',
+                                    'label' => 'Set status: Resolved',
                                     'url' => [
-                                        '/member-request/set-status',
-                                        'member_request_id' => $model->member_request_id,
-                                        'status' => MemberRequest::STATUS_DEACTIVATED
+                                        '/admin/set-report-status',
+                                        'review_report_id' => $model->review_report_id,
+                                        'status' => ReviewReport::STATUS_RESOLVED
                                     ]
                                 ],
                                 [
                                     'label' => 'Set status: Active',
                                     'url' => [
-                                        '/member-request/set-status',
-                                        'member_request_id' => $model->member_request_id,
-                                        'status' => MemberRequest::STATUS_ACTIVE
+                                        '/admin/set-report-status',
+                                        'review_report_id' => $model->review_report_id,
+                                        'status' => ReviewReport::STATUS_ACTIVE
                                     ]
                                 ],
                                 [
-                                    'label' => 'Approve and create request',
+                                    'label' => 'Deactivate review',
                                     'url' => [
-                                        '/member-request/approve-request',
-                                        'member_request_id' => $model->member_request_id,
+                                        '/admin/deactivate-review',
+                                        'fk' => $model->fk,
                                         'type' => $model->type
                                     ]
                                 ]

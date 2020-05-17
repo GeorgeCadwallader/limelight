@@ -6,6 +6,7 @@ namespace app\models\search;
 
 use yii\data\ActiveDataProvider;
 use yii\db\ActiveQuery;
+use yii\db\Expression;
 
 /**
  * @category  Project
@@ -13,11 +14,11 @@ use yii\db\ActiveQuery;
  * @author    George Cadwallader <georgecadwallader77@gmail.com>
  * @copyright 2020
  */
-class VenueFilterSearch extends \app\models\Venue
+class ReportSearch extends \app\models\ReviewReport
 {
 
     /**
-     * The rules for the VenueSearch model
+     * The rules for the ReportSearch model
      *
      * @return array
      */
@@ -36,7 +37,7 @@ class VenueFilterSearch extends \app\models\Venue
      */
     public function search(array $params = []): ActiveDataProvider
     {
-        $query = self::find()->joinWith(['reviews'])->where(['{{%venue}}.[[status]]' => self::STATUS_ACTIVE]);
+        $query = self::find();
         return $this->getDataProvider($query, $params);
     }
 
@@ -55,17 +56,12 @@ class VenueFilterSearch extends \app\models\Venue
             [
                 'query' => $query,
                 'pagination' => [
-                    'pageSize' => 10,
+                    'pageSize' => 20,
                 ],
                 'sort' => [
-                    'attributes' => [
-                        'name',
-                        'created_at' => ['label' => 'Created'],
-                        'overall_rating'
-                    ],
                     'defaultOrder' => [
-                        'overall_rating' => SORT_DESC,
-                    ],    
+                        'created_at' => SORT_DESC,
+                    ],
                 ]
             ]
         );
@@ -76,8 +72,9 @@ class VenueFilterSearch extends \app\models\Venue
 
         $dataProvider->query->andFilterWhere([
             'AND',
-            ['LIKE', 'name', $this->name],
-            ['=', 'status', $this->status]
+            ['=', 'type', $this->type],
+            ['=', 'context', $this->context],
+            ['=', 'status', $this->status],
         ]);
 
         return $dataProvider;

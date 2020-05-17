@@ -54,6 +54,9 @@ class ContactSearch extends \app\models\Contact
         $dataProvider = new ActiveDataProvider(
             [
                 'query' => $query,
+                'pagination' => [
+                    'pageSize' => 20,
+                ],
                 'sort' => [
                     'defaultOrder' => [
                         'created_at' => SORT_DESC,

@@ -89,4 +89,8 @@ return [
         'version' => 'm200507_142917_add_bio_column_to_user_data_table',
         'apply_time' => '1588861894',
     ],
+    [
+        'version' => 'm200516_132744_create_review_report_table',
+        'apply_time' => '1589635992',
+    ],
 ];

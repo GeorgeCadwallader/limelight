@@ -173,4 +173,15 @@ class ReviewArtist extends \yii\db\ActiveRecord
         return $this->hasMany(UserVote::class, ['review_artist_id' => 'review_artist_id']);
     }
 
+    /**
+     * Get the tones for this review
+     * 
+     * @return ActiveQueryInterface
+     */
+    public function getTones(): ActiveQueryInterface
+    {
+        return $this->hasMany(ReviewTone::class, ['fk' => 'review_artist_id'])
+            ->onCondition(['type' => ReviewTone::TYPE_ARTIST]);
+    }
+
 }

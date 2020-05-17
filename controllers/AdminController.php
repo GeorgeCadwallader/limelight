@@ -11,12 +11,16 @@ use app\models\County;
 use app\models\Genre;
 use app\models\OwnerRequest;
 use app\models\Region;
+use app\models\ReviewArtist;
+use app\models\ReviewReport;
+use app\models\ReviewVenue;
 use app\models\search\ArtistSearch;
 use app\models\search\ContactSearch;
 use app\models\search\CountySearch;
 use app\models\search\GenreSearch;
 use app\models\search\MemberRequestSearch;
 use app\models\search\RegionSearch;
+use app\models\search\ReportSearch;
 use app\models\search\RequestSearch;
 use app\models\search\VenueSearch;
 use app\models\User;
@@ -601,6 +605,85 @@ class AdminController extends \app\core\WebController
         }
 
         return $this->createResponse('contact-reply', compact('contactReply', 'contactMessage'));
+    }
+
+    /**
+     * View all review reports
+     * 
+     * @return Response
+     */
+    public function actionReports(): Response
+    {
+        $reportFilterModel = new ReportSearch;
+        $reportDataProvider = $reportFilterModel->search($this->request->queryParams);
+
+        return $this->createResponse(
+            'report',
+            compact(
+                'reportFilterModel',
+                'reportDataProvider'
+            )
+        );
+    }
+
+    /**
+     * Set the status for a review report instance
+     * 
+     * @param int $review_report_id The individual id of the review report
+     * @param int $status The status to change the review report to
+     * 
+     * @return Response
+     */
+    public function actionSetReportStatus(int $review_report_id, int $status): Response
+    {
+        $reviewReport = ReviewReport::findOne($review_report_id);
+
+        if ($reviewReport === null) {
+            throw new BadRequestHttpException('Invalid review report');
+        }
+
+        $reviewReport->status = $status;
+
+        if ($reviewReport->save()) {
+            Yii::$app->session->addFlash('Review Report successfully updated');
+            return $this->redirect('/admin/reports');
+        }
+
+        throw new BadRequestHttpException('Unable to update the status of the Review Report');
+    }
+
+    /**
+     * Deactivate the review that has been reported on
+     * 
+     * @param int $fk The primary key of the review
+     * @param int $type The type of review
+     * 
+     * @return Response
+     */
+    public function actionDeactivateReview(int $fk, int $type): Response
+    {
+        if ($type === ReviewReport::TYPE_ARTIST) {
+            $review = ReviewArtist::findOne($fk);
+            $review->status = ReviewArtist::STATUS_DEACTIVATED;
+        } elseif ($type === ReviewReport::TYPE_VENUE) {
+            $review = ReviewVenue::findOne($fk);
+            $review->status = ReviewArtist::STATUS_DEACTIVATED;
+        }
+
+        $reports = ReviewReport::find()
+            ->where(['fk' => $fk])
+            ->andWhere(['type' => $type])
+            ->all();
+
+        foreach ($reports as $report) {
+            $report->status = ReviewReport::STATUS_RESOLVED;
+            $report->save();
+        }
+
+        if ($review->save()) {
+            Yii::$app->session->addFlash('Review successfully deactivated, all reports made for this review have been set to resolved');
+            return $this->redirect('/admin/reports');
+        }
     }
 
 }
