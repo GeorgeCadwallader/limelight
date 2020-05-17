@@ -44,6 +44,7 @@ use yii\bootstrap4\Breadcrumbs;
 <div class="row my-4">
     <div class="col-sm-12">
         <?= GridView::widget([
+            'pager' => Yii::$app->params['paginationConfig'],
             'dataProvider' => $regionDataProvider,
             'filterModel' => $regionFilterModel,
             'columns' => [
@@ -84,6 +85,7 @@ use yii\bootstrap4\Breadcrumbs;
 <div class="row">
     <div class="col-sm-12">
         <?= GridView::widget([
+            'pager' => Yii::$app->params['paginationConfig'],
             'dataProvider' => $countyDataProvider,
             'filterModel' => $countyFilterModel,
             'columns' => [

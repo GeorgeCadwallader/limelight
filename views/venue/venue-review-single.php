@@ -52,13 +52,13 @@ $favouriteGenre = $review->creator->genre;
                         >
                             <?= Html::icon('ellipsis-h'); ?>
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="reviewOptions-<?= $review->review_venue_id; ?>">
+                        <div class="dropdown-menu text-center" aria-labelledby="reviewOptions-<?= $review->review_venue_id; ?>">
                             <?php if ($review->creator->user_id === Yii::$app->user->id) { ?>
                                 <?= Html::a(
                                     'Edit'.Html::icon('pencil', ['class' => 'pl-3']),
                                     '#edit',
                                     [
-                                        'class' => 'review-edit-btn dropdown-item text-primary',
+                                        'class' => 'review-edit-btn dropdown-item btn text-primary',
                                         'data-review-id' => $review->review_venue_id,
                                         'data-pjax' => '0'
                                     ]
@@ -67,7 +67,7 @@ $favouriteGenre = $review->creator->genre;
                                 <?= Html::button(
                                     'Report'.Html::icon('flag', ['class' => 'pl-3']),
                                     [
-                                        'class' => 'dropdown-item text-primary',
+                                        'class' => 'dropdown-item btn text-primary',
                                         'data-pjax' => '0',
                                         'data-toggle' => 'modal',
                                         'data-target' => '#reviewModalVenue-'.$review->review_venue_id

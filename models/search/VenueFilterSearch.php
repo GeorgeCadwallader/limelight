@@ -54,6 +54,9 @@ class VenueFilterSearch extends \app\models\Venue
         $dataProvider = new ActiveDataProvider(
             [
                 'query' => $query,
+                'pagination' => [
+                    'pageSize' => 10,
+                ],
                 'sort' => [
                     'attributes' => [
                         'name',

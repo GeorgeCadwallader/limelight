@@ -94,6 +94,7 @@ $this->title = $artist->name.' | '.Yii::$app->name;
         <?php Pjax::begin(['id'=>'venueSingle', 'enablePushState' => true, 'timeout' => 5000]); ?>
             <?= ListView::widget([
                     'dataProvider' => $reviewDataProvider,
+                    'pager' => Yii::$app->params['paginationConfig'],
                     'itemView' => 'artist-review-single',
                     'options' => ['class' => 'list-view row pjax-refresh-item'],
                     'summaryOptions' => ['class' => 'summary w-100 px-3'],

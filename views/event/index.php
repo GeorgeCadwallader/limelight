@@ -53,6 +53,7 @@ $events = Event::find()->all();
 </div>
 <?= ListView::widget([
         'dataProvider' => $eventDataProvider,
+        'pager' => Yii::$app->params['paginationConfig'],
         'itemView' => 'event-contained',
         'options' => ['class' => 'list-view row'],
         'summaryOptions' => ['class' => 'summary w-100 px-3'],

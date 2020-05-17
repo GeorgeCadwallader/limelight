@@ -52,7 +52,12 @@ class RequestSearch extends \app\models\OwnerRequest
     protected function getDataProvider(ActiveQuery $query, array $params = []): ActiveDataProvider
     {
         $dataProvider = new ActiveDataProvider(
-            ['query' => $query]
+            [
+                'query' => $query,
+                'pagination' => [
+                    'pageSize' => 20,
+                ],
+            ]
         );
 
         if (!$this->load($params) || !$this->validate()) {

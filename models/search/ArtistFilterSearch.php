@@ -55,6 +55,9 @@ class ArtistFilterSearch extends \app\models\Artist
         $dataProvider = new ActiveDataProvider(
             [
                 'query' => $query,
+                'pagination' => [
+                    'pageSize' => 10,
+                ],
                 'sort' => [
                     'attributes' => [
                         'name',

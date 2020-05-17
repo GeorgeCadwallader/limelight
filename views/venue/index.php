@@ -61,6 +61,7 @@ $venues = Venue::find()->where(['status' => Venue::STATUS_ACTIVE])->all();
 <?php Pjax::begin(['id'=>'venueList', 'enablePushState' => true, 'timeout' => 5000]); ?>
     <?= ListView::widget([
             'dataProvider' => $venueDataProvider,
+            'pager' => Yii::$app->params['paginationConfig'],
             'itemView' => 'venue-contained',
             'options' => ['class' => 'list-view row pjax-refresh-item'],
             'summaryOptions' => ['class' => 'summary w-100 px-3'],
