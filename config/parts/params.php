@@ -11,8 +11,8 @@ return [
 
     'reviewArtistNew' => [
         'pluginOptions' => [
-            'filledStar' => '<i class="fa fa-star"></i>',
-            'emptyStar' => '<i class="fa fa-star"></i>',
+            'filledStar' => '<i class="limelight-lime"></i>',
+            'emptyStar' => '<i class="limelight-lime-empty"></i>',
             'min' => 0,
             'max' => 5,
             'step' => 0.5,
@@ -22,8 +22,8 @@ return [
 
     'reviewVenueNew' => [
         'pluginOptions' => [
-            'filledStar' => '<i class="fa fa-star"></i>',
-            'emptyStar' => '<i class="fa fa-star"></i>',
+            'filledStar' => '<i class="limelight-lime"></i>',
+            'emptyStar' => '<i class="limelight-lime-empty"></i>',
             'min' => 0,
             'max' => 5,
             'step' => 0.5,
@@ -32,16 +32,16 @@ return [
     ],
 
     'reviewArtistDisplay' => [
-        'filledStar' => '<i class="fa fa-star"></i>',
-        'emptyStar' => '<i class="fa fa-star"></i>',
+        'filledStar' => '<i class="limelight-lime"></i>',
+        'emptyStar' => '<i class="limelight-lime-empty"></i>',
         'readonly' => true,
         'showClear' => false,
         'showCaption' => false,
     ],
 
     'reviewVenueDisplay' => [
-        'filledStar' => '<i class="fa fa-star"></i>',
-        'emptyStar' => '<i class="fa fa-star"></i>',
+        'filledStar' => '<i class="limelight-lime"></i>',
+        'emptyStar' => '<i class="limelight-lime-empty"></i>',
         'readonly' => true,
         'showClear' => false,
         'showCaption' => false,

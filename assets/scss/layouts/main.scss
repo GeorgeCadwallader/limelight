@@ -2,6 +2,23 @@
     box-shadow: $box-shadow;
 }
 
+.limelight-lime::before {
+    background: url('/images/whole-lime.svg');
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    content: "";
+}
+
+.limelight-lime-empty::before {
+  background: url('/images/whole-lime.svg');
+  opacity: 0.3;
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+  content: "";
+}
+
 .my-100 {
   margin-top: 100px;
   margin-bottom: 100px;
