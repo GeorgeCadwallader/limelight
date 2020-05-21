@@ -33,13 +33,7 @@ $url = VenueHelper::imageUrl($venue);
                 <?= StarRating::widget([
                     'name' => 'contained-venue-'.$venue->venue_id,
                     'value' => VenueHelper::averageRating($venue, ReviewVenue::REVIEW_VENUE_OVERALL),
-                    'pluginOptions' => [
-                        'filledStar' => '<i class="fa fa-star"></i>',
-                        'emptyStar' => '<i class="fa fa-star"></i>',
-                        'readonly' => true,
-                        'showClear' => false,
-                        'showCaption' => false,
-                    ],
+                    'pluginOptions' => Yii::$app->params['reviewVenueDisplay']
                 ]); ?>
                 <strong>( <?= $venue->reviewCount; ?> )</strong>
             </div>

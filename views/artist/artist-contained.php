@@ -33,13 +33,7 @@ $url = ArtistHelper::imageUrl($artist);
                 <?= StarRating::widget([
                     'name' => 'contained-artist-'.$artist->artist_id,
                     'value' => ArtistHelper::averageRating($artist, ReviewArtist::REVIEW_ARTIST_OVERALL),
-                    'pluginOptions' => [
-                        'filledStar' => '<i class="fa fa-star"></i>',
-                        'emptyStar' => '<i class="fa fa-star"></i>',
-                        'readonly' => true,
-                        'showClear' => false,
-                        'showCaption' => false,
-                    ],
+                    'pluginOptions' => Yii::$app->params['reviewArtistDisplay']
                 ]); ?>
                 <strong>( <?= $artist->reviewCount; ?> )</strong>
             </div>
