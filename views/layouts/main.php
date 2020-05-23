@@ -75,6 +75,7 @@ if (is_file($file)) {
           <div class="dropdown-menu navbar-link-dropdown-content py-3 px-3 px-lg-0" aria-labelledby="toolsDropdown">
             <a class="dropdown-item nav-link navbar-profile-link my-3 my-lg-0" href="/event">Events</a>
             <a class="dropdown-item nav-link navbar-profile-link my-3 my-lg-0" href="/compare">Comparison Feature</a>
+            <a class="dropdown-item nav-link navbar-profile-link my-3 my-lg-0" href="/advert">Adverts</a>
           </div>
         </li>
         <?php if (!Yii::$app->user->isGuest) { ?>
