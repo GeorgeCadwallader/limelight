@@ -21,6 +21,8 @@ class m200523_131547_create_advert_table extends \app\core\Migration
                 'message' => $this->string(1200),
                 'appearances' => $this->integer()->defaultValue(0),
                 'advert_type' => $this->integer()->notNull(),
+                'region_id' => $this->integer(),
+                'genre_id' => $this->integer(),
                 'status' => $this->integer()->notNull(),
                 'created_at' => $this->dateTime(),
                 'updated_at' => $this->dateTime(),
