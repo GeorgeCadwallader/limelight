@@ -93,4 +93,8 @@ return [
         'version' => 'm200516_132744_create_review_report_table',
         'apply_time' => '1589635992',
     ],
+    [
+        'version' => 'm200523_131547_create_advert_table',
+        'apply_time' => '1590256769',
+    ],
 ];
