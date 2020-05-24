@@ -63,9 +63,9 @@ class AdvertController extends \app\core\WebController
      * 
      * @return Response
      */
-    public function actionCreate(int $type): Response
+    public function actionCreate(int $advert_type): Response
     {
-        if (!array_key_exists($type, Advert::$advertTypes)) {
+        if (!array_key_exists($advert_type, Advert::$advertTypes)) {
             throw new BadRequestHttpException('Invalid advert type');
         }
 
@@ -80,7 +80,7 @@ class AdvertController extends \app\core\WebController
         $advert = new Advert([
             'fk' => $ownedId,
             'type' => $ownerType,
-            'advert_type' => $type,
+            'advert_type' => $advert_type,
             'status' => Advert::STATUS_INACTIVE
         ]);
 
@@ -98,7 +98,7 @@ class AdvertController extends \app\core\WebController
             $payer->setPaymentMethod('paypal');
 
             $amount = new \PayPal\Api\Amount();
-            $amount->setTotal(Advert::$advertTypeCost[$type]);
+            $amount->setTotal(Advert::$advertTypeCost[$advert_type]);
             $amount->setCurrency('GBP');
 
             $transaction = new \PayPal\Api\Transaction();

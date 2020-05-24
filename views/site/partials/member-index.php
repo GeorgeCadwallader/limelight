@@ -73,6 +73,13 @@ $discoverVenueQuery = Venue::find()
         </p>
     </div>
 </div>
+<div class="row my-3">
+  <?php foreach ($adverts as $model) { ?>
+    <div class="col-md-3">
+      <?= $this->render('../../advert/partials/advert-single', compact('model')); ?>
+    </div>
+  <?php } ?>
+</div>
 <div class="row my-100 limelight-box-shadow rounded py-4">
   <div class="col-md-6 col-lg-7 mb-sm-3">
     <?= YouTubeWidget::widget([

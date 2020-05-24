@@ -47,7 +47,7 @@ $this->title = 'Adverts | '.Yii::$app->name;
             <h3>Global</h3>
             <p>This option allows for the owner to target all users on <?= Yii::$app->name; ?>.</p>
             <?php if (ArtistHelper::isOwner() || VenueHelper::isOwner()) {
-                echo Html::a('Create', ['/advert/create', 'type' => Advert::ADVERT_TYPE_GLOBAL], ['class' => 'btn btn-primary']);
+                echo Html::a('Create', ['/advert/create', 'advert_type' => Advert::ADVERT_TYPE_GLOBAL], ['class' => 'btn btn-primary']);
             } ?>
         </div>
     </div>
@@ -57,7 +57,7 @@ $this->title = 'Adverts | '.Yii::$app->name;
             <h3>Genre</h3>
             <p>This option allows for the owner to target users with relating genres to their artist or venue.</p>
             <?php if (ArtistHelper::isOwner() || VenueHelper::isOwner()) {
-                echo Html::a('Create', ['/advert/create', 'type' => Advert::ADVERT_TYPE_GENRE], ['class' => 'btn btn-primary']);
+                echo Html::a('Create', ['/advert/create', 'advert_type' => Advert::ADVERT_TYPE_GENRE], ['class' => 'btn btn-primary']);
             } ?>
         </div>
     </div>
@@ -67,7 +67,7 @@ $this->title = 'Adverts | '.Yii::$app->name;
             <h3>Location</h3>
             <p>Target <?= Yii::$app->name; ?> members who share a similar location to their artist or venue.</p>
             <?php if (ArtistHelper::isOwner() || VenueHelper::isOwner()) {
-                echo Html::a('Create', ['/advert/create', 'type' => Advert::ADVERT_TYPE_LOCATION], ['class' => 'btn btn-primary']);
+                echo Html::a('Create', ['/advert/create', 'advert_type' => Advert::ADVERT_TYPE_LOCATION], ['class' => 'btn btn-primary']);
             } ?>
         </div>
     </div>

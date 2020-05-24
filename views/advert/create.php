@@ -5,11 +5,18 @@
 
 use app\helpers\Html;
 use app\models\Advert;
+use app\models\Genre;
+use app\models\Region;
+
 use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Breadcrumbs;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
 $this->title = 'Create Advert | '.Yii::$app->name;
+
+$regions = ArrayHelper::map(Region::find()->all(), 'region_id', 'name');
+$genres = ArrayHelper::map(Genre::find()->all(), 'genre_id', 'name');
 
 ?>
 
@@ -36,7 +43,7 @@ $this->title = 'Create Advert | '.Yii::$app->name;
 <div class="row">
     <div class="col-sm-12">
         <div class="alert alert-primary" role="alert">
-            You have chosen to create an advert of the type <strong><?= Advert::$advertTypes[$advert->type]; ?></strong>
+            You have chosen to create an advert of the type <strong><?= Advert::$advertTypes[$advert->advert_type]; ?></strong>
             <br><br>
             If this is not correct, please click <a href="/advert">here</a> to choose another advert type.
         </div>
@@ -59,6 +66,17 @@ $this->title = 'Create Advert | '.Yii::$app->name;
                         ->hint(Html::infoHint('The message that will be displayed on your advert. Leave blank to use your artist or venue name')); ?>
                 </div>
             </div>
+            <?php if ($advert->advert_type !== Advert::ADVERT_TYPE_GLOBAL) { ?>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <?php if ($advert->advert_type === Advert::ADVERT_TYPE_GENRE) {
+                            echo $form->field($advert, 'genre_id')->dropDownList($genres);
+                        } elseif ($advert->advert_type === Advert::ADVERT_TYPE_LOCATION) {
+                            echo $form->field($advert, 'region_id')->dropDownList($regions);
+                        } ?>  
+                    </div>
+                </div>
+            <?php } ?>
             <div class="row">
                 <div class="col-sm-12">
                     <div class="alert alert-primary" role="alert">

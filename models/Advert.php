@@ -16,6 +16,8 @@ use yii\db\ActiveQueryInterface;
  * @property string $message
  * @property integer $appearances
  * @property integer $advert_type
+ * @property integer $region_id
+ * @property integer $genre_id
  * @property integer $status
  * @property Moment $created_at
  * @property Moment $updated_at
@@ -112,6 +114,17 @@ class Advert extends \yii\db\ActiveRecord
     /**
      * @inheritDoc
      */
+    public function attributeLabels(): array
+    {
+        return [
+            'genre_id' => 'Genre',
+            'region_id' => 'Region'
+        ];
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function behaviors(): array
     {
         return [
@@ -125,10 +138,13 @@ class Advert extends \yii\db\ActiveRecord
      * 
      * @return ActiveQueryInterface
      */
-    public function getArtist(): ActiveQueryInterface
+    public function getArtist()
     {
-        return $this->hasOne(Artist::class, ['artist_id' => 'fk'])
-            ->onCondition(['type' => self::TYPE_ARTIST]);
+        if ($this->type !== self::TYPE_ARTIST) {
+            return null;
+        }
+
+        return $this->hasOne(Artist::class, ['artist_id' => 'fk']);
     }
 
     /**
@@ -136,10 +152,39 @@ class Advert extends \yii\db\ActiveRecord
      * 
      * @return ActiveQueryInterface
      */
-    public function getVenue(): ActiveQueryInterface
+    public function getVenue()
     {
-        return $this->hasOne(Venue::class, ['venue_id' => 'fk'])
-            ->onCondition(['type' => self::TYPE_VENUE]);
+        if ($this->type !== self::TYPE_VENUE) {
+            return null;
+        }
+
+        return $this->hasOne(Venue::class, ['venue_id' => 'fk']);
+    }
+
+    /**
+     * Get the region related to this advert
+     * 
+     * @return ActiveQueryInterface
+     */
+    public function getRegion()
+    {
+        if ($this->advert_type !== self::ADVERT_TYPE_LOCATION) {
+            return null;
+        }
+
+        return $this->hasOne(Region::class, ['region_id' => 'region_id']);
+    }
+
+    /**
+     * Get the genre related to this advert
+     */
+    public function getGenre()
+    {
+        if ($this->type !== self::ADVERT_TYPE_GENRE) {
+            return null;
+        }
+
+        return $this->hasOne(Genre::class, ['genre_id' => 'genre_id']);
     }
 
 }

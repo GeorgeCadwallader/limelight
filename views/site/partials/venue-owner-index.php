@@ -128,6 +128,13 @@ if ($isManager) {
         </div>
     <?php } ?>
 <?php } ?>
+<div class="row my-3">
+  <?php foreach ($adverts as $model) { ?>
+    <div class="col-md-3">
+      <?= $this->render('../../advert/partials/advert-single', compact('model')); ?>
+    </div>
+  <?php } ?>
+</div>
 <div class="row">
     <div class="jumbotron jumbotron-fluid">
         <h2 class="display-4">Learn more about the process behind <?= Yii::$app->name; ?></h2>
