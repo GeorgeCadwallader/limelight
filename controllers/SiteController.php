@@ -18,6 +18,7 @@ use app\models\User;
 use app\models\UserData;
 use app\models\Venue;
 use yii\db\Expression;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 
@@ -69,6 +70,7 @@ class SiteController extends \app\core\WebController
         $adverts = Advert::find()
             ->where(['>=', 'created_at', new Expression('UNIX_TIMESTAMP(NOW() - INTERVAL 1 DAY)')])
             ->andWhere(['status' => Advert::STATUS_ACTIVE])
+            ->andWhere(['advert_type' => Advert::ADVERT_TYPE_GLOBAL])
             ->orderBy(new Expression('rand()'))
             ->limit(4)
             ->all();
@@ -93,7 +95,19 @@ class SiteController extends \app\core\WebController
             return $this->render('partials/venue-owner-index', compact('owner', 'adverts'));
         } else {
             $member = Yii::$app->user->identity;
-            return $this->render('partials/member-index', compact('member', 'adverts'));
+            $memberAdverts = Advert::find()
+                ->where(['status' => Advert::STATUS_ACTIVE])
+                ->andWhere(['!=', 'advert_type', Advert::ADVERT_TYPE_GLOBAL])
+                ->andWhere([
+                    'OR',
+                    ['IN', 'genre_id', ArrayHelper::map($member->genre, 'name', 'genre_id')],
+                    ['=', 'region_id', $member->userData->county_id]
+                ])
+                ->orderBy(new Expression('rand()'))
+                ->limit(4)
+                ->all();
+
+            return $this->render('partials/member-index', compact('member', 'adverts', 'memberAdverts'));
         }
 
         throw new BadRequestHttpException('Unable to process your request');
