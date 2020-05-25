@@ -21,7 +21,7 @@ $url = ArtistHelper::imageUrl($artist);
     data-pjax="0"
 >
     <div
-        class="contained-image"
+        class="contained-image limelight-box-shadow"
         style="background-image:url(<?= Url::to($url); ?>)"
     >
         <div class="contained-content">

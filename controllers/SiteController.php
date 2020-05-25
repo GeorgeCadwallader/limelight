@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\auth\Item;
+use app\models\Advert;
 use app\models\Artist;
 use app\models\Contact;
 use Yii;
@@ -16,6 +17,8 @@ use app\models\forms\UserActivationForm;
 use app\models\User;
 use app\models\UserData;
 use app\models\Venue;
+use yii\db\Expression;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 
@@ -64,24 +67,47 @@ class SiteController extends \app\core\WebController
      */
     public function actionIndex()
     {
+        $adverts = Advert::find()
+            ->where(['>=', 'created_at', new Expression('UNIX_TIMESTAMP(NOW() - INTERVAL 1 DAY)')])
+            ->andWhere(['status' => Advert::STATUS_ACTIVE])
+            ->andWhere(['advert_type' => Advert::ADVERT_TYPE_GLOBAL])
+            ->orderBy(new Expression('rand()'))
+            ->limit(4)
+            ->all();
+
+        foreach ($adverts as $advert) {
+            $advert->deductBudget();
+        }
+
         if (Yii::$app->user->isGuest) {
-            return $this->render('partials/guest-index');
+            return $this->render('partials/guest-index', compact('adverts'));
         }
 
         $roles = Yii::$app->authManager->getRolesByUser(Yii::$app->user->id);
-
         
         if (array_key_exists(Item::ROLE_ADMIN, $roles)) {
             return $this->redirect(Url::toRoute('/admin'));
         } elseif (array_key_exists(Item::ROLE_ARTIST_OWNER, $roles) && Yii::$app->user->identity->artist !== null) {
             $owner = Yii::$app->user->identity;
-            return $this->render('partials/artist-owner-index', compact('owner'));
+            return $this->render('partials/artist-owner-index', compact('owner', 'adverts'));
         } elseif (array_key_exists(Item::ROLE_VENUE_OWNER, $roles) && Yii::$app->user->identity->venue !== null) {
             $owner = Yii::$app->user->identity;
-            return $this->render('partials/venue-owner-index', compact('owner'));
+            return $this->render('partials/venue-owner-index', compact('owner', 'adverts'));
         } else {
             $member = Yii::$app->user->identity;
-            return $this->render('partials/member-index', compact('member'));
+            $memberAdverts = Advert::find()
+                ->where(['status' => Advert::STATUS_ACTIVE])
+                ->andWhere(['!=', 'advert_type', Advert::ADVERT_TYPE_GLOBAL])
+                ->andWhere([
+                    'OR',
+                    ['IN', 'genre_id', ArrayHelper::map($member->genre, 'name', 'genre_id')],
+                    ['=', 'region_id', $member->userData->county_id]
+                ])
+                ->orderBy(new Expression('rand()'))
+                ->limit(4)
+                ->all();
+
+            return $this->render('partials/member-index', compact('member', 'adverts', 'memberAdverts'));
         }
 
         throw new BadRequestHttpException('Unable to process your request');

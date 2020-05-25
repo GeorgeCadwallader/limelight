@@ -1,6 +1,9 @@
 <?php
 
 return [
+    // 'payPalClientId' => env('PAYPAL_CLIENT_ID'),
+    // 'payPalClientSecret' => env('PAYPAL_SECRET'),
+
     'adminEmail' => env('APP_EMAIL_ADMIN'),
     'senderEmail' => env('APP_EMAIL_ADMIN'),
     'senderName' => env('APP_EMAIL_ADMIN'),

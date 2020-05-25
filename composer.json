@@ -25,7 +25,8 @@
         "2amigos/yii2-date-picker-widget" : "~1.0",
         "kartik-v/yii2-widget-rating": "dev-master",
         "2amigos/yii2-tinymce-widget" : "~1.1",
-        "yiisoft/yii2-httpclient": "^2.0"
+        "yiisoft/yii2-httpclient": "^2.0",
+        "paypal/rest-api-sdk-php": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

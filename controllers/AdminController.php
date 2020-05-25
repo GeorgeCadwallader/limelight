@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\auth\Item;
+use app\models\Advert;
 use app\models\Artist;
 use app\models\ArtistData;
 use app\models\Contact;
@@ -14,6 +15,7 @@ use app\models\Region;
 use app\models\ReviewArtist;
 use app\models\ReviewReport;
 use app\models\ReviewVenue;
+use app\models\search\AdvertSearch;
 use app\models\search\ArtistSearch;
 use app\models\search\ContactSearch;
 use app\models\search\CountySearch;
@@ -683,6 +685,49 @@ class AdminController extends \app\core\WebController
         if ($review->save()) {
             Yii::$app->session->addFlash('Review successfully deactivated, all reports made for this review have been set to resolved');
             return $this->redirect('/admin/reports');
+        }
+    }
+
+    /**
+     * Index action for admin advert management
+     * 
+     * @return Response
+     */
+    public function actionAdverts(): Response
+    {
+        $advertFilterModel = new AdvertSearch;
+        $advertDataProvider = $advertFilterModel->search($this->request->queryParams);
+
+        return $this->createResponse(
+            'advert',
+            compact(
+                'advertFilterModel',
+                'advertDataProvider'
+            )
+        );
+    }
+
+    /**
+     * Action to change status of adverts
+     * 
+     * @param int $status The status to change to
+     * @param int $advert_id The id of the advert
+     * 
+     * @return Response
+     */
+    public function actionChangeAdvertStatus(int $status, int $advert_id): Response
+    {
+        $advert = Advert::findOne($advert_id);
+
+        if (!array_key_exists($status, Advert::$statuses) || $advert === null) {
+            throw new BadRequestHttpException('Invalid request');
+        }
+
+        $advert->status = $status;
+
+        if ($advert->save()) {
+            Yii::$app->session->addFlash('success', 'Advert status successfully changed');
+            return $this->redirect('/admin/adverts');
         }
     }
 

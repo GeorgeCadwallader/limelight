@@ -2,6 +2,8 @@
 
 /** @var $this yii\web\View */
 /** @var $member app\models\User */
+/** @var $adverts app\models\Advert */
+/** @var $memberAdverts app\models\Advert */
 
 use app\models\Artist;
 use app\models\Venue;
@@ -73,6 +75,13 @@ $discoverVenueQuery = Venue::find()
         </p>
     </div>
 </div>
+<div class="row my-3">
+  <?php foreach ($adverts as $model) { ?>
+    <div class="col-md-3">
+      <?= $this->render('../../advert/partials/advert-single', compact('model')); ?>
+    </div>
+  <?php } ?>
+</div>
 <div class="row my-100 limelight-box-shadow rounded py-4">
   <div class="col-md-6 col-lg-7 mb-sm-3">
     <?= YouTubeWidget::widget([
@@ -99,6 +108,13 @@ $discoverVenueQuery = Venue::find()
     <h4 class="text-primary font-weight-bold">High Quality Reviews</h4>
     <p class="text-black-50 mb-0">Our Upvote/Downvote system means that well constructed reviews are pushed to the top</p>
   </div>
+</div>
+<div class="row my-3">
+  <?php foreach ($memberAdverts as $model) { ?>
+    <div class="col-md-3">
+      <?= $this->render('../../advert/partials/advert-single', compact('model')); ?>
+    </div>
+  <?php } ?>
 </div>
 <?php if (!empty($discoverVenueQuery)) { ?>
     <div class="row mt-3">

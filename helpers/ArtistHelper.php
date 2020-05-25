@@ -218,4 +218,24 @@ class ArtistHelper
         );
     }
 
+    /**
+     * Check to see if user is artist owner with active artist
+     */
+    public static function isOwner(): bool
+    {
+        if (Yii::$app->user->isGuest) {
+            return false;
+        }
+
+        $ownerQuery = Artist::find()
+            ->where(['managed_by' => Yii::$app->user->id])
+            ->andWhere(['status' => Artist::STATUS_ACTIVE]);
+
+        if (Yii::$app->user->can(Item::ROLE_ARTIST_OWNER) && $ownerQuery->exists()) {
+            return true;
+        }
+
+        return false;
+    }
+
 }
