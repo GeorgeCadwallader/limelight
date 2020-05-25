@@ -133,9 +133,9 @@ a[x-apple-data-detectors] {
                       <table cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto;">
                         <tr>
 							
-                          <td style="border-radius: 3px; background: #13bf00; text-align: center;" class="button-td">
+                          <td style="border-radius: 3px; background: #13bf00; text-align: center; text-decoration: none;" class="button-td">
 							  
-							  <a href="<?= $resetLink; ?>" style="background: #13bf00; border: 15px solid #13bf00; padding: 0 10px;color: #f2f2f2; font-family: 'Raleway', sans-serif; font-size: 13px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold;" class="button-a"> 
+							  <a href="<?= $resetLink; ?>" style="background: #13bf00; border: 15px solid #13bf00; padding: 0 10px;color: #f2f2f2; font-family: 'Raleway', sans-serif; font-size: 13px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold; text-decoration: none;" class="button-a"> 
                             <!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]-->Change Password<!--[if mso]>&nbsp;&nbsp;&nbsp;&nbsp;<![endif]--> 
                             </a></td>
                         </tr>
