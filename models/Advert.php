@@ -14,7 +14,7 @@ use yii\db\ActiveQueryInterface;
  * @property integer $fk
  * @property integer $type
  * @property string $message
- * @property integer $appearances
+ * @property float $balance
  * @property integer $advert_type
  * @property integer $region_id
  * @property integer $genre_id
@@ -61,9 +61,9 @@ class Advert extends \yii\db\ActiveRecord
      * Advert types price array
      */
     public static $advertTypeCost = [
-        self::ADVERT_TYPE_GLOBAL => '5.00',
-        self::ADVERT_TYPE_LOCATION => '2.50',
-        self::ADVERT_TYPE_GENRE => '2.50'
+        self::ADVERT_TYPE_GLOBAL => '0.10',
+        self::ADVERT_TYPE_LOCATION => '0.05',
+        self::ADVERT_TYPE_GENRE => '0.05'
     ];
 
     /**
@@ -81,6 +81,11 @@ class Advert extends \yii\db\ActiveRecord
     ];
 
     /**
+     * Max and advert budget definition
+     */
+    const MAX_BUDGET_LIMIT = 100;
+
+    /**
      * @inheritDoc
      */
     public static function tableName(): string
@@ -96,9 +101,19 @@ class Advert extends \yii\db\ActiveRecord
         return [
             [
                 [
+                    'budget',
+                ],
+                'required'
+            ],
+            [
+                ['budget'],
+                'double',
+                'max' => self::MAX_BUDGET_LIMIT
+            ],
+            [
+                [
                     'fk',
                     'type',
-                    'appearances',
                     'advert_type',
                     'status'
                 ],
@@ -131,6 +146,23 @@ class Advert extends \yii\db\ActiveRecord
             ['class' => TimestampBehavior::class],
             ['class' => BlameableBehavior::class],
         ];
+    }
+
+    /**
+     * Deducts an adverts budget depending on advert type
+     * 
+     * @param Advert $advert
+     * @return string
+     */
+    public function deductBudget(): void
+    {
+        $this->budget = $this->budget - self::$advertTypeCost[$this->advert_type];
+
+        if ($this->budget <= 0) {
+            $this->status = self::STATUS_INACTIVE;
+        }
+
+        $this->save();
     }
 
     /**

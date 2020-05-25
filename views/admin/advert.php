@@ -63,9 +63,6 @@ $this->title = 'Advert Management | '.Yii::$app->name;
                     'filterInputOptions' => ['class' => 'form-control'],
                 ],
                 [
-                    'attribute' => 'appearances'
-                ],
-                [
                     'attribute' => 'type',
                     'format' => 'raw',
                     'filter' => Advert::$types,

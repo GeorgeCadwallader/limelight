@@ -19,7 +19,7 @@ class m200523_131547_create_advert_table extends \app\core\Migration
                 'fk' => $this->integer()->notNull(),
                 'type' => $this->integer()->notNull(),
                 'message' => $this->string(1200),
-                'appearances' => $this->integer()->defaultValue(0),
+                'budget' => $this->float(),
                 'advert_type' => $this->integer()->notNull(),
                 'region_id' => $this->integer(),
                 'genre_id' => $this->integer(),

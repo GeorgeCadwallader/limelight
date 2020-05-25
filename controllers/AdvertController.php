@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\auth\Item;
 use app\models\Advert;
 
 use PayPal\Rest\ApiContext;
@@ -24,7 +25,16 @@ class AdvertController extends \app\core\WebController
                 'rules' => [
                     [
                         'allow' => true,
+                        'actions' => ['index'],
                         'roles' => ['@'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['create'],
+                        'roles' => [
+                            Item::ROLE_ARTIST_OWNER,
+                            Item::ROLE_VENUE_OWNER
+                        ],
                     ],
                 ],
             ],
@@ -98,7 +108,7 @@ class AdvertController extends \app\core\WebController
             $payer->setPaymentMethod('paypal');
 
             $amount = new \PayPal\Api\Amount();
-            $amount->setTotal(Advert::$advertTypeCost[$advert_type]);
+            $amount->setTotal($advert->budget);
             $amount->setCurrency('GBP');
 
             $transaction = new \PayPal\Api\Transaction();
@@ -122,7 +132,6 @@ class AdvertController extends \app\core\WebController
                 $payment->create($apiContext);
                 return $this->redirect($payment->getApprovalLink());
             } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-                // dump($ex->getData());
                 throw new BadRequestHttpException('Something went wrong with the payment');
             }
         }

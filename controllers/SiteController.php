@@ -68,13 +68,13 @@ class SiteController extends \app\core\WebController
     {
         $adverts = Advert::find()
             ->where(['>=', 'created_at', new Expression('UNIX_TIMESTAMP(NOW() - INTERVAL 1 DAY)')])
-            // ->andWhere(['status' => Advert::STATUS_ACTIVE])
+            ->andWhere(['status' => Advert::STATUS_ACTIVE])
             ->orderBy(new Expression('rand()'))
-            ->limit(3)
+            ->limit(4)
             ->all();
 
         foreach ($adverts as $advert) {
-            $advert->updateCounters(['appearances' => 1]);
+            $advert->deductBudget();
         }
 
         if (Yii::$app->user->isGuest) {

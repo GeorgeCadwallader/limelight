@@ -66,6 +66,17 @@ $genres = ArrayHelper::map(Genre::find()->all(), 'genre_id', 'name');
                         ->hint(Html::infoHint('The message that will be displayed on your advert. Leave blank to use your artist or venue name')); ?>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="alert alert-primary" role="alert">
+                        Enter the amount of money you would like to put into adverts for your Artist/Venue page.
+                        <br><br>
+                        For example, entering '100' means you will add £100 to your account. You will have a chance to review
+                        this via PayPal when confirming your order.
+                    </div>
+                    <?= $form->field($advert, 'budget')->textInput(['type' => 'number', 'step' => '0.01']); ?>
+                </div>
+            </div>
             <?php if ($advert->advert_type !== Advert::ADVERT_TYPE_GLOBAL) { ?>
                 <div class="row">
                     <div class="col-sm-12">

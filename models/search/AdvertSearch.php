@@ -68,7 +68,6 @@ class AdvertSearch extends \app\models\Advert
             'AND',
             ['=', 'type', $this->type],
             ['LIKE', 'message', $this->message],
-            ['=', 'appearances', $this->appearances],
             ['=', 'advert_type', $this->advert_type],
             ['=', 'region_id', $this->region_id],
             ['=', 'genre_id', $this->genre_id],
