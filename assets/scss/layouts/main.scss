@@ -61,6 +61,25 @@
   background-color: $dark-green !important;
 }
 
+.bg-off-white {
+  background-color: $off-white !important;
+}
+
+@media (max-width: 768px) {
+  .img-responsive {
+    max-width: 70%;
+  }
+
+  .mob-reverse {
+    flex-direction: column-reverse;
+  }
+}
+
+.event-lime::before {
+  width: 50px;
+  height: 50px;
+}
+
 #banner.h3 {
  margin-top: 50%
 }

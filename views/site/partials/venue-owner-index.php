@@ -101,7 +101,7 @@ if ($isManager) {
         </div>
         <div class="row">
             <?php foreach ($trendingVenues as $model) { ?>
-                <div class="col-sm-4 mb-3">
+                <div class="col-sm-6 col-md-4 mb-3">
                     <?= $this->render('/venue/venue-contained', compact('model')); ?>
                 </div>
             <?php } ?>
@@ -121,7 +121,7 @@ if ($isManager) {
         </div>
         <div class="row">
             <?php foreach ($trendingVenues as $model) { ?>
-                <div class="col-sm-4 mb-3">
+                <div class="col-sm-6 col-md-4 mb-3">
                     <?= $this->render('/venue/venue-contained', compact('model')); ?>
                 </div>
             <?php } ?>
@@ -136,7 +136,7 @@ if ($isManager) {
   <?php } ?>
 </div>
 <div class="row">
-    <div class="jumbotron jumbotron-fluid">
+    <div class="col-sm-12 rounded limelight-box-shadow">
         <h2 class="display-4">Learn more about the process behind <?= Yii::$app->name; ?></h2>
         <p class="lead">
             Explore our FAQ page to find out why we do the things that we do and how

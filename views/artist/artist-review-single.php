@@ -80,24 +80,24 @@ $favouriteGenre = $review->creator->genre;
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-9">
+                <div class="col-sm-7 col-md-8">
                     <h3><?= Html::a($review->creator->username, ['/profile/view', 'user_id' => $review->creator->user_id], ['data-pjax' => '0']); ?></h3>
                     <?= BadgeHelper::displayBadges($review->creator); ?>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-5 col-md-4 text-sm-right">
                     <strong>
                         <?= $date; ?>
                     </strong>
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col-sm-5 col-md-4">
                     <?= StarRating::widget([
                         'name' => 'review-'.$review->artist->artist_id.'-'.$review->creator->user_id,
                         'value' => $review->overall_rating,
                         'pluginOptions' => Yii::$app->params['reviewArtistDisplay'],
                     ]); ?>
-                    <?= Html::img(UserDataHelper::imageUrl($review->creator->userData), ['class' => 'img-fluid my-3']); ?>
+                    <?= Html::img(UserDataHelper::imageUrl($review->creator->userData), ['class' => 'img-fluid my-3 img-responsive']); ?>
                     <?php if (!empty($favouriteGenre)) { ?>
                         <p class="mt-3">Favourite Genre</p>
                         <?= Html::a(
@@ -110,14 +110,14 @@ $favouriteGenre = $review->creator->genre;
                         ); ?>
                     <?php } ?>
                 </div>
-                <div class="col-sm-9 px-md-4">
+                <div class="col-sm-7 col-md-8 px-md-4">
                     <?= Html::tag('div', $review->content, ['class' => 'my-4 review-text-content']); ?>
                     <?= Html::button('Read More ...', ['class' => 'btn btn-sm btn-primary read-more-btn']); ?>
                     <?= Html::tag('p', $review->upvotes.' member(s) found this helpful', ['class' => 'my-4']); ?>
                     <p>
                         Did you find this review helpful?
                         <?= Html::a(
-                            'Yes',
+                            Html::icon('thumbs-up'),
                             [
                                 '/review/upvote',
                                 'review_id' => $review->review_artist_id,
@@ -126,7 +126,7 @@ $favouriteGenre = $review->creator->genre;
                             ['class' => ($hasUpvoted->exists()) ? 'btn btn-primary mx-2 disabled' : 'btn btn-primary mx-2', 'data-pjax' => '0']
                         ); ?>
                         <?= Html::a(
-                            'No',
+                            Html::icon('thumbs-down'),
                             [
                                 '/review/downvote',
                                 'review_id' => $review->review_artist_id,
