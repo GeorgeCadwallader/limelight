@@ -82,6 +82,13 @@ $this->title = $artist->name.' | '.Yii::$app->name;
                     <?= ArtistHelper::getShareButtons($artist); ?>
                 </div>
             </div>
+            <div class="my-2">
+                <?= Html::a(
+                    Html::icon('plus').Html::tag('div', 'Compare this artist with another artist', ['class' => 'tooltip']),
+                    ['/compare/artist', 'artist_id_one' => $artist->artist_id],
+                    ['class' => 'btn btn-primary limelight-tooltip m-0']
+                ); ?>
+            </div>
             <?= StarRating::widget([
                 'name' => 'review-artist-'.$artist->artist_id,
                 'value' => ArtistHelper::averageRating($artist, ReviewArtist::REVIEW_ARTIST_OVERALL),

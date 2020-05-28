@@ -50,6 +50,14 @@ return [
         'showCaption' => false,
     ],
 
+    'reviewVenueOverallDisplay' => [
+        'filledStar' => '<i class="limelight-lime event-lime"></i>',
+        'emptyStar' => '<i class="limelight-lime-empty event-lime"></i>',
+        'readonly' => true,
+        'showClear' => false,
+        'showCaption' => false,
+    ],
+
     'richtextOptions' => [
         'options' => [
             'rows' => 6,

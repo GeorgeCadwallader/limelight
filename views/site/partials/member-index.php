@@ -56,14 +56,14 @@ $discoverVenueQuery = Venue::find()
                 //     ->andWhere(['created_by' => $member->user_id])
                 //     ->exists();
             ?>
-            <div class="col-sm-4 mb-3">
+            <div class="col-sm-6 col-md-4 mb-3">
                 <?= $this->render('/artist/artist-contained', compact('model')); ?>
             </div>
         <?php } ?>
     </div>
 <?php } ?>
 <div class="row mt-4">
-    <div class="jumbotron jumbotron-fluid limelight-box-shadow rounded">
+    <div class="col-sm-12 limelight-box-shadow rounded p-4">
         <h2 class="display-4">Learn more about the process behind <?= Yii::$app->name; ?></h2>
         <p class="lead">
             Explore our FAQ page to find out why we do the things that we do and how
@@ -133,7 +133,7 @@ $discoverVenueQuery = Venue::find()
                 //     ->andWhere(['created_by' => $member->user_id])
                 //     ->exists();
             ?>
-            <div class="col-sm-4 mb-3">
+            <div class="col-sm-6 col-md-4 mb-3">
                 <?= $this->render('/venue/venue-contained', compact('model')); ?>
             </div>
         <?php } ?>

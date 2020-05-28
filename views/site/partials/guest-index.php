@@ -8,8 +8,8 @@ use app\widgets\YouTubeWidget;
 ?>
 
 <div class="row my-100 mb-lg-5">
-  <div class="col-md-3">
-    <img class="img-fluid mb-3 mb-lg-0" src="images/A4.png" alt="<?= Yii::$app->name . ' - Discover Artists and Venues'; ?>">
+  <div class="col-md-3 text-md-left text-center">
+    <img class="img-fluid img-responsive mb-5 mb-md-2" src="images/A4.png" alt="<?= Yii::$app->name . ' - Discover Artists and Venues'; ?>">
   </div>
   <div class="col-md-9 justify-content-center flex-column d-flex">
     <div class="featured-text text-center text-md-right">
@@ -51,26 +51,28 @@ use app\widgets\YouTubeWidget;
     <p class="text-black-50 mb-0">Our Upvote/Downvote system means that well constructed reviews are pushed to the top</p>
   </div>
 </div>
-<div class="row my-100">
+<div class="row my-100 mob-reverse">
   <div class="col-md-9 justify-content-center flex-column d-flex">
     <div class="featured-text text-center text-md-left">
       <h2>Rate Venues on <span class="venueRating text-primary">service</span></h2>
     </div>
   </div>
-  <div class="col-md-3" style="text-align: right;">
-    <img class="img-fluid mb-3 mb-lg-0" src="images/A5.png" alt="<?= Yii::$app->name . ' - Read our best reviews'; ?>">
+  <div class="col-md-3 mb-5 mb-lg-0 text-md-right text-center" >
+    <img class="img-fluid img-responsive mb-3 mb-lg-0" src="images/A5.png" alt="<?= Yii::$app->name . ' - Read our best reviews'; ?>">
   </div>
 </div>
 <div class="row my-100">
-  <div class="jumbotron jumbotron-fluid limelight-box-shadow rounded">
-    <h2 class="display-5 font-weight-bold text-primary">Learn more about the process behind <?= Yii::$app->name; ?></h2>
-    <p class="lead">
-      Explore our FAQ page to find out why we do the things that we do and how
-      we get the best experience for our members.
-    </p>
-    <hr class="my-4">
-    <p class="lead">
-      <a class="btn btn-primary btn-lg" href="/faq" role="button">Learn more</a>
-    </p>
+  <div class="col-sm-12">
+    <div class="limelight-box-shadow rounded p-3">
+      <h2 class="display-5 font-weight-bold text-primary">Learn more about the process behind <?= Yii::$app->name; ?></h2>
+      <p class="lead">
+        Explore our FAQ page to find out why we do the things that we do and how
+        we get the best experience for our members.
+      </p>
+      <hr class="my-4">
+      <p class="lead">
+        <a class="btn btn-primary btn-lg" href="/faq" role="button">Learn more</a>
+      </p>
+    </div>
   </div>
 </div>

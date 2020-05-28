@@ -3,10 +3,14 @@
 /** @var $this yii\web\View */
 /** @var $event app\models\Event */
 
-use app\components\ToneAnalyzer;
+use app\helpers\ArtistHelper;
 use app\helpers\EventHelper;
+use app\helpers\Html;
+use app\helpers\VenueHelper;
 use app\models\ReviewArtist;
 use app\models\ReviewVenue;
+
+use kartik\rating\StarRating;
 use yii\bootstrap4\Breadcrumbs;
 use yii\helpers\Url;
 
@@ -44,52 +48,60 @@ $venueReviews = ReviewVenue::find()
         ]); ?>
     </div>
 </div>
-<div class="row mt-3 mb-5">
+<div class="row mt-3 mb-2">
     <div class="col-sm-12">
         <h1><?= EventHelper::eventName($event); ?></h1>
     </div>
 </div>
-<div class="row my-5">
+<div class="row mt-2 mb-4">
     <div class="col-sm-12">
-        <div class="row">
-            <div class="col-sm-12">
-                <h3 class="mb-3">Tonality Report</h3>
-            </div>
+        <div class="alert alert-primary alert-dismissible d-inline-block" role="alert">
+            <?= Html::icon('fire', ['class' => 'mr-2']); ?> This event has been created <?= $event->creations; ?> time(s)!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <table class="table table-striped table-bordered">
-                    <thead>
-                        <tr>
-                            <th scope="col text-dark-green">Tone</th>
-                            <th scope="col text-dark-green">Count</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach (ToneAnalyzer::generateEventReport($artist, $venue) as $tone => $count) { ?>
-                            <tr>
-                                <td><?= ucfirst($tone); ?></td>
-                                <td><?= $count; ?></td>
-                            </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
+    </div>
+</div>
+<div class="row my-3">
+    <div class="col-sm-12">
+        <div class="rounded limelight-box-shadow text-center p-4">
+            <h2>Event overall rating</h2>
+            <div class="alert alert-primary d-inline-block" role="alert">
+                Average overall rating based off of Artist and Venue overall ratings.
+                <br><br>
+                Based off of all our data this is how well we believe this potential event would go.
             </div>
-            <div class="col-sm-6">
-                <div class="alert alert-primary" role="alert">
-                    This is a report generated of what tonalities our machine learning processes
-                    have learnt from the textual content of the reviews left for this Artist and
-                    Venue.
-                    <br><br>
-                    The tone column represents what tone was found in a review, the count column
-                    indicates how many times we found this tone in this Artist and Venues reviews.
-                    The higher the count of a tone means it was a feeling shared with more people.
-                    <br><br>
-                    To find out more about how we gather this and how we do it check out our
-                    FAQ page <a class="text-primary font-weight-bold" href="/faq">here</a>
-                </div>
-            </div>
+            <?= StarRating::widget([
+                'name' => 'review-event-'.$venue->venue_id,
+                'value' => EventHelper::combinedAverage($artist, $venue),
+                'pluginOptions' => Yii::$app->params['reviewVenueOverallDisplay']
+            ]); ?>
         </div>
+    </div>
+</div>
+<div class="row mb-3 mt-5">
+    <div class="col-sm-6">
+        <div
+            class="contained-image rounded limelight-box-shadow"
+            style="background-image: url(<?= ArtistHelper::imageUrl($artist); ?>);"
+        >
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div
+            class="contained-image rounded limelight-box-shadow"
+            style="background-image: url(<?= VenueHelper::imageUrl($venue); ?>);"
+        >
+        </div>
+    </div>
+</div>
+<div class="row my-3">
+    <div class="col-sm-6">
+        <?= $this->render('../artist/partials/criteria', compact('artist')); ?>
+    </div>
+    <div class="col-sm-6">
+        <?= $this->render('../venue/partials/criteria', compact('venue')); ?>
     </div>
 </div>
 <div class="row my-5">

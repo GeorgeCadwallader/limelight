@@ -27,6 +27,7 @@ import '../../vendor/bower-asset/select2/dist/js/select2.full.js';
  */
 import '../../vendor/tinymce/tinymce/tinymce.js';
 import '../../vendor/tinymce/tinymce/themes/silver/theme.js';
+import '../../vendor/tinymce/tinymce/icons/default/icons.js';
 
 /**
  * Sharer.js
