@@ -92,10 +92,15 @@ class VenueHelper
         }
 
         if ($venueOneRating < $venueTwoRating) {
-            return 'bg-light';
+            return 'bg-off-white';
         }
 
-        return 'bg-dark-green';
+        if ($venueOneRating == 0  AND $venueTwoRating == 0){
+
+            return 'bg-off-white';
+        }
+
+        return 'bg-primary';
     }
 
     /**
@@ -116,10 +121,15 @@ class VenueHelper
         }
 
         if ($venueOneRating > $venueTwoRating) {
-            return 'bg-light';
+            return 'bg-off-white';
         }
 
-        return 'bg-dark-green';
+        if ($venueOneRating == 0  AND $venueTwoRating == 0){
+
+            return 'bg-off-white';
+        }
+
+        return 'bg-primary';
     }
 
     /**

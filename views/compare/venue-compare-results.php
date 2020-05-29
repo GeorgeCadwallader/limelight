@@ -30,17 +30,21 @@ $venueTwoReviews = ReviewVenue::find()
 <table class="table table-responsive-md my-5">
     <tbody>
         <tr class="text-center">
-            <td class="<?= VenueHelper::getCompareColorVenueOne($venueOne, $venueTwo, ReviewVenue::REVIEW_VENUE_OVERALL); ?>">
+            <td >
                 <?= StarRating::widget([
                     'name' => 'compare-venue-'.$venueOne->venue_id,
                     'value' => VenueHelper::averageRating($venueOne, ReviewVenue::REVIEW_VENUE_OVERALL),
                     'pluginOptions' => Yii::$app->params['reviewVenueDisplay']
                 ]); ?>
             </td>
+            <td id="filler" class="<?= VenueHelper::getCompareColorVenueOne($venueOne, $venueTwo, ReviewVenue::REVIEW_VENUE_OVERALL); ?>"> </td>
+            <td id="filler" > </td>
             <td>
                 <h4><?= Inflector::humanize(ReviewVenue::REVIEW_VENUE_OVERALL); ?></h4>
             </td>
-            <td class="<?= VenueHelper::getCompareColorVenueTwo($venueOne, $venueTwo, ReviewVenue::REVIEW_VENUE_OVERALL); ?>">
+            <td id="filler" > </td>
+            <td id="filler" class="<?= VenueHelper::getCompareColorVenueTwo($venueOne, $venueTwo, ReviewVenue::REVIEW_VENUE_OVERALL); ?>"> </td>
+            <td >
                 <?= StarRating::widget([
                     'name' => 'compare-venue-'.$venueTwo->venue_id,
                     'value' => VenueHelper::averageRating($venueTwo, ReviewVenue::REVIEW_VENUE_OVERALL),
@@ -49,17 +53,21 @@ $venueTwoReviews = ReviewVenue::find()
             </td>
         </tr>
         <tr class="text-center">
-            <td class="<?= VenueHelper::getCompareColorVenueOne($venueOne, $venueTwo, ReviewVenue::REVIEW_VENUE_SERVICE); ?>">
+            <td >
                 <?= StarRating::widget([
                     'name' => 'compare-venue-'.$venueOne->venue_id,
                     'value' => VenueHelper::averageRating($venueOne, ReviewVenue::REVIEW_VENUE_SERVICE),
                     'pluginOptions' => Yii::$app->params['reviewVenueDisplay']
                 ]); ?>
             </td>
+            <td id="filler" class="<?= VenueHelper::getCompareColorVenueOne($venueOne, $venueTwo, ReviewVenue::REVIEW_VENUE_SERVICE); ?>"> </td>
+            <td id="filler" > </td>
             <td>
                 <h4><?= Inflector::humanize(ReviewVenue::REVIEW_VENUE_SERVICE); ?></h4>
             </td>
-            <td class="<?= VenueHelper::getCompareColorVenueTwo($venueOne, $venueTwo, ReviewVenue::REVIEW_VENUE_SERVICE); ?>">
+            <td id="filler" > </td>
+            <td id="filler" class="<?= VenueHelper::getCompareColorVenueTwo($venueOne, $venueTwo, ReviewVenue::REVIEW_VENUE_SERVICE); ?>" > </td>
+            <td >
                 <?= StarRating::widget([
                     'name' => 'compare-venue-'.$venueTwo->venue_id,
                     'value' => VenueHelper::averageRating($venueTwo, ReviewVenue::REVIEW_VENUE_SERVICE),
@@ -68,17 +76,21 @@ $venueTwoReviews = ReviewVenue::find()
             </td>
         </tr>
         <tr class="text-center">
-            <td class="<?= VenueHelper::getCompareColorVenueOne($venueOne, $venueTwo, ReviewVenue::REVIEW_VENUE_LOCATION); ?>">
+            <td >
                 <?= StarRating::widget([
                     'name' => 'compare-venue-'.$venueOne->venue_id,
                     'value' => VenueHelper::averageRating($venueOne, ReviewVenue::REVIEW_VENUE_LOCATION),
                     'pluginOptions' => Yii::$app->params['reviewVenueDisplay']
                 ]); ?>
             </td>
+            <td id="filler" class="<?= VenueHelper::getCompareColorVenueOne($venueOne, $venueTwo, ReviewVenue::REVIEW_VENUE_LOCATION); ?>"> </td>
+            <td id="filler" > </td>
             <td>
                 <h4><?= Inflector::humanize(ReviewVenue::REVIEW_VENUE_LOCATION); ?></h4>
             </td>
-            <td class="<?= VenueHelper::getCompareColorVenueTwo($venueOne, $venueTwo, ReviewVenue::REVIEW_VENUE_LOCATION); ?>">
+            <td id="filler" > </td>
+            <td id="filler" class="<?= VenueHelper::getCompareColorVenueTwo($venueOne, $venueTwo, ReviewVenue::REVIEW_VENUE_LOCATION); ?>" > </td>
+            <td >
                 <?= StarRating::widget([
                     'name' => 'compare-venue-'.$venueTwo->venue_id,
                     'value' => VenueHelper::averageRating($venueTwo, ReviewVenue::REVIEW_VENUE_LOCATION),
@@ -87,17 +99,21 @@ $venueTwoReviews = ReviewVenue::find()
             </td>
         </tr>
         <tr class="text-center">
-            <td class="<?= VenueHelper::getCompareColorVenueOne($venueOne, $venueTwo, ReviewVenue::REVIEW_VENUE_VALUE); ?>">
+            <td >
                 <?= StarRating::widget([
                     'name' => 'compare-venue-'.$venueOne->venue_id,
                     'value' => VenueHelper::averageRating($venueOne, ReviewVenue::REVIEW_VENUE_VALUE),
                     'pluginOptions' => Yii::$app->params['reviewVenueDisplay']
                 ]); ?>
             </td>
+            <td id="filler" class="<?= VenueHelper::getCompareColorVenueOne($venueOne, $venueTwo, ReviewVenue::REVIEW_VENUE_VALUE); ?>" > </td>
+            <td id="filler" > </td>
             <td>
                 <h4><?= Inflector::humanize(ReviewVenue::REVIEW_VENUE_VALUE); ?></h4>
             </td>
-            <td class="<?= VenueHelper::getCompareColorVenueTwo($venueOne, $venueTwo, ReviewVenue::REVIEW_VENUE_VALUE); ?>">
+            <td id="filler" > </td>
+            <td id="filler" class="<?= VenueHelper::getCompareColorVenueTwo($venueOne, $venueTwo, ReviewVenue::REVIEW_VENUE_VALUE); ?>" > </td>
+            <td >
                 <?= StarRating::widget([
                     'name' => 'compare-venue-'.$venueTwo->venue_id,
                     'value' => VenueHelper::averageRating($venueTwo, ReviewVenue::REVIEW_VENUE_VALUE),
@@ -106,17 +122,21 @@ $venueTwoReviews = ReviewVenue::find()
             </td>
         </tr>
         <tr class="text-center">
-            <td class="<?= VenueHelper::getCompareColorVenueOne($venueOne, $venueTwo, ReviewVenue::REVIEW_VENUE_CLEANLINESS); ?>">
+            <td >
                 <?= StarRating::widget([
                     'name' => 'compare-venue-'.$venueOne->venue_id,
                     'value' => VenueHelper::averageRating($venueOne, ReviewVenue::REVIEW_VENUE_CLEANLINESS),
                     'pluginOptions' => Yii::$app->params['reviewVenueDisplay']
                 ]); ?>
             </td>
+            <td id="filler" class="<?= VenueHelper::getCompareColorVenueOne($venueOne, $venueTwo, ReviewVenue::REVIEW_VENUE_CLEANLINESS); ?>"> </td>
+            <td id="filler" > </td>
             <td>
                 <h4><?= Inflector::humanize(ReviewVenue::REVIEW_VENUE_CLEANLINESS); ?></h4>
             </td>
-            <td class="<?= VenueHelper::getCompareColorVenueTwo($venueOne, $venueTwo, ReviewVenue::REVIEW_VENUE_CLEANLINESS); ?>">
+            <td id="filler" > </td>
+            <td id="filler" class="<?= VenueHelper::getCompareColorVenueTwo($venueOne, $venueTwo, ReviewVenue::REVIEW_VENUE_CLEANLINESS); ?>"> </td>
+            <td >
                 <?= StarRating::widget([
                     'name' => 'compare-venue-'.$venueTwo->venue_id,
                     'value' => VenueHelper::averageRating($venueTwo, ReviewVenue::REVIEW_VENUE_CLEANLINESS),
@@ -125,17 +145,21 @@ $venueTwoReviews = ReviewVenue::find()
             </td>
         </tr>
         <tr class="text-center">
-            <td class="<?= VenueHelper::getCompareColorvenueOne($venueOne, $venueTwo, ReviewVenue::REVIEW_VENUE_SIZE); ?>">
+            <td >
                 <?= StarRating::widget([
                     'name' => 'compare-venue-'.$venueOne->venue_id,
                     'value' => VenueHelper::averageRating($venueOne, ReviewVenue::REVIEW_VENUE_SIZE),
                     'pluginOptions' => Yii::$app->params['reviewVenueDisplay']
                 ]); ?>
             </td>
+            <td id="filler" class="<?= VenueHelper::getCompareColorvenueOne($venueOne, $venueTwo, ReviewVenue::REVIEW_VENUE_SIZE); ?>"> </td>
+            <td id="filler" > </td>
             <td>
                 <h4><?= Inflector::humanize(ReviewVenue::REVIEW_VENUE_SIZE); ?></h4>
             </td>
-            <td class="<?= VenueHelper::getCompareColorvenueTwo($venueOne, $venueTwo, ReviewVenue::REVIEW_VENUE_SIZE); ?>">
+            <td id="filler" > </td>
+            <td id="filler" class="<?= VenueHelper::getCompareColorvenueTwo($venueOne, $venueTwo, ReviewVenue::REVIEW_VENUE_SIZE); ?>"> </td>
+            <td >
                 <?= StarRating::widget([
                     'name' => 'compare-venue-'.$venueTwo->venue_id,
                     'value' => VenueHelper::averageRating($venueTwo, ReviewVenue::REVIEW_VENUE_SIZE),
