@@ -93,7 +93,7 @@ class ArtistHelper
             return 'bg-primary';
         }
 
-        if ($artistOneRating == 0  AND $artistTwoRating == 0){
+        if ($artistOneRating === 0  && $artistTwoRating === 0){
 
             return 'bg-off-white';
         }
@@ -122,7 +122,7 @@ class ArtistHelper
             return 'bg-off-white';
         }
 
-        if ($artistOneRating == 0  AND $artistTwoRating == 0){
+        if ($artistOneRating === 0  && $artistTwoRating === 0){
 
         return 'bg-off-white';
     }
