@@ -71,6 +71,11 @@ img {
 a[x-apple-data-detectors] {
 	color: inherit !important;
 }
+
+a{
+    text-decoration: none !important;
+}
+
 </style>
 
 
