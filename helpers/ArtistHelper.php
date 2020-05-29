@@ -93,12 +93,13 @@ class ArtistHelper
             return 'bg-primary';
         }
 
-        if ($artistOneRating < $artistTwoRating) {
-            return 'bg-light';
-        }
+        if ($artistOneRating === 0  && $artistTwoRating === 0){
 
-        return 'bg-dark-green';
-    }
+            return 'bg-off-white';
+        }
+    
+            return 'bg-primary';
+        }
 
     /**
      * Gets the status colour for an artist when comparing
@@ -118,10 +119,15 @@ class ArtistHelper
         }
 
         if ($artistOneRating > $artistTwoRating) {
-            return 'bg-light';
+            return 'bg-off-white';
         }
 
-        return 'bg-dark-green';
+        if ($artistOneRating === 0  && $artistTwoRating === 0){
+
+        return 'bg-off-white';
+    }
+
+        return 'bg-primary';
     }
 
     /**
