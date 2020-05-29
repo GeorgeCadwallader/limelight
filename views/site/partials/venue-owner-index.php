@@ -43,23 +43,6 @@ if ($isManager) {
         <h1>Welcome back <?= $owner->username; ?>!</h1>
     </div>
 </div>
-<div class="row">
-    <div class="col-sm-12 mb-5">
-        <div class="row">
-            <div class="col-sm-12">
-                <h2>Your Venue: <?= $owner->venue->name; ?></h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-3">
-                <?= Html::img(VenueHelper::imageUrl($owner->venue), ['class' => 'img-fluid']); ?>
-            </div>
-            <div class="col-sm-9">
-                <?= Html::a('Manage', ['/venue/edit', 'venue_id' => $owner->venue->venue_id], ['class' => 'btn btn-primary']); ?>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="row my-100 limelight-box-shadow rounded py-4">
   <div class="col-md-6 col-lg-7 mb-sm-3">
     <?= YouTubeWidget::widget([

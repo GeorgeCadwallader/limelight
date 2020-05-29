@@ -40,6 +40,7 @@ class ArtistController extends \app\core\WebController
                             'create',
                             'request',
                             'edit',
+                            'dashboard'
                         ],
                         'roles' => [Item::ROLE_ARTIST_OWNER],
                     ],
@@ -236,6 +237,24 @@ class ArtistController extends \app\core\WebController
         }
 
         return $this->createResponse('view', compact('artist', 'newReview', 'reviewDataProvider', 'reviewReport'));
+    }
+
+    /**
+     * Action for the dashboard view for an artist
+     * 
+     * @param int $artist_id
+     * 
+     * @return Response
+     */
+    public function actionDashboard(int $artist_id): Response
+    {
+        $artist = Artist::findOne($artist_id);
+
+        if ($artist === null || $artist->managed_by !== Yii::$app->user->id) {
+            throw new BadRequestHttpException('Invalid request');
+        }
+
+        return $this->createResponse('dashboard', compact('artist'));
     }
 
 }

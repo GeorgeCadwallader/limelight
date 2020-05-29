@@ -84,10 +84,8 @@ class ToneAnalyzer extends \yii\base\BaseObject
      * 
      * @return array
      */
-    public static function generateEventReport(Artist $artist, Venue $venue): array
+    public static function generateReportData($reviews): array
     {
-        $reviews = array_merge($artist->reviews, $venue->reviews);
-
         $tonalities = [];
 
         foreach ($reviews as $review) {
