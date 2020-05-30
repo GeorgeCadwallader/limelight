@@ -25,8 +25,7 @@ class AdvertController extends \app\core\WebController
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index'],
-                        'roles' => ['@'],
+                        'actions' => ['index']
                     ],
                     [
                         'allow' => true,
