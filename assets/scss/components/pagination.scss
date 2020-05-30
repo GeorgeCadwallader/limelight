@@ -1,0 +1,17 @@
+.pagination {
+    li {
+        border: none;
+    }
+
+    li:hover {
+        border-color: transparent;
+    }
+
+    li a {
+        color: $white;
+    }
+
+    li.disabled {
+        cursor: not-allowed;
+    }
+}

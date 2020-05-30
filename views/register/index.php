@@ -40,12 +40,21 @@ $userCount = ceil($userCount / 5) * 5;
 
 <?php $form = ActiveForm::begin([
     'id' => 'register-form',
+    'options' => [
+        'class' => 'form-tooltip',
+    ],
+    'fieldConfig' => [
+        'template' => "{label}{hint}\n{beginWrapper}\n{input}\n{error}\n{endWrapper}",
+    ]
 ]); ?>
     <div class="row">
         <div class="col-md-6">
             <div class="row">
                 <div class="col-sm-12">
-                    <?= $form->field($user, 'username')->textInput(['autofocus' => true]); ?>
+                    <?= $form->field($user, 'username')
+                            ->textInput(['autofocus' => true])
+                            ->hint(Html::infoHint('Your display name for '.Yii::$app->name.', this can not be changed'));
+                    ?>
                 </div>
             </div>
             <div class="row">
@@ -59,7 +68,9 @@ $userCount = ceil($userCount / 5) * 5;
                         ->dropDownList(
                             $registerForm::$accountTypes,
                             ['prompt' => '-- Select User Type --']
-                        ); ?>
+                        )
+                        ->hint(Html::infoHint('Read the info box on this page for more information on user types'));
+                    ?>
                 </div>
             </div>
             <div class="row mb-5">

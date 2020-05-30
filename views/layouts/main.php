@@ -75,6 +75,7 @@ if (is_file($file)) {
           <div class="dropdown-menu navbar-link-dropdown-content py-3 px-3 px-lg-0" aria-labelledby="toolsDropdown">
             <a class="dropdown-item nav-link navbar-profile-link my-3 my-lg-0" href="/event">Events</a>
             <a class="dropdown-item nav-link navbar-profile-link my-3 my-lg-0" href="/compare">Comparison Feature</a>
+            <a class="dropdown-item nav-link navbar-profile-link my-3 my-lg-0" href="/advert">Adverts</a>
           </div>
         </li>
         <?php if (!Yii::$app->user->isGuest) { ?>
@@ -88,6 +89,12 @@ if (is_file($file)) {
               <?php if (Yii::$app->user->can(Item::ROLE_ARTIST_OWNER) && Yii::$app->user->identity->artist !== null) { ?>
                 <div class="dropdown-divider"></div>
                 <a
+                  href="<?= Url::to(['/artist/dashboard', 'artist_id' => Yii::$app->user->identity->artist->artist_id]); ?>"
+                  class="dropdown-item nav-link navbar-profile-link"
+                >
+                  Artist Dashboard
+                </a>
+                <a
                   href="<?= Url::to(['/artist/edit', 'artist_id' => Yii::$app->user->identity->artist->artist_id]); ?>"
                   class="dropdown-item nav-link navbar-profile-link"
                 >
@@ -95,6 +102,13 @@ if (is_file($file)) {
                 </a>
               <?php } ?>
               <?php if (Yii::$app->user->can(Item::ROLE_VENUE_OWNER) && Yii::$app->user->identity->venue !== null) { ?>
+                <div class="dropdown-divider"></div>
+                <a
+                  href="<?= Url::to(['/venue/dashboard', 'venue_id' => Yii::$app->user->identity->venue->venue_id]); ?>"
+                  class="dropdown-item nav-link navbar-profile-link"
+                >
+                  Venue Dashboard
+                </a>
                 <a
                   href="<?= Url::to(['/venue/edit', 'venue_id' => Yii::$app->user->identity->venue->venue_id]); ?>"
                   class="dropdown-item nav-link navbar-profile-link"

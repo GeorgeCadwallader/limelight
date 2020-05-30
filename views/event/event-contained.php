@@ -14,7 +14,7 @@ use yii\helpers\Url;
     class="contained-link"
 >
     <div
-        class="contained-image"
+        class="contained-image limelight-box-shadow"
         style="background-image:url(<?= EventHelper::imageUrl($model); ?>)"
     >
         <div class="contained-content">

@@ -2,8 +2,9 @@
 
 namespace app\controllers;
 
+use app\models\Advert;
 use app\models\Genre;
-
+use yii\db\Expression;
 use yii\filters\AccessControl;
 use yii\web\BadRequestHttpException;
 use yii\web\Response;
@@ -74,7 +75,19 @@ class GenreController extends \app\core\WebController
             throw new BadRequestHttpException('Invalid Genre');
         }
 
-        return $this->createResponse('view', compact('genre'));
+        $adverts = Advert::find()
+            ->where(['genre_id' => $genre_id])
+            ->andWhere(['>=', 'created_at', new Expression('UNIX_TIMESTAMP(NOW() - INTERVAL 1 DAY)')])
+            ->andWhere(['status' => Advert::STATUS_ACTIVE])
+            ->orderBy(new Expression('rand()'))
+            ->limit(4)
+            ->all();
+
+        foreach ($adverts as $advert) {
+            $advert->deductBudget();
+        }
+
+        return $this->createResponse('view', compact('genre', 'adverts'));
     }
 
 }

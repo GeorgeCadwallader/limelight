@@ -10,6 +10,7 @@ use app\models\Genre;
 use app\models\MemberRequest;
 use app\models\OwnerRequest;
 use app\models\ReviewArtist;
+use app\models\ReviewReport;
 use app\models\ReviewTone;
 use app\models\search\ArtistFilterSearch;
 use app\models\search\ArtistSearch;
@@ -39,6 +40,7 @@ class ArtistController extends \app\core\WebController
                             'create',
                             'request',
                             'edit',
+                            'dashboard'
                         ],
                         'roles' => [Item::ROLE_ARTIST_OWNER],
                     ],
@@ -218,6 +220,8 @@ class ArtistController extends \app\core\WebController
             'status' => ReviewArtist::STATUS_ACTIVE,
         ]);
 
+        $reviewReport = new ReviewReport;
+
         if ($this->request->isPost) {
             $newReview->load($this->request->post());
             $newReview->link('artist', $artist);
@@ -232,7 +236,25 @@ class ArtistController extends \app\core\WebController
             }
         }
 
-        return $this->createResponse('view', compact('artist', 'newReview', 'reviewDataProvider'));
+        return $this->createResponse('view', compact('artist', 'newReview', 'reviewDataProvider', 'reviewReport'));
+    }
+
+    /**
+     * Action for the dashboard view for an artist
+     * 
+     * @param int $artist_id
+     * 
+     * @return Response
+     */
+    public function actionDashboard(int $artist_id): Response
+    {
+        $artist = Artist::findOne($artist_id);
+
+        if ($artist === null || $artist->managed_by !== Yii::$app->user->id) {
+            throw new BadRequestHttpException('Invalid request');
+        }
+
+        return $this->createResponse('dashboard', compact('artist'));
     }
 
 }

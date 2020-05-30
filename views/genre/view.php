@@ -10,6 +10,7 @@ use yii\helpers\Url;
 
 /** @var $this yii\web\View */
 /** @var $genre app\models\Genre */
+/** @var $adverts app\models\Advert */
 
 $this->title = 'View Genre - '.$genre->name.' | '.Yii::$app->name;
 
@@ -64,6 +65,15 @@ $venueGenre = Venue::find()
                 <?= Html::a($childGenre->name, ['/genre/view', 'genre_id' => $childGenre->genre_id], ['class' => 'h3']); ?>
             </div>
         <?php } ?>
+    </div>
+<?php } ?>
+<?php if (!empty($adverts)) { ?>
+    <div class="row">
+    <?php foreach ($adverts as $model) { ?>
+        <div class="col-md-3">
+            <?= $this->render('../advert/partials/advert-single', compact('model')); ?>
+        </div>
+    <?php } ?>
     </div>
 <?php } ?>
 <?php if (!empty($artistGenres)) { ?>

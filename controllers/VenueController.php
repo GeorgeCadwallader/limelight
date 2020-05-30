@@ -7,13 +7,14 @@ use app\components\ToneAnalyzer;
 use app\models\Genre;
 use app\models\MemberRequest;
 use app\models\OwnerRequest;
+use app\models\ReviewReport;
 use app\models\ReviewTone;
 use app\models\ReviewVenue;
 use app\models\search\ReviewVenueFilterSearch;
 use app\models\search\VenueFilterSearch;
-use app\models\search\VenueSearch;
 use app\models\Venue;
 use app\models\VenueData;
+
 use Yii;
 use yii\base\Response;
 use yii\filters\AccessControl;
@@ -40,6 +41,7 @@ class VenueController extends \app\core\WebController
                             'create',
                             'request',
                             'edit',
+                            'dashboard'
                         ],
                         'roles' => [Item::ROLE_VENUE_OWNER],
                     ],
@@ -219,6 +221,8 @@ class VenueController extends \app\core\WebController
             'status' => ReviewVenue::STATUS_ACTIVE,
         ]);
 
+        $reviewReport = new ReviewReport;
+
         if ($this->request->isPost) {
             $newReview->load($this->request->post());
             $newReview->link('venue', $venue);
@@ -233,7 +237,25 @@ class VenueController extends \app\core\WebController
             }
         }
 
-        return $this->createResponse('view', compact('venue', 'newReview', 'reviewDataProvider'));
+        return $this->createResponse('view', compact('venue', 'newReview', 'reviewDataProvider', 'reviewReport'));
+    }
+
+    /**
+     * Action for the dashboard view for a venue
+     * 
+     * @param int $venue_id
+     * 
+     * @return Response
+     */
+    public function actionDashboard(int $venue_id): Response
+    {
+        $venue = Venue::findOne($venue_id);
+
+        if ($venue === null || $venue->managed_by !== Yii::$app->user->id) {
+            throw new BadRequestHttpException('Invalid request');
+        }
+
+        return $this->createResponse('dashboard', compact('venue'));
     }
 
 }

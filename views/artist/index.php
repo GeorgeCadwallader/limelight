@@ -15,9 +15,6 @@ use yii\widgets\Pjax;
 
 $artists = Artist::find()->where(['status' => Artist::STATUS_ACTIVE])->all();
 
-// dump($memberRequest);
-// die;
-
 ?>
 
 <div class="row">
@@ -64,6 +61,7 @@ $artists = Artist::find()->where(['status' => Artist::STATUS_ACTIVE])->all();
 <?php Pjax::begin(['id'=>'artistList', 'enablePushState' => true, 'timeout' => 8000]); ?>
     <?= ListView::widget([
             'dataProvider' => $artistDataProvider,
+            'pager' => Yii::$app->params['paginationConfig'],
             'itemView' => 'artist-contained',
             'options' => ['class' => 'list-view row pjax-refresh-item'],
             'summaryOptions' => ['class' => 'summary w-100 px-3'],

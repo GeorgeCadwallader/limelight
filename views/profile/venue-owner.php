@@ -32,7 +32,7 @@ use app\helpers\Html;
                 ['class' => 'btn btn-primary']
             ); ?>
         <?php } elseif ($user->venue === null && $user->userData->telephone !== null) { ?>
-            <div class="jumbotron">
+            <div class="rounded limelight-box-shadow p-3">
                 <h2>Congratulations, you can now create your venue page!</h2>
                 <p class="lead">You are now on your way to gaining the full power of <?= Yii::$app->name; ?>.</p>
                 <hr class="my-4">
@@ -51,7 +51,7 @@ use app\helpers\Html;
                 <?php } ?>
             </div>
         <?php } elseif ($user->venue !== null) { ?>
-            <div class="jumbotron">
+            <div class="rounded limelight-box-shadow p-3">
                 <h2>Your venue page: <strong><?= $user->venue->name; ?></strong></h2>
                 <?= Html::a('View venue page', ['/venue/view', 'venue_id' => $user->venue->venue_id], ['class' => 'btn btn-primary']); ?>
                 <?= Html::a('Edit venue page', ['/venue/edit', 'venue_id' => $user->venue->venue_id], ['class' => 'btn btn-primary']); ?>

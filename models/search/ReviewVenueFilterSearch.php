@@ -57,6 +57,9 @@ class ReviewVenueFilterSearch extends \app\models\ReviewVenue
         $dataProvider = new ActiveDataProvider(
             [
                 'query' => $query,
+                'pagination' => [
+                    'pageSize' => 10,
+                ],
                 'sort' => [
                     'attributes' => [
                         'created_at' => ['label' => 'Created'],

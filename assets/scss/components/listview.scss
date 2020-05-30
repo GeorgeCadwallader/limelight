@@ -1,20 +1,23 @@
-.list-view {
+.list-view, .grid-view {
+    .dropdown-menu {
+        padding: 12px;
+
+        li {
+            margin-bottom: 5px;
+        }
+    }
+
     .sorter {
         list-style-type: none;
         padding: 0;
 
         li {
-            padding: 10px;
             margin: 10px;
             display: inline-block;
-            background-color: $primary;
             
             a {
-                color: $white;
-
-                &:hover {
-                    text-decoration: none;
-                }
+                padding: 10px;
+                @extend .btn, .btn-primary;
             }
 
             a.desc::after {

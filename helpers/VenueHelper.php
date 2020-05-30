@@ -92,10 +92,15 @@ class VenueHelper
         }
 
         if ($venueOneRating < $venueTwoRating) {
-            return 'bg-danger';
+            return 'bg-off-white';
         }
 
-        return 'bg-warning';
+        if ($venueOneRating === 0  && $venueTwoRating === 0){
+
+            return 'bg-off-white';
+        }
+
+        return 'bg-primary';
     }
 
     /**
@@ -116,10 +121,15 @@ class VenueHelper
         }
 
         if ($venueOneRating > $venueTwoRating) {
-            return 'bg-danger';
+            return 'bg-off-white';
         }
 
-        return 'bg-warning';
+        if ($venueOneRating === 0  && $venueTwoRating === 0){
+
+            return 'bg-off-white';
+        }
+
+        return 'bg-primary';
     }
 
     /**
@@ -207,13 +217,33 @@ class VenueHelper
             return '';
         }
 
-        return Html::a(
+        return Html::tag(
+            'span',
             Html::icon('check').Html::tag('div', 'This venue is managed by a real owner!', ['class' => 'tooltip']),
-            '#',
             [
-                'class' => 'verify-icon',
+                'class' => 'verify-icon btn btn-primary btn-sm',
             ]
         );
+    }
+
+    /**
+     * Check to see if user is venue owner with active venue
+     */
+    public static function isOwner(): bool
+    {
+        if (Yii::$app->user->isGuest) {
+            return false;
+        }
+
+        $ownerQuery = Venue::find()
+            ->where(['managed_by' => Yii::$app->user->id])
+            ->andWhere(['status' => Venue::STATUS_ACTIVE]);
+
+        if (Yii::$app->user->can(Item::ROLE_VENUE_OWNER) && $ownerQuery->exists()) {
+            return true;
+        }
+
+        return false;
     }
 
 }

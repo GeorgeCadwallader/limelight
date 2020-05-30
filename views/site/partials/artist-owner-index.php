@@ -43,23 +43,6 @@ if ($isManager) {
         <h1>Welcome back <?= $owner->username; ?>!</h1>
     </div>
 </div>
-<div class="row">
-    <div class="col-sm-12 mb-5">
-        <div class="row">
-            <div class="col-sm-12">
-                <h2>Your Artist: <?= $owner->artist->name; ?></h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-3">
-                <?= Html::img(ArtistHelper::imageUrl($owner->artist), ['class' => 'img-fluid']); ?>
-            </div>
-            <div class="col-sm-9">
-                <?= Html::a('Manage', ['/artist/edit', 'artist_id' => $owner->artist->artist_id], ['class' => 'btn btn-primary']); ?>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="row my-100 limelight-box-shadow rounded py-4">
   <div class="col-md-6 col-lg-7 mb-sm-3">
     <?= YouTubeWidget::widget([
@@ -101,7 +84,7 @@ if ($isManager) {
         </div>
         <div class="row">
             <?php foreach ($trendingVenues as $model) { ?>
-                <div class="col-sm-4 mb-3">
+                <div class="col-sm-6 col-md-4 mb-3">
                     <?= $this->render('/venue/venue-contained', compact('model')); ?>
                 </div>
             <?php } ?>
@@ -121,15 +104,22 @@ if ($isManager) {
         </div>
         <div class="row">
             <?php foreach ($trendingVenues as $model) { ?>
-                <div class="col-sm-4 mb-3">
+                <div class="col-sm-6 col-md-4 mb-3">
                     <?= $this->render('/venue/venue-contained', compact('model')); ?>
                 </div>
             <?php } ?>
         </div>
     <?php } ?>
 <?php } ?>
+<div class="row my-3">
+  <?php foreach ($adverts as $model) { ?>
+    <div class="col-md-3">
+      <?= $this->render('../../advert/partials/advert-single', compact('model')); ?>
+    </div>
+  <?php } ?>
+</div>
 <div class="row">
-    <div class="jumbotron jumbotron-fluid">
+    <div class="col-sm-12 rounded limelight-box-shadow">
         <h2 class="display-4">Learn more about the process behind <?= Yii::$app->name; ?></h2>
         <p class="lead">
             Explore our FAQ page to find out why we do the things that we do and how

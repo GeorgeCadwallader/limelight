@@ -24,16 +24,18 @@ $artists = ArrayHelper::map(Artist::find()->where(['status' => Artist::STATUS_AC
         ]); ?>
     </div>
 </div>
-<div class="jumbotron">
-    <h1 class="display-4">Compare Artists</h1>
-    <p class="lead">Compare artists and get predicted feedback informing you of their qualities</p>
-    <hr class="my-4">
-    <p>
-        We know how much tickets to see artists can cost so at <?= Yii::$app->name; ?> we want to make
-        sure you are getting your moneys worth. Introducing our <strong>Comparison Wizard</strong>,
-        select two artists in the dropdown below, we'll do some calculations and inform you on which
-        one we think is better to go and see!
-    </p>
+<div class="row">
+    <div class="col-sm-12 p-3 limelight-box-shadow rounded my-5">
+        <h1 class="display-4">Compare Artists</h1>
+        <p class="lead">Compare artists and get predicted feedback informing you of their qualities</p>
+        <hr class="my-4">
+        <p>
+            We know how much tickets to see artists can cost so at <?= Yii::$app->name; ?> we want to make
+            sure you are getting your moneys worth. Introducing our <strong>Comparison Wizard</strong>,
+            select two artists in the dropdown below, we'll do some calculations and inform you on which
+            one we think is better to go and see!
+        </p>
+    </div>
 </div>
 <div class="row">
     <div class="col-sm-6">

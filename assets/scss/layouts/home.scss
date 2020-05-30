@@ -18,3 +18,23 @@
         font-size: 45px;
     }
 }
+
+.advert-message {
+    position: absolute;
+    bottom: 0;
+    padding: 12px;
+    width: 100%;
+    background-color: $off-white;
+    margin-bottom: 0;
+    border-bottom-left-radius: 24px;
+    border-bottom-right-radius: 24px;
+    text-align: justify;
+}
+
+.advert-con {
+    height: 300px;
+    width: 100%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}

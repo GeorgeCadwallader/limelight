@@ -4,6 +4,7 @@
 /** @var $venue app\models\Venue */
 /** @var $newReview app\models\ReviewVenue */
 /** @var $reviewDataProvider app\models\search\ReviewVenue */
+/** @var $reviewReport app\models\ReviewReport */
 
 use app\auth\Item;
 use app\helpers\VenueHelper;
@@ -91,11 +92,13 @@ $this->title = $venue->name.' | '.Yii::$app->name;
         <?php Pjax::begin(['id'=>'venueSingle', 'enablePushState' => true, 'timeout' => 5000]); ?>
             <?= ListView::widget([
                     'dataProvider' => $reviewDataProvider,
+                    'pager' => Yii::$app->params['paginationConfig'],
                     'itemView' => 'venue-review-single',
                     'options' => ['class' => 'list-view row pjax-refresh-item'],
                     'summaryOptions' => ['class' => 'summary w-100 px-3'],
                     'itemOptions' => ['class' => 'col-sm-12 my-4'],
                     'layout' => "{sorter}\n{summary}\n{items}\n{pager}",
+                    'viewParams' => compact('reviewReport')
                 ]
             ); ?>
         <?php Pjax::end(); ?>

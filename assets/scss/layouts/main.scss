@@ -2,9 +2,37 @@
     box-shadow: $box-shadow;
 }
 
+.limelight-lime::before {
+    background: url('/images/whole-lime.svg');
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    content: "";
+}
+
+.limelight-lime-empty::before {
+  background: url('/images/whole-lime.svg');
+  opacity: 0.3;
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+  content: "";
+}
+
 .my-100 {
   margin-top: 100px;
   margin-bottom: 100px;
+}
+
+.form-tooltip {
+  .help-block {
+    display: inline-block;
+    margin-left: 5px;
+  }
+
+  .form-text {
+    display: inline-block !important;
+  }
 }
 
 .banner {
@@ -31,6 +59,25 @@
 
 .bg-dark-green {
   background-color: $dark-green !important;
+}
+
+.bg-off-white {
+  background-color: $off-white !important;
+}
+
+@media (max-width: 768px) {
+  .img-responsive {
+    max-width: 70%;
+  }
+
+  .mob-reverse {
+    flex-direction: column-reverse;
+  }
+}
+
+.event-lime::before {
+  width: 50px;
+  height: 50px;
 }
 
 #banner.h3 {

@@ -32,7 +32,7 @@ use app\helpers\Html;
                 ['class' => 'btn btn-primary']
             ); ?>
         <?php } elseif ($user->artist === null && $user->userData->telephone !== null) { ?>
-            <div class="jumbotron">
+            <div class="rounded limelight-box-shadow p-3">
                 <h2>Congratulations, you can now create your artist page!</h2>
                 <p class="lead">You are now on your way to gaining the full power of <?= Yii::$app->name; ?>.</p>
                 <hr class="my-4">
@@ -51,7 +51,7 @@ use app\helpers\Html;
                 <?php } ?>
             </div>
         <?php } elseif ($user->artist !== null) { ?>
-            <div class="jumbotron">
+            <div class="rounded limelight-box-shadow p-3">
                 <h2>Your artist page: <strong><?= $user->artist->name; ?></strong></h2>
                 <?= Html::a('View artist page', ['/artist/view', 'artist_id' => $user->artist->artist_id], ['class' => 'btn btn-primary']); ?>
                 <?= Html::a('Edit artist page', ['/artist/edit', 'artist_id' => $user->artist->artist_id], ['class' => 'btn btn-primary']); ?>

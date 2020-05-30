@@ -40,6 +40,7 @@ use yii\helpers\Url;
 <div class="row">
     <div class="col-sm-12">
         <?= GridView::widget([
+            'pager' => Yii::$app->params['paginationConfig'],
             'dataProvider' => $contactDataProvider,
             'filterModel' => $contactFilterModel,
             'columns' => [

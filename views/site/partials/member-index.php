@@ -2,6 +2,8 @@
 
 /** @var $this yii\web\View */
 /** @var $member app\models\User */
+/** @var $adverts app\models\Advert */
+/** @var $memberAdverts app\models\Advert */
 
 use app\models\Artist;
 use app\models\Venue;
@@ -54,14 +56,14 @@ $discoverVenueQuery = Venue::find()
                 //     ->andWhere(['created_by' => $member->user_id])
                 //     ->exists();
             ?>
-            <div class="col-sm-4 mb-3">
+            <div class="col-sm-6 col-md-4 mb-3">
                 <?= $this->render('/artist/artist-contained', compact('model')); ?>
             </div>
         <?php } ?>
     </div>
 <?php } ?>
-<div class="row">
-    <div class="jumbotron jumbotron-fluid">
+<div class="row mt-4">
+    <div class="col-sm-12 limelight-box-shadow rounded p-4">
         <h2 class="display-4">Learn more about the process behind <?= Yii::$app->name; ?></h2>
         <p class="lead">
             Explore our FAQ page to find out why we do the things that we do and how
@@ -72,6 +74,13 @@ $discoverVenueQuery = Venue::find()
             <a class="btn btn-primary btn-lg" href="/faq" role="button">Learn more</a>
         </p>
     </div>
+</div>
+<div class="row my-3">
+  <?php foreach ($adverts as $model) { ?>
+    <div class="col-md-3">
+      <?= $this->render('../../advert/partials/advert-single', compact('model')); ?>
+    </div>
+  <?php } ?>
 </div>
 <div class="row my-100 limelight-box-shadow rounded py-4">
   <div class="col-md-6 col-lg-7 mb-sm-3">
@@ -100,6 +109,13 @@ $discoverVenueQuery = Venue::find()
     <p class="text-black-50 mb-0">Our Upvote/Downvote system means that well constructed reviews are pushed to the top</p>
   </div>
 </div>
+<div class="row my-3">
+  <?php foreach ($memberAdverts as $model) { ?>
+    <div class="col-md-3">
+      <?= $this->render('../../advert/partials/advert-single', compact('model')); ?>
+    </div>
+  <?php } ?>
+</div>
 <?php if (!empty($discoverVenueQuery)) { ?>
     <div class="row mt-3">
         <div class="col-sm-12 mb-3">
@@ -117,7 +133,7 @@ $discoverVenueQuery = Venue::find()
                 //     ->andWhere(['created_by' => $member->user_id])
                 //     ->exists();
             ?>
-            <div class="col-sm-4 mb-3">
+            <div class="col-sm-6 col-md-4 mb-3">
                 <?= $this->render('/venue/venue-contained', compact('model')); ?>
             </div>
         <?php } ?>

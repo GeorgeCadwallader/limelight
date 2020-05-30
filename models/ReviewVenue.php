@@ -163,4 +163,15 @@ class ReviewVenue extends \yii\db\ActiveRecord
         return $this->hasOne(Venue::class, ['venue_id' => 'venue_id']);
     }
 
+    /**
+     * Get the tones for this review
+     * 
+     * @return ActiveQueryInterface
+     */
+    public function getTones(): ActiveQueryInterface
+    {
+        return $this->hasMany(ReviewTone::class, ['fk' => 'review_venue_id'])
+            ->onCondition(['type' => ReviewTone::TYPE_VENUE]);
+    }
+
 }
