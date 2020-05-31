@@ -33,6 +33,16 @@ $artists = Artist::find()->where(['status' => Artist::STATUS_ACTIVE])->all();
         <h1>Artists</h1>
     </div>
 </div>
+<div class="alert alert-primary my-3" role="alert">
+    <h5 class="font-weight-bold">
+        What's going on here?
+    </h5>
+    <p>
+        This page is where you can view all the current active Artists that <?= Yii::$app->name; ?>
+        has to offer. From here you can filter with the buttons below by name to check who has the highest
+        or lowest overall review ratings.
+    </p>
+</div>
 <?php if (Yii::$app->user->can(Item::ROLE_MEMBER)) { ?>
     <div class="row my-3">
         <div class="col-sm-12">
