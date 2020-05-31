@@ -13,6 +13,8 @@ use yii\bootstrap4\Breadcrumbs;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
 
+$this->title = 'View all of our Artists | '.Yii::$app->name;
+
 $artists = Artist::find()->where(['status' => Artist::STATUS_ACTIVE])->all();
 
 ?>

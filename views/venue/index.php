@@ -13,6 +13,8 @@ use yii\bootstrap4\Breadcrumbs;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
 
+$this->title = 'View all of our Venues | '.Yii::$app->name;
+
 $venues = Venue::find()->where(['status' => Venue::STATUS_ACTIVE])->all();
 
 ?>
