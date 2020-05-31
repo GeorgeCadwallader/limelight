@@ -35,7 +35,7 @@ $url = ArtistHelper::imageUrl($artist);
                     'value' => ArtistHelper::averageRating($artist, ReviewArtist::REVIEW_ARTIST_OVERALL),
                     'pluginOptions' => Yii::$app->params['reviewArtistDisplay']
                 ]); ?>
-                <strong>( <?= $artist->reviewCount; ?> )</strong>
+                <strong>( <?= ($artist->reviewCount === 1) ? $artist->reviewCount.' review' : $artist->reviewCount.' reviews'; ?> )</strong>
             </div>
         </div>
     </div>

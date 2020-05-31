@@ -35,7 +35,7 @@ $url = VenueHelper::imageUrl($venue);
                     'value' => VenueHelper::averageRating($venue, ReviewVenue::REVIEW_VENUE_OVERALL),
                     'pluginOptions' => Yii::$app->params['reviewVenueDisplay']
                 ]); ?>
-                <strong>( <?= $venue->reviewCount; ?> )</strong>
+                <strong>( <?= ($venue->reviewCount === 1) ? $venue->reviewCount.' review' : $venue->reviewCount.' reviews'; ?> )</strong>
             </div>
         </div>
     </div>
