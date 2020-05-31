@@ -102,6 +102,14 @@ $this->title = 'Manage Review Reports | '.Yii::$app->name;
                         'menu' => function ($url, $model, $index): string {
                             $items = [
                                 [
+                                    'label' => 'View tonality report',
+                                    'url' => [
+                                        '/admin/view-tonality-report',
+                                        'fk' => $model->fk,
+                                        'type' => $model->type
+                                    ]
+                                ],
+                                [
                                     'label' => 'Set status: Resolved',
                                     'url' => [
                                         '/admin/set-report-status',
