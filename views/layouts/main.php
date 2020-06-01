@@ -149,7 +149,7 @@ if (is_file($file)) {
         <div class="intro-text">
           <div class="font-weight-bold">Welcome to <?= Yii::$app->name; ?>!</div>
           <div class="intro-heading">Rate Venues & Artists separately</div>
-          <a class="btn btn-primary btn-lg btn-xl rounded text-uppercase js-scroll-trigger" href="/register">Get Started</a>
+          <a class="btn btn-primary btn-lg btn-xl rounded js-scroll-trigger" href="/register">Get Started</a>
         </div>
       </div>
   </div>

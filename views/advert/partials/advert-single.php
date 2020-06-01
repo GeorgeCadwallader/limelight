@@ -20,12 +20,12 @@ if ($model->artist) {
 
 ?>
 
-<a href="<?= $url; ?>">
+<a class="advert-link" href="<?= $url; ?>">
+    <?= Html::tag('h4', $model->message, ['class' => 'advert-message-top limelight-box-shadow rounded']); ?>
     <div
         class="advert-con position-relative limelight-box-shadow rounded"
         style="background-image: url('<?= $imgUrl; ?>')"
     >
-        <?= Html::tag('h4', $model->message, ['class' => 'advert-message-top']); ?>
         <?= Html::tag('h4', 'View '.$name, ['class' => 'advert-message font-weight-bold']); ?>
     </div>
 </a>
