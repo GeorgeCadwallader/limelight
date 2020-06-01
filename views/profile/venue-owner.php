@@ -9,7 +9,7 @@ use app\helpers\Html;
 
 <div class="row mb-4">
     <div class="col-sm-12">
-        <h1>Hi <?= $user->username; ?>!</h1>
+        <h1 class="font-weight-bold">Hi <?= $user->username; ?>!</h1>
     </div>
 </div>
 <div class="row my-4">

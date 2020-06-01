@@ -32,7 +32,7 @@ $artists = Artist::find()->where(['status' => Artist::STATUS_ACTIVE])->all();
 </div>
 <div class="row my-3">
     <div class="col-sm-12">
-        <h1>Artists</h1>
+        <h1 class="font-weight-bold">Artists</h1>
     </div>
 </div>
 <div class="alert alert-primary my-3" role="alert">

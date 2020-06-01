@@ -11,7 +11,7 @@ use yii\bootstrap4\ActiveForm;
 ?>
 
 <div class="card card-body">
-    <h2 class="text-primary mb-0">Create your review</h2>
+    <h2 class="text-primary mb-0 font-weight-bold">Create your review</h2>
     <div class="alert alert-primary alert-dismissible fade show my-4">
         We at <?= Yii::$app->name; ?> want to know what you think of this artist.
         <br><br>

@@ -40,7 +40,7 @@ if ($isManager) {
 
 <div class="row">
     <div class="col-sm-12 mb-5">
-        <h1>Welcome back <?= $owner->username; ?>!</h1>
+        <h1 class="font-weight-bold">Welcome back <?= $owner->username; ?>!</h1>
     </div>
 </div>
 <div class="row my-100 limelight-box-shadow rounded py-4">
@@ -64,7 +64,7 @@ if ($isManager) {
       <strong>Check out our brand new release trailer!</strong>
     </div>
     <h4 class="text-primary font-weight-bold">A Fair System for All</h4>
-    <p class="text-black-50 mb-0">Here at <?= Yii::$app->name; ?> we discovered that Artists and Venues were rated solely on Events, we think this is an unfair way to review an individual artist or an individual venue </p>
+    <p class="text-black-50 mb-0 ">Here at <?= Yii::$app->name; ?> we discovered that Artists and Venues were rated solely on Events, we think this is an unfair way to review an individual artist or an individual venue </p>
     <br><br>
     <h4 class="text-primary font-weight-bold">High Quality Reviews</h4>
     <p class="text-black-50 mb-0">Our Upvote/Downvote system means that well constructed reviews are pushed to the top</p>
@@ -120,14 +120,14 @@ if ($isManager) {
 </div>
 <div class="row">
     <div class="col-sm-12 rounded limelight-box-shadow">
-        <h2 class="display-4">Learn more about the process behind <?= Yii::$app->name; ?></h2>
+        <h2 class="display-4 font-weight-bold">Learn more about the process behind <?= Yii::$app->name; ?></h2>
         <p class="lead">
             Explore our FAQ page to find out why we do the things that we do and how
             we get the best experience for our members.
         </p>
         <hr class="my-4">
         <p class="lead">
-            <a class="btn btn-primary btn-lg" href="/faq" role="button">Learn more</a>
+            <a class="btn btn-primary" href="/faq" role="button">Learn more</a>
         </p>
     </div>
 </div>

@@ -17,7 +17,7 @@ $this->title = 'Privacy Policy | '.Yii::$app->name;
 </div>
 <div class="row">
     <div class="col-sm-12">
-        <h1>Privacy Policy</h1>
+        <h1 style="font-weight-bold">Privacy Policy</h1>
     </div>
 </div>
 <div class="row">
