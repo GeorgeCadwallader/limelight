@@ -28,13 +28,23 @@
     margin-bottom: 0;
     border-bottom-left-radius: 24px;
     border-bottom-right-radius: 24px;
-    text-align: justify;
+}
+
+.advert-message-top {
+    position: absolute;
+    top: 0;
+    padding: 12px;
+    width: 100%;
+    background-color: $off-white;
+    margin-bottom: 0;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
 }
 
 .advert-con {
     height: 300px;
     width: 100%;
     background-position: center;
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
 }
