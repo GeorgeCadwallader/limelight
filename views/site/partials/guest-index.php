@@ -5,6 +5,8 @@
 
 use app\widgets\YouTubeWidget;
 
+$this->title = 'Welcome to '.Yii::$app->name.' a place where you can leave reviews for your favourite Artists and Venues separately';
+
 ?>
 
 <div class="row my-100 mb-lg-5">
