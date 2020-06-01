@@ -33,7 +33,7 @@ use yii\helpers\Url;
 </div>
 <div class="row my-4">
     <div class="col-sm-12">
-        <h1>Member Requests</h1>
+        <h1 class="font-weight-bold">Member Requests</h1>
     </div>
 </div>
 <div class="row">

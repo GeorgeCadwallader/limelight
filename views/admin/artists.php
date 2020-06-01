@@ -33,7 +33,7 @@ use yii\helpers\Url;
 </div>
 <div class="row my-4">
     <div class="col-sm-8">
-        <h1>Artist Management</h1>
+        <h1 class="font-weight-bold">Artist Management</h1>
     </div>
     <div class="col-sm-4 text-sm-right">
         <?= Html::a(

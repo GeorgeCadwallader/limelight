@@ -96,7 +96,7 @@ $adverts = Advert::find()
         <div class="rounded limelight-box-shadow p-3">
             <div class="row">
                 <div class="col-sm-12">
-                    <h2>Rating Insights</h2>
+                    <h2 class="font-weight-bold">Rating Insights</h2>
                     <div class="alert alert-primary" role="alert">
                         Use this section to gain insights into what members think of your venue page. When
                         users submit reviews they have an option to fill in an advanced review, which allows them

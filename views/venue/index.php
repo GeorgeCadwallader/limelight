@@ -32,7 +32,7 @@ $venues = Venue::find()->where(['status' => Venue::STATUS_ACTIVE])->all();
 </div>
 <div class="row my-3">
     <div class="col-sm-12">
-        <h1>Venues</h1>
+        <h1 class="font-weight-bold">Venues</h1>
     </div>
 </div>
 <div class="alert alert-primary my-3" role="alert">

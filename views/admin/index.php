@@ -25,7 +25,7 @@ $this->title = Yii::$app->name.' | Admin panel';
 </div>
 <div class="row my-4">
     <div class="col-sm-12">
-        <h1>Admin panel</h1>
+        <h1 class="font-weight-bold">Admin panel</h1>
     </div>
 </div>
 <div class="row my-4 pb-5">
@@ -88,7 +88,7 @@ $this->title = Yii::$app->name.' | Admin panel';
             <div class="tab-pane fade show active" id="ownership" role="tabpanel" aria-labelledby="ownership-tab">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="card-title">View Ownership requests</h2>
+                        <h2 class="card-title font-weight-bold">View Ownership requests</h2>
                         <hr class="my-2">
                         <p class="card-text">
                             Manage requests for ownership of artist and venue pages on <?= Yii::$app->name; ?>.
@@ -107,7 +107,7 @@ $this->title = Yii::$app->name.' | Admin panel';
             <div class="tab-pane fade" id="newAdmin" role="tabpanel" aria-labelledby="newAdmin-tab">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="card-title">Create new Admin</h2>
+                        <h2 class="card-title font-weight-bold">Create new Admin</h2>
                         <hr class="my-2">
                         <p class="card-text">
                             Create a new admin to become apart of <?= Yii::$app->name; ?>.
@@ -125,7 +125,7 @@ $this->title = Yii::$app->name.' | Admin panel';
             <div class="tab-pane fade" id="locations" role="tabpanel" aria-labelledby="locations-tab">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="card-title">Locations page</h2>
+                        <h2 class="card-title font-weight-bold">Locations page</h2>
                         <hr class="my-2">
                         <p class="card-text">
                             Create new and edit existing locations for <?= Yii::$app->name; ?>.
@@ -144,7 +144,7 @@ $this->title = Yii::$app->name.' | Admin panel';
             <div class="tab-pane fade" id="artist" role="tabpanel" aria-labelledby="artist-tab">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="card-title">Artists page management</h2>
+                        <h2 class="card-title font-weight-bold">Artists page management</h2>
                         <hr class="my-2">
                         <p class="card-text">
                             View and manage artist pages on <?= Yii::$app->name; ?>.
@@ -164,7 +164,7 @@ $this->title = Yii::$app->name.' | Admin panel';
             <div class="tab-pane fade" id="venue" role="tabpanel" aria-labelledby="venue-tab">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="card-title">Venues page management</h2>
+                        <h2 class="card-title font-weight-bold">Venues page management</h2>
                         <hr class="my-2">
                         <p class="card-text">
                             View and manage venue pages on <?= Yii::$app->name; ?>.
@@ -184,7 +184,7 @@ $this->title = Yii::$app->name.' | Admin panel';
             <div class="tab-pane fade" id="genre" role="tabpanel" aria-labelledby="genre-tab">
                 <div class=" card">
                     <div class="card-body">
-                        <h2 class="card-title">Manage genres</h2>
+                        <h2 class="card-title font-weight-bold">Manage genres</h2>
                         <hr class="my-2">
                         <p class="card-text">
                             View and manage genres on <?= Yii::$app->name; ?>.
@@ -204,7 +204,7 @@ $this->title = Yii::$app->name.' | Admin panel';
             <div class="tab-pane fade" id="member" role="tabpanel" aria-labelledby="member-tab">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="card-title">View member requests</h2>
+                        <h2 class="card-title font-weight-bold">View member requests</h2>
                         <hr class="my-2">
                         <p class="card-text">
                             View and manage member requests on <?= Yii::$app->name; ?>.
@@ -223,7 +223,7 @@ $this->title = Yii::$app->name.' | Admin panel';
             <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="card-title">View contact messages</h2>
+                        <h2 class="card-title font-weight-bold">View contact messages</h2>
                         <hr class="my-2">
                         <p class="card-text">
                             View and manage contact messages on <?= Yii::$app->name; ?>.
@@ -243,7 +243,7 @@ $this->title = Yii::$app->name.' | Admin panel';
             <div class="tab-pane fade" id="report" role="tabpanel" aria-labelledby="report-tab">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="card-title">View review reports</h2>
+                        <h2 class="card-title font-weight-bold">View review reports</h2>
                         <hr class="my-2">
                         <p class="card-text">
                             Manage review reports on <?= Yii::$app->name; ?>
@@ -267,7 +267,7 @@ $this->title = Yii::$app->name.' | Admin panel';
             <div class="tab-pane fade" id="advert" role="tabpanel" aria-labelledby="advert-tab">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="card-title">View and manage adverts</h2>
+                        <h2 class="card-title font-weight-bold">View and manage adverts</h2>
                         <hr class="my-2">
                         <p class="card-text">
                             Manage and view adverts on <?= Yii::$app->name; ?>

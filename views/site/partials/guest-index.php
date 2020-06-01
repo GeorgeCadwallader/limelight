@@ -12,8 +12,8 @@ use app\widgets\YouTubeWidget;
     <img class="img-fluid img-responsive mb-5 mb-md-2" src="images/A4.png" alt="<?= Yii::$app->name . ' - Discover Artists and Venues'; ?>">
   </div>
   <div class="col-md-9 justify-content-center flex-column d-flex">
-    <div class="featured-text text-center text-md-right">
-      <h2>Rate Artists on <span class="artistRating text-primary">energy</span></h2>
+    <div class="featured-text text-center text-md-right font-weight-bold">
+      <h2 class="font-weight-bold">Rate Artists on <span class="artistRating text-primary">energy</span></h2>
     </div>
   </div>
 </div>
@@ -41,7 +41,7 @@ use app\widgets\YouTubeWidget;
     ]); ?>
   </div>
   <div class="col-md-6 col-lg-5">
-    <div class="alert alert-primary" role="alert">
+    <div class="alert alert-primary headerfont" role="alert">
       <strong>Check out our brand new release trailer!</strong>
     </div>
     <h4 class="text-primary font-weight-bold">A Fair System for All</h4>
@@ -53,8 +53,8 @@ use app\widgets\YouTubeWidget;
 </div>
 <div class="row my-100 mob-reverse">
   <div class="col-md-9 justify-content-center flex-column d-flex">
-    <div class="featured-text text-center text-md-left">
-      <h2>Rate Venues on <span class="venueRating text-primary">service</span></h2>
+    <div class="featured-text text-center text-md-left headerfont">
+      <h2 class="font-weight-bold">Rate Venues on <span class="venueRating text-primary">service</span></h2>
     </div>
   </div>
   <div class="col-md-3 mb-5 mb-lg-0 text-md-right text-center" >
@@ -64,14 +64,14 @@ use app\widgets\YouTubeWidget;
 <div class="row my-100">
   <div class="col-sm-12">
     <div class="limelight-box-shadow rounded p-3">
-      <h2 class="display-5 font-weight-bold text-primary">Learn more about the process behind <?= Yii::$app->name; ?></h2>
+      <h2 class="display-5 font-weight-bold text-primary headerfont">Learn more about the process behind <?= Yii::$app->name; ?></h2>
       <p class="lead">
         Explore our FAQ page to find out why we do the things that we do and how
         we get the best experience for our members.
       </p>
       <hr class="my-4">
       <p class="lead">
-        <a class="btn btn-primary btn-lg" href="/faq" role="button">Learn more</a>
+        <a class="btn btn-primary " href="/faq" role="button">Learn more</a>
       </p>
     </div>
   </div>
