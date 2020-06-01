@@ -76,7 +76,7 @@ $artists = Artist::find()->where(['status' => Artist::STATUS_ACTIVE])->all();
             'pager' => Yii::$app->params['paginationConfig'],
             'itemView' => 'artist-contained',
             'options' => ['class' => 'list-view row pjax-refresh-item'],
-            'summaryOptions' => ['class' => 'summary w-100 px-3'],
+            'summaryOptions' => ['class' => 'summary invisible w-100 px-3'],
             'itemOptions' => ['class' => 'col-lg-4 my-4'],
             'layout' => "{sorter}\n{summary}\n{items}\n{pager}",
         ]);
