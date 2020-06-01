@@ -95,7 +95,7 @@ $this->title = $venue->name.' | '.Yii::$app->name;
                     'pager' => Yii::$app->params['paginationConfig'],
                     'itemView' => 'venue-review-single',
                     'options' => ['class' => 'list-view row pjax-refresh-item'],
-                    'summaryOptions' => ['class' => 'summary w-100 px-3'],
+                    'summaryOptions' => ['class' => 'summary invisible w-100 px-3'],
                     'itemOptions' => ['class' => 'col-sm-12 my-4'],
                     'layout' => "{sorter}\n{summary}\n{items}\n{pager}",
                     'viewParams' => compact('reviewReport')

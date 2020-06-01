@@ -36,6 +36,7 @@ class VenueFilterSearch extends \app\models\Venue
      */
     public function search(array $params = []): ActiveDataProvider
     {
+        // $query = self::find()->joinWith(['reviews'])->where(['{{%venue}}.[[status]]' => self::STATUS_ACTIVE])->groupBy('{{%venue}}.[[venue_id]]');
         $query = self::find()->joinWith(['reviews'])->where(['{{%venue}}.[[status]]' => self::STATUS_ACTIVE]);
         return $this->getDataProvider($query, $params);
     }

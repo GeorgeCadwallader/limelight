@@ -20,7 +20,7 @@ use yii\helpers\Url;
         <div class="contained-content">
             <div class="contained-content-inner p-3">
                 <h3><?= EventHelper::eventName($model); ?></h3>
-                <strong>( <?= $model->creations; ?> )</strong>
+                <strong>( <?= ($model->creations === 1) ? $model->creations.' creation' : $model->creations.' creations'; ?> )</strong>
             </div>
         </div>
     </div>

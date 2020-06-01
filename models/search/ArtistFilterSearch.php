@@ -37,6 +37,7 @@ class ArtistFilterSearch extends \app\models\Artist
      */
     public function search(array $params = []): ActiveDataProvider
     {
+        // $query = self::find()->joinWith(['reviews'])->where(['{{%artist}}.[[status]]' => self::STATUS_ACTIVE])->groupBy('{{%artist}}.[[artist_id]]');
         $query = self::find()->joinWith(['reviews'])->where(['{{%artist}}.[[status]]' => self::STATUS_ACTIVE]);
         return $this->getDataProvider($query, $params);
     }

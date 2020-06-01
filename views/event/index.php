@@ -54,7 +54,7 @@ $this->title = 'Create and promote fantasy music events | '.Yii::$app->name;
         'pager' => Yii::$app->params['paginationConfig'],
         'itemView' => 'event-contained',
         'options' => ['class' => 'list-view row'],
-        'summaryOptions' => ['class' => 'summary w-100 px-3'],
+        'summaryOptions' => ['class' => 'summary invisible w-100 px-3'],
         'itemOptions' => ['class' => 'col-lg-4 my-4'],
         'layout' => "{sorter}\n{summary}\n{items}\n{pager}",
     ]);

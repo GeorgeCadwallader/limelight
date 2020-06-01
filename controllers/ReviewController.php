@@ -35,12 +35,17 @@ class ReviewController extends \app\core\WebController
                             'downvote',
                             'create-artist',
                             'edit-artist',
-                            'edit-venue',
-                            'report-artist-review',
-                            'report-venue-review'
+                            'edit-venue'
                         ],
                         'roles' => [Item::ROLE_MEMBER],
-                    ]
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => [
+                            'report-artist-review',
+                            'report-venue-review'
+                        ]
+                    ],
                 ],
             ],
         ];

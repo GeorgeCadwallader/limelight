@@ -28,6 +28,7 @@ use app\models\search\VenueSearch;
 use app\models\User;
 use app\models\Venue;
 use app\models\VenueData;
+
 use Yii;
 use yii\base\Response;
 use yii\filters\AccessControl;
@@ -729,6 +730,29 @@ class AdminController extends \app\core\WebController
             Yii::$app->session->addFlash('success', 'Advert status successfully changed');
             return $this->redirect('/admin/adverts');
         }
+    }
+
+    /**
+     * Action to view tonality report of a review in admin panel
+     * 
+     * @param int $fk the primary key of the review
+     * @param int $type the type of review
+     * 
+     * @return Response
+     */
+    public function actionViewTonalityReport(int $fk, int $type): Response
+    {
+        if ($type === ReviewReport::TYPE_ARTIST) {
+            $review = ReviewArtist::findOne($fk);
+        } else {
+            $review = ReviewVenue::findOne($fk);
+        }
+
+        if ($review === null) {
+            throw new BadRequestHttpException('Invalid review');
+        }
+
+        return $this->createResponse('tone-report', compact('review'));
     }
 
 }
