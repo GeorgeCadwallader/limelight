@@ -95,8 +95,7 @@ class VenueHelper
             return 'bg-off-white';
         }
 
-        if ($venueOneRating === 0  && $venueTwoRating === 0){
-
+        if ($venueOneRating == 0 && $venueTwoRating == 0) {
             return 'bg-off-white';
         }
 
@@ -124,8 +123,7 @@ class VenueHelper
             return 'bg-off-white';
         }
 
-        if ($venueOneRating === 0  && $venueTwoRating === 0){
-
+        if ($venueOneRating == 0  && $venueTwoRating == 0) {
             return 'bg-off-white';
         }
 
