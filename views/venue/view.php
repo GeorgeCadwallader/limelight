@@ -80,6 +80,13 @@ $this->title = $venue->name.' | '.Yii::$app->name;
                     <?= VenueHelper::getShareButtons($venue); ?>
                 </div>
             </div>
+            <div class="my-2">
+                <?= Html::a(
+                    Html::icon('plus').Html::tag('div', 'Compare this venue with another venue', ['class' => 'tooltip']),
+                    ['/compare/venue', 'venue_id_one' => $venue->venue_id],
+                    ['class' => 'btn btn-primary limelight-tooltip m-0']
+                ); ?>
+            </div>
             <?= StarRating::widget([
                 'name' => 'review-venue-'.$venue->venue_id,
                 'value' => VenueHelper::averageRating($venue, ReviewVenue::REVIEW_VENUE_OVERALL),
