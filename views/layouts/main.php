@@ -147,9 +147,9 @@ if (is_file($file)) {
   <div id="center-heading" class="masthead" style="background-image:url(<?= Url::to('@images/banner.jpg'); ?>);">
       <div class="container">
         <div class="intro-text">
-          <div class="intro-lead-in">Welcome to <?= Yii::$app->name; ?>!</div>
+          <div class="font-weight-bold">Welcome to <?= Yii::$app->name; ?>!</div>
           <div class="intro-heading">Rate Venues & Artists separately</div>
-          <a class="btn btn-primary btn-lg btn-xl rounded text-uppercase js-scroll-trigger" href="/register">Get Started</a>
+          <a class="btn btn-primary btn-lg btn-xl rounded js-scroll-trigger" href="/register">Get Started</a>
         </div>
       </div>
   </div>

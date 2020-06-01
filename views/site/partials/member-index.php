@@ -34,12 +34,12 @@ $discoverVenueQuery = Venue::find()
 
 <div class="row mb-5">
     <div class="col-sm-12">
-        <h1>Welcome back <?= $member->username; ?>!</h1>
+        <h1 stlye="header-style font-weight-bold">Welcome back <?= $member->username; ?>!</h1>
     </div>
 </div>
 <?php if (!empty($discoverArtistQuery)) { ?>
     <div class="row">
-        <div class="col-sm-12 mb-3">
+        <div class="col-sm-12 mb-3 headerfont">
             <h3>Here are some Artists we think you'd like</h3>
             <small>
                 <a href="/faq" title="Find out how we calculate your interests">
@@ -71,7 +71,7 @@ $discoverVenueQuery = Venue::find()
         </p>
         <hr class="my-4">
         <p class="lead">
-            <a class="btn btn-primary btn-lg" href="/faq" role="button">Learn more</a>
+            <a class="btn btn-primary" href="/faq" role="button">Learn more</a>
         </p>
     </div>
 </div>
@@ -99,7 +99,7 @@ $discoverVenueQuery = Venue::find()
     ]); ?>
   </div>
   <div class="col-md-6 col-lg-5">
-    <div class="alert alert-primary" role="alert">
+    <div class="alert alert-primary font-weight-bold" role="alert">
       <strong>Check out our brand new release trailer!</strong>
     </div>
     <h4 class="text-primary font-weight-bold">A Fair System for All</h4>
@@ -119,7 +119,7 @@ $discoverVenueQuery = Venue::find()
 <?php if (!empty($discoverVenueQuery)) { ?>
     <div class="row mt-3">
         <div class="col-sm-12 mb-3">
-            <h3>Here are some Venues we think you'd like</h3>
+            <h3 class="font-weight-bold">Here are some Venues we think you'd like</h3>
             <a href="/faq" title="Find out how we calculate your interests">
                 How did we figure this out?
             </a>

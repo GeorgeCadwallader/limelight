@@ -30,7 +30,7 @@ $this->title = 'Request Password Reset | '.Yii::$app->name;
 </div>
 <div class="row">
     <div class="col-sm-12">
-        <h1>Request password reset</h1>
+        <h1 style="font-weight-bold">Request password reset</h1>
     </div>
 </div>
 <div class="row">

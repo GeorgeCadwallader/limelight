@@ -26,25 +26,29 @@
     width: 100%;
     background-color: $off-white;
     margin-bottom: 0;
-    border-bottom-left-radius: 24px;
-    border-bottom-right-radius: 24px;
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+}
+
+.advert-link:hover {
+    text-decoration: none;
 }
 
 .advert-message-top {
-    position: absolute;
-    top: 0;
     padding: 12px;
     width: 100%;
     background-color: $off-white;
     margin-bottom: 0;
-    border-top-left-radius: 24px;
-    border-top-right-radius: 24px;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
 }
 
 .advert-con {
     height: 300px;
     width: 100%;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
     background-position: center;
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
 }

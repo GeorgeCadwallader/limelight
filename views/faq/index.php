@@ -21,7 +21,7 @@ $this->title = 'FAQ | '.Yii::$app->name;
 </div>
 <div class="row mb-4">
     <div class="col-sm-12">
-        <h1>Frequently Asked Questions</h1>
+        <h1 class="font-weight-bold">Frequently Asked Questions</h1>
     </div>
 </div>
 <div class="accordion" id="faq">

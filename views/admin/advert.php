@@ -36,7 +36,7 @@ $this->title = 'Advert Management | '.Yii::$app->name;
 </div>
 <div class="row my-4">
     <div class="col-sm-12">
-        <h1>Advert Management</h1>
+        <h1 class="font-weight-bold">Advert Management</h1>
     </div>
 </div>
 <div class="row my-4">

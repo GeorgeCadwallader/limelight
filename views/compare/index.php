@@ -19,7 +19,7 @@ $this->title = Yii::$app->name.' | Compare artist and venues';
     </div>
 </div>
 <div class="col-sm-12 limelight-box-shadow rounded my-5 p-3">
-    <h1 class="display-4">Compare Hub</h1>
+    <h1 class="display-4 font-weight-bold">Compare Hub</h1>
     <p class="lead">Compare artists or venues based on our information</p>
     <hr class="my-4">
     <p>

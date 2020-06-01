@@ -40,9 +40,10 @@ if ($isManager) {
 
 <div class="row">
     <div class="col-sm-12 mb-5">
-        <h1>Welcome back <?= $owner->username; ?>!</h1>
+        <h1 class="font-weight-bold">Welcome back <?= $owner->username; ?>!</h1>
     </div>
 </div>
+
 <div class="row my-100 limelight-box-shadow rounded py-4">
   <div class="col-md-6 col-lg-7 mb-sm-3">
     <?= YouTubeWidget::widget([
@@ -59,6 +60,8 @@ if ($isManager) {
       ]
     ]); ?>
   </div>
+
+
   <div class="col-md-6 col-lg-5">
     <div class="alert alert-primary" role="alert">
       <strong>Check out our brand new release trailer!</strong>
@@ -70,6 +73,8 @@ if ($isManager) {
     <p class="text-black-50 mb-0">Our Upvote/Downvote system means that well constructed reviews are pushed to the top</p>
   </div>
 </div>
+
+
 <?php if ($isManager) { ?>
     <?php if (!empty($discoverVenues)) { ?>
         <div class="row">
@@ -127,7 +132,7 @@ if ($isManager) {
         </p>
         <hr class="my-4">
         <p class="lead">
-            <a class="btn btn-primary btn-lg" href="/faq" role="button">Learn more</a>
+            <a class="btn btn-primary" href="/faq" role="button">Learn more</a>
         </p>
     </div>
 </div>

@@ -31,7 +31,7 @@ use yii\helpers\Url;
 </div>
 <div class="row my-4">
     <div class="col-sm-8">
-        <h1>Genre Management</h1>
+        <h1 class="font-weight-bold">Genre Management</h1>
     </div>
     <div class="col-sm-4 text-sm-right">
         <?= Html::a(

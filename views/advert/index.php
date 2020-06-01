@@ -25,7 +25,7 @@ $this->title = 'Adverts | '.Yii::$app->name;
 </div>
 <div class="row my-4">
     <div class="col-sm-12">
-        <h1>Adverts on <?= Yii::$app->name; ?></h1>
+        <h1 class="font-weight-bold">Adverts on <?= Yii::$app->name; ?></h1>
     </div>
 </div>
 <div class="row mb-2 mt-5">

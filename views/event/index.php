@@ -27,7 +27,7 @@ $this->title = 'Create and promote fantasy music events | '.Yii::$app->name;
 </div>
 <div class="row my-3">
     <div class="col-sm-9">
-        <h1>Events</h1>
+        <h1 class="font-weight-bold">Events</h1>
     </div>
     <div class="col-md-3 mt-3 mt-md-0 text-md-right">
         <?php if (Yii::$app->user->can(Item::ROLE_MEMBER)) { ?>
