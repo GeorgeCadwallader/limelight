@@ -10,6 +10,8 @@ use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Breadcrumbs;
 use yii\helpers\Url;
 
+$this->title = 'Contact Reply | '.Yii::$app->name;
+
 ?>
 
 <div class="row">

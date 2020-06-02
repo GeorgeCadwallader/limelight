@@ -16,6 +16,8 @@ use yii\helpers\Url;
 /** @var $requestFilterModel app\models\search\RequestSearch */
 /** @var $requestDataProvider yii\data\ActiveDataProvider */
 
+$this->title = 'Approve ownership requests | '.Yii::$app->name;
+
 ?>
 
 <div class="row">

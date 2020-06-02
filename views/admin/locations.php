@@ -12,6 +12,8 @@ use yii\bootstrap4\Breadcrumbs;
 /** @var $countyFilterModel app\models\search\CountySearch */
 /** @var $countyDataProvider yii\data\ActiveDataProvider */
 
+$this->title = 'Manage locations | '.Yii::$app->name;
+
 ?>
 
 <div class="row">

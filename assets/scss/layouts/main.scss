@@ -10,6 +10,21 @@
     content: "";
 }
 
+.img-45 {
+  max-width: 45%;
+  height: auto;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  .main-container {
+      flex-grow: 1;
+  }
+}
+
 .limelight-lime-empty::before {
   background: url('/images/whole-lime.svg');
   opacity: 0.3;

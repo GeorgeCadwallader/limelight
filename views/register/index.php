@@ -80,6 +80,11 @@ $userCount = ceil($userCount / 5) * 5;
                     ]); ?>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-sm-12 mb-3">
+                    <?= Html::img('/images/looking_up.png', ['class' => 'img-45']); ?>
+                </div>
+            </div>
         </div>
         <div class="col-md-6">
             <div class="alert alert-primary" role="alert">

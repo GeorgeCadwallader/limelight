@@ -14,6 +14,8 @@ use yii\helpers\Url;
 /** @var $artistFilterModel app\models\search\ArtistSearch */
 /** @var $artistDataProvider yii\data\ActiveDataProvider */
 
+$this->title = 'Manage Artists | '.Yii::$app->name;
+
 ?>
 
 <div class="row">

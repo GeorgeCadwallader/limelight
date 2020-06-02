@@ -13,6 +13,7 @@ use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
+$this->title = 'Manage Artist and Venue requests | '.Yii::$app->name;
 
 ?>
 
