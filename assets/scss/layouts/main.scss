@@ -10,6 +10,11 @@
     content: "";
 }
 
+.img-45 {
+  max-width: 45%;
+  height: auto;
+}
+
 .limelight-lime-empty::before {
   background: url('/images/whole-lime.svg');
   opacity: 0.3;
