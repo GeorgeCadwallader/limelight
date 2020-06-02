@@ -33,7 +33,7 @@ $this->title = Yii::$app->name.' | Admin panel';
         <ul class="nav nav-tabs" id="adminPanel" role="tablist">
             <li class="nav-item">
                 <a class="nav-link admin-link active" id="ownership-tab" data-toggle="tab" href="#ownership" role="tab" aria-controls="ownership" aria-selected="true">
-                    <img src="./images/A1.png" alt="View Ownership Requests" class="img-fluid">
+                    <img src="./images/H1.png" alt="View Ownership Requests" class="img-fluid">
                 </a>
             </li>
             <li class="nav-item">
