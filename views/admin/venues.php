@@ -14,6 +14,8 @@ use yii\helpers\Url;
 /** @var $venueFilterModel app\models\search\VenueSearch */
 /** @var $venueDataProvider yii\data\ActiveDataProvider */
 
+$this->title = 'Manage Venues | '.Yii::$app->name;
+
 ?>
 
 <div class="row">

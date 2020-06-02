@@ -12,6 +12,8 @@ use yii\helpers\Url;
 /** @var $genreFilterModel app\models\search\GenreSearch */
 /** @var $genreDataProvider yii\data\ActiveDataProvider */
 
+$this->title = 'Manage genres | '.Yii::$app->name;
+
 ?>
 
 <div class="row">

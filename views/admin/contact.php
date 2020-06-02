@@ -14,6 +14,7 @@ use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
+$this->title = 'Manage contact requests | '.Yii::$app->name;
 
 ?>
 
