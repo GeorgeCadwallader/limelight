@@ -9,5 +9,23 @@ $(document).on('pjax:start', function() {
             readBtn.css('display', 'none');
         }
     });
+
+    bindReadMore();
+
     $('.pjax-refresh-item').fadeIn(3000);
 });
+
+function bindReadMore() {
+    $('.read-more-btn').click(function() {
+        let text = $(this).siblings('.review-text-content');
+        let maxHeight = $(text).css('max-height');
+    
+        if (maxHeight === '100px') {
+            $(this).text('Read Less ...');
+            $(text).css('max-height', '100%');
+        } else {
+            $(this).text('Read More ...');
+            $(text).css('max-height', '100px');
+        }
+    });
+}
