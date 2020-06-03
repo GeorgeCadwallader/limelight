@@ -5,8 +5,10 @@
 /** @var $reportDataProvider yii\data\ActiveDataProvider */
 
 use app\helpers\Html;
+use app\models\Artist;
 use app\models\ReviewReport;
 use app\models\ReviewTone;
+use app\models\Venue;
 use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap\Dropdown;
 use yii\grid\ActionColumn;
@@ -43,6 +45,18 @@ $this->title = 'Manage Review Reports | '.Yii::$app->name;
             'dataProvider' => $reportDataProvider,
             'filterModel' => $reportFilterModel,
             'columns' => [
+                [
+                    'attribute' => 'Venue/Artist name',
+                    'value' => function ($model) {
+                        if ($model->type === ReviewReport::TYPE_ARTIST) {
+                            $context = Artist::findOne($model->fk);
+                        } else {
+                            $context = Venue::findOne($model->fk);
+                        }
+
+                        return $context->name;
+                    }
+                ],
                 [
                     'attribute' => 'type',
                     'filter' => ReviewReport::$types,
